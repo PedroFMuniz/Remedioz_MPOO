@@ -11,12 +11,15 @@ package modelo;
  */
 
 public abstract class Pessoa {
+	
+	// Atributos 
+	
 	protected int id;
 	protected String nome;
 	protected String telefone;
 	protected String email;
 	
-	// getters e setters
+	// Getters e setters
 	
 	public int getId() {
 		return id;
