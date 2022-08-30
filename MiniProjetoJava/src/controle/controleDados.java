@@ -66,5 +66,27 @@ public class controleDados {
 		}
 	}
 	
+	public Boolean inserirEditarMedico(String[] dadosMedico) {
+		if(!dadosMedico[2].matches("\\d{10,11}") || !dadosMedico[2].matches("\\.+\\@\\w+\\.\\w(2,3)\\.\\w(2,3)")) {
+			return false;
+		}
+		else {
+			Medico m = new Medico(
+					Integer.parseInt(dadosMedico[0]), dadosMedico[1], dadosMedico[2], dadosMedico[3], dadosMedico[4], dadosMedico[5]
+			);
+			dados.inserirOuEditarMedico(m, m.getId());
+			return true;
+		}
+	}
+	
+	public Boolean inserirEditarRemedio(String[] dadosRemedio) {
+		Remedio r = new Remedio(
+				Integer.parseInt(dadosRemedio[0]), dadosRemedio[1], dadosRemedio[2], dadosRemedio[3], dadosRemedio[4]
+		);
+		dados.inserirOuEditarRemedio(r, r.getId());
+		return true;
+	}
+	
+	public Boolean inserirAgendamento
 	
 }

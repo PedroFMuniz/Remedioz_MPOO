@@ -9,25 +9,23 @@ import java.util.Calendar;
  * @since 2022
  * @version 1.0
  */
-public class Data {
+public class DiaDaSemana {
 	private int id;
-	private Calendar data;
 	private String diaSemana;
-	private Calendar horario;
+	private Calendar[] horario;
 	
 	// Construtores
 	/**
 	 * Construtor vazio para a instanciacao de uma data sem valores padrao.
 	 */
-	public Data() {
+	public DiaDaSemana() {
 		
 	}
 	/**
 	 * Construtor para a instanciacao de uma data com valores definidos.
 	 */
-	public Data(int id, Calendar data, String diaSemana, Calendar horario) {
+	public DiaDaSemana(int id, String diaSemana, Calendar[] horario) {
 		this.id = id;
-		this.data = data;
 		this.diaSemana = diaSemana;
 		this.horario = horario;
 	}
@@ -40,22 +38,16 @@ public class Data {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Calendar getData() {
-		return data;
-	}
-	public void setData(Calendar data) {
-		this.data = data;
-	}
 	public String getDiaSemana() {
 		return diaSemana;
 	}
 	public void setDiaSemana(String diaSemana) {
 		this.diaSemana = diaSemana;
 	}
-	public Calendar getHorario() {
+	public Calendar[] getHorario() {
 		return horario;
 	}
-	public void setHorario(Calendar horario) {
+	public void setHorario(Calendar[] horario) {
 		this.horario = horario;
 	}
 }

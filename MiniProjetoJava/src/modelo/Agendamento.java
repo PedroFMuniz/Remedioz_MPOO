@@ -18,7 +18,7 @@ public class Agendamento {
 	private Medico medico;
 	private Paciente paciente;
 	private Remedio[] remedios = new Remedio[40];
-	private Data[] datas = new Data[40];
+	private DiaDaSemana[] diasDaSemana = new DiaDaSemana[40];
 	
 	// Construtores
 	/**
@@ -77,11 +77,11 @@ public class Agendamento {
 	public void setRemedios(Remedio[] remedios) {
 		this.remedios = remedios;
 	}
-	public Data[] getDatas() {
-		return datas;
+	public DiaDaSemana[] getDiasDaSemana() {
+		return diasDaSemana;
 	}
-	public void setDatas(Data[] datas) {
-		this.datas = datas;
+	public void setDiasDaSemana(DiaDaSemana[] diasDaSemana) {
+		this.diasDaSemana = diasDaSemana;
 	}
 	
 	// Outros métodos (mais sentido na camada de controle)
