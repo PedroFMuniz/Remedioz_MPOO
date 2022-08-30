@@ -53,7 +53,7 @@ public class Paciente extends Pessoa {
 	
 	/**
 	 * Metodo para adicionar uma alergia a um paciente. Retorna TRUE se houver 
-	 * sucesso, se não, FALSE.
+	 * sucesso; se nao, FALSE.
 	 * 
 	 * @return boolean
 	 */
@@ -62,7 +62,7 @@ public class Paciente extends Pessoa {
 	}
 	/**
 	 * Metodo para remover uma alergia de um paciente. Retorna TRUE se houver 
-	 * sucesso, se não, FALSE.
+	 * sucesso; se nao, FALSE.
 	 * 
 	 * @return boolean
 	 */

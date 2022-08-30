@@ -1,7 +1,15 @@
 package modelo;
 
 import java.util.*;
-/***/
+/**
+ * Classe "Dados". Relaciona-se com todas as classes do pacote "modelo", pois tem 
+ * como funcao principal a criacao de dados padrao no inicio da execucao do programa.
+ * Tambem possui metodos para inserir ou editar uma instancia de cada classe.
+ * 
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class Dados {
 	// Vetores de dados
 	private Medico[] medicos = new Medico[40];
@@ -18,22 +26,23 @@ public class Dados {
 	private int qtdeDatas = 0;
 	private int qtdeAgendamentos = 0;
 	
-	/*// Objeto Calendar
-	
-	Date data = new Date();
-	private Calendar calendario = new GregorianCalendar();
-	calendario.setTime(data);
-	
-	// Métodos
-	
-	public String diaSemana()
-	*/
-	/***/
+	/**
+	 * Construtor para a instanciacao da classe. Esta classe nao necessita de um 
+	 * construtor elaborado.
+	 * */
+	public Dados() {
+		
+	}
+
+	/**
+	 * Metodo para preencher os vetores com dados padrao. Usa de um loop "for" para
+	 * criar 10 instancias de todas as classes do projeto e salva-as em seus
+	 * respectivos vetores. Tambem iguala todas as variaveis de quantidades a 10. 
+	 * 
+	 * @return void
+	 * */
 	public void preencherDados() {
-		//Date data = Calendar.getInstance().getTime();
-		// Preenchimento de dados via for (10 instâncias)
 		for(int i = 0; i < 10; i++) {
-			
 			medicos[i] = new Medico(i, "Médico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
 			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", "Nenhum");
 			remedios[i] = new Remedio(i, "Genérico " + i, "Consulte a bula", "Controlado", "Oral");
@@ -51,11 +60,15 @@ public class Dados {
 	public void setMedicos(Medico[] medicos) {
 		this.medicos = medicos;
 	}
-	/***/
+	/**
+	 * Metodo para inserir uma instancia de "Medico" na posicao desejada. Se ja 
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
+	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * 
+	 * @return void
+	 * */
 	public void inserirOuEditarMedico(Medico medico, int posicao) {
-		// Insere um médico na posição do vetor desejada. Se já preenchida, é mudada.
 		this.medicos[posicao] = medico;
-		// Se a posição desejada é igual a quantidade de médicos, a quantidade de médicos deve aumentar
 		if(posicao == qtdeMedicos) {
 			qtdeMedicos++;
 		}
@@ -75,7 +88,13 @@ public class Dados {
 	public void setPacientes(Paciente[] pacientes) {
 		this.pacientes = pacientes;
 	}
-	/***/
+	/**
+	 * Metodo para inserir uma instancia de "Paciente" na posicao desejada. Se ja 
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
+	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * 
+	 * @return void
+	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int posicao) {
 		this.pacientes[posicao] = paciente;
 		if(posicao == qtdePacientes) {
@@ -97,7 +116,13 @@ public class Dados {
 	public void setRemedios(Remedio[] remedios) {
 		this.remedios = remedios;
 	}
-	/***/
+	/**
+	 * Metodo para inserir uma instancia de "Remedio" na posicao desejada. Se ja 
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
+	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * 
+	 * @return void
+	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int posicao) {
 		this.remedios[posicao] = remedio;
 		if(posicao == qtdeRemedios) {
@@ -119,7 +144,13 @@ public class Dados {
 	public void setDatas(Data[] datas) {
 		this.datas = datas;
 	}
-	/***/
+	/**
+	 * Metodo para inserir uma instancia de "Data" na posicao desejada. Se ja 
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
+	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * 
+	 * @return void
+	 * */
 	public void inserirOuEditarData(Data data, int posicao) {
 		this.datas[posicao] = data;
 		if(posicao == qtdeDatas) {
@@ -141,7 +172,13 @@ public class Dados {
 	public void setAgendamentos(Agendamento[] agendamentos) {
 		this.agendamentos = agendamentos;
 	}
-	/***/
+	/**
+	 * Metodo para inserir uma instancia de "Agendamento" na posicao desejada. Se ja 
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
+	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * 
+	 * @return void
+	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int posicao) {
 		this.agendamentos[posicao] = agendamento;
 		if(posicao == qtdeAgendamentos) {
