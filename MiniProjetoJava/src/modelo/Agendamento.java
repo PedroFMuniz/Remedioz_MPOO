@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 /**
  * Classe "Agendamento". Armazena listas de remedios e datas, bem como o medico e o 
@@ -13,12 +14,12 @@ import java.util.Calendar;
 
 public class Agendamento {
 	private int id;
-	private Calendar dtInicio;
-	private Calendar dtFim;
+	private LocalDate dtInicio;
+	private LocalDate dtFim;
 	private Medico medico;
 	private Paciente paciente;
 	private Remedio[] remedios = new Remedio[40];
-	private DiaDaSemana[] diasDaSemana = new DiaDaSemana[40];
+	private DiaDaSemana[] diasDaSemana = new DiaDaSemana[7];
 	
 	// Construtores
 	/**
@@ -30,12 +31,14 @@ public class Agendamento {
 	/**
 	 * Construtor  para a instanciacao de um paciente com valores definidos.
 	 */
-	public Agendamento(int id, Calendar dtInicio, Calendar dtFim, Medico medico, Paciente paciente) {
+	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio[] remedios, DiaDaSemana[] diasDaSemana) {
 		this.id = id;
 		this.dtInicio = dtInicio;
 		this.dtFim = dtFim;
 		this.medico = medico;
 		this.paciente = paciente;
+		this.remedios = remedios;
+		this.diasDaSemana = diasDaSemana;
 	}
 
 	// Getters e Setters
@@ -121,6 +124,5 @@ public class Agendamento {
 	public boolean removerData(Data data) {
 		return false;
 	}
-
 }
 

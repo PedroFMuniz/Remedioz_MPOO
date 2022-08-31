@@ -15,7 +15,6 @@ public class Dados {
 	private Medico[] medicos = new Medico[40];
 	private Paciente[] pacientes = new Paciente[40];
 	private Remedio[] remedios = new Remedio[40];
-	private Data[] datas = new Data[40];
 	private Agendamento[] agendamentos = new Agendamento[40];
 	
 	// variáveis para quantidades
@@ -23,7 +22,6 @@ public class Dados {
 	private int qtdeMedicos = 0;
 	private int qtdePacientes= 0;
 	private int qtdeRemedios = 0;
-	private int qtdeDatas = 0;
 	private int qtdeAgendamentos = 0;
 	
 	/**
@@ -135,35 +133,6 @@ public class Dados {
 	public void setQtdeRemedios(int qtdeRemedios) {
 		this.qtdeRemedios = qtdeRemedios;
 	}
-
-	// Métodos para vetor de datas
-	
-	public Data[] getDatas() {
-		return datas;
-	}
-	public void setDatas(Data[] datas) {
-		this.datas = datas;
-	}
-	/**
-	 * Metodo para inserir uma instancia de "Data" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
-	 * 
-	 * @return void
-	 * */
-	public void inserirOuEditarData(Data data, int posicao) {
-		this.datas[posicao] = data;
-		if(posicao == qtdeDatas) {
-			qtdeDatas++;
-		}
-	}
-	public int getQtdeDatas() {
-		return qtdeDatas;
-	}
-	public void setQtdeDatas(int qtdeDatas) {
-		this.qtdeDatas = qtdeDatas;
-	}
-	
 	// Métodos para vetor de agendamentos
 
 	public Agendamento[] getAgendamentos() {

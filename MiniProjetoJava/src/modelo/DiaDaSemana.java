@@ -1,4 +1,5 @@
 package modelo;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Calendar;
 public class DiaDaSemana {
 	private int id;
 	private String diaSemana;
-	private Calendar[] horario;
+	private LocalTime[] horario;
 	
 	// Construtores
 	/**
@@ -24,7 +25,7 @@ public class DiaDaSemana {
 	/**
 	 * Construtor para a instanciacao de uma data com valores definidos.
 	 */
-	public DiaDaSemana(int id, String diaSemana, Calendar[] horario) {
+	public DiaDaSemana(int id, String diaSemana, LocalTime[] horario) {
 		this.id = id;
 		this.diaSemana = diaSemana;
 		this.horario = horario;
@@ -44,10 +45,10 @@ public class DiaDaSemana {
 	public void setDiaSemana(String diaSemana) {
 		this.diaSemana = diaSemana;
 	}
-	public Calendar[] getHorario() {
+	public LocalTime[] getHorario() {
 		return horario;
 	}
-	public void setHorario(Calendar[] horario) {
+	public void setHorario(LocalTime[] horario) {
 		this.horario = horario;
 	}
 }

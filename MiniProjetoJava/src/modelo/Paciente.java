@@ -25,11 +25,12 @@ public class Paciente extends Pessoa {
 	/**
 	 * Construtor para a instanciacao de um paciente com valores definidos.
 	 */
-	public Paciente(int id, String nome, String telefone, String email, String historicoDoencas) {
+	public Paciente(int id, String nome, String telefone, String email, Remedio[] alergias ,String historicoDoencas) {
 		this.id = id;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
+		this.alergias = alergias;
 		this.historicoDoencas = historicoDoencas;
 	}
 	
