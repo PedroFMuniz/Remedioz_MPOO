@@ -63,7 +63,7 @@ public class TelaMenu implements ActionListener {
 		Object fonteEvento = e.getSource();
 		
 		if(fonteEvento == btnPaciente) {
-			System.out.println("1");
+			new TelaPaciente().mostrarDados(dados);
 		}
 		else if(fonteEvento == btnMedico) {
 			System.out.println("2");
