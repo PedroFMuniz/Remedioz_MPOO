@@ -25,7 +25,7 @@ public class TelaMenu implements ActionListener {
 	private static JButton btnHorario = new JButton("Horario");
 	private static JButton btnAgendamento = new JButton("Agendamentos");
 	
-	public static controleDados dados = new controleDados();
+	public static ControleDados dados = new ControleDados();
 	/**
 	 * Construtor que descreve a tela de menu para renderizacao.
 	 */

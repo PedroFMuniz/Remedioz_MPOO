@@ -19,7 +19,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JButton deletarPaciente;
 	
 	// preciso poder pegar os nomes sem fazer esse for (isso tem que estar em modelo)
-	public void mostrarDados(controleDados dados) {
+	public void mostrarDados(ControleDados dados) {
 		for(int i = 0; i < 10; i++) {
 			intermedio = dados.getPacientes();
 			listaNomes[i] = intermedio[i].getNome();

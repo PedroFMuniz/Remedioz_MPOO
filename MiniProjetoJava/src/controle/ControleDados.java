@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import modelo.*;
 
-public class controleDados {
+public class ControleDados {
 
 	private Dados dados = new Dados();
 
 	// Construtor
-	public controleDados() {
+	public ControleDados() {
 		dados.preencherDados();
 	}
 
@@ -20,6 +20,22 @@ public class controleDados {
 		return dados;
 	}
 
+	public int getQtdPacientes() {
+		return dados.getQtdePacientes();
+	}
+	
+	public int getQtdMedicos() {
+		return dados.getQtdeMedicos();
+	}
+	
+	public int getQtdRemedios() {
+		return dados.getQtdeRemedios();
+	}
+	
+	public int getQtdAgendamentos() {
+		return dados.getQtdeAgendamentos();
+	}
+	
 	public void setDados(Dados dados) {
 		this.dados = dados;
 	}

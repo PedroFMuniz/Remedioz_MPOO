@@ -2,7 +2,6 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
 /**
  * Classe "Dados". Relaciona-se com todas as classes do pacote "modelo", pois tem 
  * como funcao principal a criacao de dados padrao no inicio da execucao do programa.
@@ -164,8 +163,7 @@ public class Dados {
 	}
 	
 	public DiaDaSemana[] gerarDias(int i) {
-		LocalTime[] lt = {LocalTime.of(i+10, i)};
-		DiaDaSemana dia = new DiaDaSemana(i, "Segunda", lt);
+		DiaDaSemana dia = new DiaDaSemana(i, "Segunda", horarios);
 		DiaDaSemana[] dias = {dia};
 		return dias;
 	}
