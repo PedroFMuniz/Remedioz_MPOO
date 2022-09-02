@@ -50,16 +50,16 @@ public class Agendamento {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Calendar getDtInicio() {
+	public LocalDate getDtInicio() {
 		return dtInicio;
 	}
-	public void setDtInicio(Calendar dtInicio) {
+	public void setDtInicio(LocalDate dtInicio) {
 		this.dtInicio = dtInicio;
 	}
-	public Calendar getDtFim() {
+	public LocalDate getDtFim() {
 		return dtFim;
 	}
-	public void setDtFim(Calendar dtFim) {
+	public void setDtFim(LocalDate dtFim) {
 		this.dtFim = dtFim;
 	}
 	public Medico getMedico() {
@@ -112,7 +112,7 @@ public class Agendamento {
 	 * 
 	 * @return boolean
 	 */
-	public boolean adicionarData(Data data) {
+	public boolean adicionarData(LocalDate data) {
 		return false;
 	}
 	/**
@@ -121,7 +121,7 @@ public class Agendamento {
 	 * 
 	 * @return boolean
 	 */
-	public boolean removerData(Data data) {
+	public boolean removerData(LocalDate data) {
 		return false;
 	}
 }
