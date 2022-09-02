@@ -17,7 +17,6 @@ public class Dados {
 	private Medico[] medicos = new Medico[40];
 	private Paciente[] pacientes = new Paciente[40];
 	private Remedio[] remedios = new Remedio[40];
-	private DiaDaSemana[] diasSemana = new DiaDaSemana[40];
 	private Agendamento[] agendamentos = new Agendamento[40];
 	private LocalTime[] horarios = {LocalTime.now(), LocalTime.of(19, 00)};
 	
@@ -26,7 +25,6 @@ public class Dados {
 	private int qtdeMedicos = 0;
 	private int qtdePacientes= 0;
 	private int qtdeRemedios = 0;
-	private int qtdeDiasSemana = 0;
 	private int qtdeAgendamentos = 0;
 	
 	/**
@@ -47,18 +45,10 @@ public class Dados {
 	public void preencherDados() {
 		for(int i = 0; i < 10; i++) {
 			medicos[i] = new Medico(i, "Médico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
-			//passivel de mudanças
 			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
 			remedios[i] = new Remedio(i, "Genérico " + i, "Consulte a bula", "Controlado", "Oral");
-<<<<<<< HEAD
-			agendamentos[i] = new Agendamento(i, Calendar.getInstance(), Calendar.getInstance(), medicos[i], pacientes[i]);
-			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeDatas = qtdeAgendamentos = 10;
-=======
-			//datas[i] = new Data(i, Calendar.getInstance(), "Segunda", Calendar.getInstance());
-			diasSemana[i] = new DiaDaSemana(i, "Segunda-feira", horarios);
-			agendamentos[i] = new Agendamento(i, LocalDate.now(), LocalDate.now(), medicos[i], pacientes[i], remedios, diasSemana);
-			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeDiasSemana = qtdeAgendamentos = 10;
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
+			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios, gerarDias(i));
+			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
 		}
 	}
 	
@@ -171,5 +161,12 @@ public class Dados {
 	}
 	public void setQtdeAgendamentos(int qtdeAgendamentos) {
 		this.qtdeAgendamentos = qtdeAgendamentos;
+	}
+	
+	public DiaDaSemana[] gerarDias(int i) {
+		LocalTime[] lt = {LocalTime.of(i+10, i)};
+		DiaDaSemana dia = new DiaDaSemana(i, "Segunda", lt);
+		DiaDaSemana[] dias = {dia};
+		return dias;
 	}
 }

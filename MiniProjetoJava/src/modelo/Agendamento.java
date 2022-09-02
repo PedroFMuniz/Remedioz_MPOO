@@ -1,7 +1,6 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 /**
  * Classe "Agendamento". Armazena listas de remedios e datas, bem como o medico e o 
  * paciente a que se refere a receita. Tambem possui metodos para manipular as listas 

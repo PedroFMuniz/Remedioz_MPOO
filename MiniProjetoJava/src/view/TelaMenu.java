@@ -51,7 +51,6 @@ public class TelaMenu implements ActionListener {
 		frame.setVisible(true);
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		TelaMenu menu = new TelaMenu();
 		btnPaciente.addActionListener(menu);
 		btnMedico.addActionListener(menu);
