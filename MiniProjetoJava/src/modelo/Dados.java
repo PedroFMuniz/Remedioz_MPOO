@@ -44,7 +44,6 @@ public class Dados {
 			medicos[i] = new Medico(i, "Médico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
 			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", "Nenhum");
 			remedios[i] = new Remedio(i, "Genérico " + i, "Consulte a bula", "Controlado", "Oral");
-			datas[i] = new Data(i, Calendar.getInstance(), "Segunda", Calendar.getInstance());
 			agendamentos[i] = new Agendamento(i, Calendar.getInstance(), Calendar.getInstance(), medicos[i], pacientes[i]);
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeDatas = qtdeAgendamentos = 10;
 		}

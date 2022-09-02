@@ -1,6 +1,5 @@
 package modelo;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 /**
  * Classe "Data". Armazena a data que um remedio deve ser tomado, bem como o 
