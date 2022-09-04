@@ -65,10 +65,10 @@ public class TelaMenu implements ActionListener {
 			new TelaPaciente().mostrarDados(dados);
 		}
 		else if(fonteEvento == btnMedico) {
-			System.out.println("2");
+			new TelaMedico().mostrarDados(dados);
 		}
 		else if(fonteEvento == btnRemedio) {
-			System.out.println("3");
+			new TelaRemedio().mostrarDados(dados);
 		}
 		else if(fonteEvento == btnHorario) {
 			System.out.println("4");
