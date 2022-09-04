@@ -4,52 +4,61 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
+
 import controle.*;
 import modelo.Paciente;
 
 
 public class TelaPaciente implements ActionListener, ListSelectionListener {
-	private String[] listaNomes = new String[40];
-	private Paciente[] intermedio = new Paciente[40];
+	private Paciente[] pacientes = new Paciente[40];
 	private JFrame frame;
 	private JLabel label;
-	private JList<String> pacientesCadastrados;
+	private String[] nomesPacientes = new String[40];
 	private JButton cadastrarPaciente;
-	private JButton editarPaciente;
-	private JButton deletarPaciente;
+	private JButton refreshPaciente;
+	private JList<String> listaPacientes;
+	private JScrollPane scroll;
+	private static ControleDados dadosTelaPaciente;
 	
-	
-	// preciso poder pegar os nomes sem fazer esse for (isso tem que estar em modelo)
 	public void mostrarDados(ControleDados dados) {
-		intermedio = dados.getPacientes();
-		for(int i = 0; i < 10; i++) {
-			listaNomes[i] = intermedio[i].getNome();
-		}
+		dadosTelaPaciente = dados;
+		nomesPacientes = new ControlePaciente(dados).getNome();
 		frame = new JFrame("Pacientes");
 		label = new JLabel("Lista de pacientes");
-		pacientesCadastrados = new JList<String>(listaNomes);
 		cadastrarPaciente = new JButton("Cadastrar");
-		editarPaciente = new JButton("Editar");
-		deletarPaciente = new JButton("Deletar");
+		refreshPaciente = new JButton("Refresh");
+		listaPacientes = new JList<String>(nomesPacientes);
+		scroll = new JScrollPane(listaPacientes);
 		
 		frame.add(label);
-		frame.add(pacientesCadastrados);
 		frame.add(cadastrarPaciente);
-		frame.add(editarPaciente);
-		frame.add(deletarPaciente);
+		frame.add(refreshPaciente);
+		frame.add(listaPacientes);
+		frame.add(scroll);
+		
 		
 		frame.setSize(600, 600);
 		
 		frame.setLayout(new FlowLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		cadastrarPaciente.addActionListener(this);
+		refreshPaciente.addActionListener(this);
+		listaPacientes.addListSelectionListener(this);
 	}
 	
 	//implementar esses dois
 	public void actionPerformed(ActionEvent e) {
-		
+		Object fonte = e.getSource();
+		if(fonte == cadastrarPaciente) {
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, this, 0);
+		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
-		
+		Object fonte = e.getSource();
+		if(e.getValueIsAdjusting() && fonte == listaPacientes) {
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, this, listaPacientes.getSelectedIndex());
+		}
 	}
 }
