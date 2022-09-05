@@ -10,74 +10,58 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
 import controle.ControleDados;
 
-public class TelaCadastroEdicaoMedico implements ActionListener{
+
+public class TelaCadastroEdicaoRemedio implements ActionListener {
 	private JFrame frame;
 	private JLabel labelNome = new JLabel("Nome: ");
-	private JLabel labelTelefone = new JLabel("Telefone: ");
-	private JLabel labelEmail = new JLabel("Email: ");
-	private JLabel labelCrm = new JLabel("CRM: ");
-	private JLabel labelEspecialidade = new JLabel("Especialidade: ");
+	private JLabel labelEfeito = new JLabel("Efeito: ");
+	private JLabel labelTipo = new JLabel("Tipo: ");
+	private JLabel labelViaUso = new JLabel("Via de uso: ");
+	
 	private String[] novoCadastro = new String[9];
 	private JTextField txtNome;
-	private JTextField txtTelefone;
-	private JTextField txtEmail;
-	private JTextField txtCrm;
-	private JTextField txtEspecialidade;
+	private JTextField txtEfeito;
+	private JTextField txtTipo;
+	private JTextField txtViaUso;
+
 	private JButton excluir = new JButton("Excluir");
 	private JButton salvar = new JButton("Salvar");
 	private static int opcaoCrud;
 	private static int posicao;
-	private static ControleDados controleTelaEdicaoMedico;
+	private static ControleDados controleTelaEdicaoRemedio;
 	
-	public void inserirEditarMedico(int opcao, ControleDados dados, TelaMedico tela, int indice) {
+	public void inserirEditarRemedio(int opcao, ControleDados dados, TelaRemedio tela, int indice) {
 		opcaoCrud = opcao;
 		posicao = indice;
-		controleTelaEdicaoMedico = dados;
-		this.frame = new JFrame("Cadastro e edicao de medicos");
-		this.frame.setSize(600, 600);
+		controleTelaEdicaoRemedio = dados;
+		frame = new JFrame("Cadastro e edicao de Remedios");
 		if(opcao == 1) {
-			// sem dados
-			txtNome = new JTextField(200);
-			txtEmail = new JTextField(200);
-			txtCrm = new JTextField(200);
-			txtEspecialidade = new JTextField(200);
-			txtTelefone = new JTextField(11);
+			txtNome = new JTextField(30);
+			txtEfeito = new JTextField(30);
+			txtTipo = new JTextField(30);
+			txtViaUso = new JTextField(30);
 			this.frame.add(salvar);
-			//salvar.setBounds(245, 175, 115, 30);
 		}
-		else if(opcao == 2) {
-			txtNome = new JTextField(dados.getMedicos()[indice].getNome(), 30);
-			txtEmail = new JTextField(dados.getMedicos()[indice].getEmail(), 30);
-			txtTelefone = new JTextField(dados.getMedicos()[indice].getTelefone(), 11);
-			txtCrm = new JTextField(dados.getMedicos()[indice].getCrm(), 30);
-			txtEspecialidade = new JTextField(dados.getMedicos()[indice].getEspecialidade(), 30);
+		if(opcao == 2) {
+			txtNome = new JTextField(dados.getRemedios()[indice].getNome(), 30);
+			txtEfeito = new JTextField(dados.getRemedios()[indice].getEfeito(), 30);
+			txtTipo = new JTextField(dados.getRemedios()[indice].getTipo(), 30);
+			txtViaUso = new JTextField(dados.getRemedios()[indice].getViaDeUso(), 30);
 			this.frame.add(salvar);
 			this.frame.add(excluir);
 		}
-		
-		
-		
-		txtNome.setSize(60, 20);
-		txtEmail.setSize(60, 20);
-		txtTelefone.setSize(60, 20);
-		txtCrm.setSize(60, 20);
-		txtEspecialidade.setSize(60, 20);
-		
 		this.frame.setLayout(new FlowLayout());
+		
 		this.frame.add(labelNome);
 		this.frame.add(txtNome);
-		this.frame.add(labelEmail);
-		this.frame.add(txtEmail);
-		this.frame.add(labelTelefone);
-		this.frame.add(txtTelefone);
-		this.frame.add(labelCrm);
-		this.frame.add(txtCrm);
-		this.frame.add(labelEspecialidade);
-		this.frame.add(txtEspecialidade);
-		
+		this.frame.add(labelEfeito);
+		this.frame.add(txtEfeito);
+		this.frame.add(labelTipo);
+		this.frame.add(txtTipo);
+		this.frame.add(labelViaUso);
+		this.frame.add(txtViaUso);
 		
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);
@@ -89,19 +73,18 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			try {
 				boolean resultado;
 				if(opcaoCrud == 1) {
-					// novo medico
-					novoCadastro[0] = Integer.toString(controleTelaEdicaoMedico.getQtdMedicos());
+					// novo remedio
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoRemedio.getQtdMedicos());
 				}
 				else {
 					//edicao
 					novoCadastro[0] = Integer.toString(posicao);
 				}
 				novoCadastro[1] =  txtNome.getText();
-				novoCadastro[2] =  txtTelefone.getText();
-				novoCadastro[3] =  txtEmail.getText();
-				novoCadastro[4] =  txtEspecialidade.getText();
-				novoCadastro[5] =  txtCrm.getText();
-				resultado = controleTelaEdicaoMedico.inserirEditarMedico(novoCadastro);
+				novoCadastro[2] =  txtEfeito.getText();
+				novoCadastro[3] =  txtTipo.getText();
+				novoCadastro[4] =  txtViaUso.getText();
+				resultado = controleTelaEdicaoRemedio.inserirEditarRemedio(novoCadastro);
 				System.out.println(resultado);
 				if(resultado) {
 					mensagemSucessoCadastro();
@@ -120,14 +103,11 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 		}
 		if(fonte == excluir) {
 			boolean resultado = false;
-			resultado = controleTelaEdicaoMedico.removerMedico(posicao);
+			resultado = controleTelaEdicaoRemedio.removerRemedio(posicao);
 			if (resultado) mensagemSucessoExclusao(); 
 			else mensagemErroExclusaoAluno(); 
 		}
 	}
-	
-	// Mudar esses metodos aqui lembra disso cabeca oca
-	
 	public void mensagemSucessoExclusao() {
 		JOptionPane.showMessageDialog(null, "Os dados foram excluidos com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);

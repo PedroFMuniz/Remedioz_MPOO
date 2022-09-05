@@ -4,10 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 
 import controle.*;
-import modelo.Medico;
+
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
 	private String[] nomesMedicos = new String[40];
@@ -16,7 +15,6 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	private JList<String> listaMedicos;
 	private JFrame frame;
 	private JLabel label;
-	private JTable tabelaMedicos;
 	private JButton cadastrarMedico;
 	private JButton refreshMedico;
 	private static ControleDados dadosTelaMedico;
@@ -32,7 +30,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		//tabelaMedicos.setEnabled(false);
 		nomesMedicos = new ControleMedico(dados).getNome();
 		frame = new JFrame("Medicos");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de medicos");
 		listaMedicos = new JList<String>(nomesMedicos);

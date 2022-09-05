@@ -4,60 +4,68 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
+
 
 import controle.*;
-import modelo.Remedio;
 
-public class TelaRemedio {
-	private Remedio[] remedios = new Remedio[40];
-	private DefaultTableModel modeloTabela = new DefaultTableModel();
+public class TelaRemedio implements ActionListener, ListSelectionListener{
+	private String[] nomesRemedios = new String[40];
 	
 	private JFrame frame;
 	private JLabel label;
-	private JTable tabelaRemedios;
+	private JList<String> listaRemedios;
 	private JButton cadastrarRemedio;
-	private JButton editarRemedio;
-	private JButton deletarRemedio;
+	private JButton refreshRemedio;
+	private static ControleDados dadosTelaRemedio;
 	public void mostrarDados(ControleDados dados) {
-		tabelaRemedios = new JTable(modeloTabela);
-		modeloTabela.addColumn("Nome");
-		modeloTabela.addColumn("Efeito");
-		modeloTabela.addColumn("Tipo");
-		modeloTabela.addColumn("Via de Uso");
-		tabelaRemedios.getColumnModel().getColumn(0).setPreferredWidth(80);
-		tabelaRemedios.getColumnModel().getColumn(1).setPreferredWidth(130);
-		tabelaRemedios.getColumnModel().getColumn(2).setPreferredWidth(100);
-		tabelaRemedios.getColumnModel().getColumn(3).setPreferredWidth(40);
-		preencherRemedios(dados);
+
+		dadosTelaRemedio = dados;
 		
 		frame = new JFrame("Remedios");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		nomesRemedios = new ControleRemedio(dados).getNome();
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de remedios");
 		cadastrarRemedio = new JButton("Cadastrar");
-		editarRemedio = new JButton("Editar");
-		deletarRemedio = new JButton("Deletar");
+		refreshRemedio = new JButton("Refresh");
+		listaRemedios = new JList<String>(nomesRemedios);
 		
-		cadastrarRemedio.setBounds(20, 60, 100, 30);
-		editarRemedio.setBounds(20, 60, 100, 30);
-		deletarRemedio.setBounds(20, 60, 100, 30);
+		
 		
 		frame.add(label);
-		frame.add(tabelaRemedios);
+		frame.add(listaRemedios);
 		frame.add(cadastrarRemedio);
-		frame.add(editarRemedio);
-		frame.add(deletarRemedio);
+		frame.add(refreshRemedio);
+		
+		cadastrarRemedio.addActionListener(this);
+		refreshRemedio.addActionListener(this);
+		listaRemedios.addListSelectionListener(this);
 		
 		frame.setSize(600, 600);
 		frame.setVisible(true);
 	}
-	public void preencherRemedios(ControleDados dados) {
+	public void actionPerformed(ActionEvent e) {
+		Object fonte = e.getSource();
+		if(fonte == cadastrarRemedio) {
+			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(1, dadosTelaRemedio, this, 0);
+		}
+		else if(fonte == refreshRemedio) {
+			listaRemedios.setListData(new ControleRemedio(dadosTelaRemedio).getNome());			
+			listaRemedios.updateUI();
+		}
+	}
+	public void valueChanged(ListSelectionEvent e) {
+		Object fonte = e.getSource();
+		if(e.getValueIsAdjusting() && fonte == listaRemedios) {
+			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(2, dadosTelaRemedio, this, listaRemedios.getSelectedIndex());
+		}
+	}
+	/*public void preencherRemedios(ControleDados dados) {
 		remedios = dados.getRemedios();
 		modeloTabela.setNumRows(0);
 		for(int i = 0; i < dados.getQtdRemedios(); i++) {
 			modeloTabela.addRow(new Object[] {remedios[i].getNome(), remedios[i].getEfeito(),
 					remedios[i].getTipo(), remedios[i].getViaDeUso()});
 		}
-	}
+	}*/
 }
