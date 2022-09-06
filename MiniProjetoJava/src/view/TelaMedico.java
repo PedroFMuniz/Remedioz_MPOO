@@ -17,51 +17,61 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	private JLabel label;
 	private JButton cadastrarMedico;
 	private JButton refreshMedico;
+	private JButton btnPesquisa;
+	private JTextField txtPesquisa;
 	private static ControleDados dadosTelaMedico;
+	private JScrollPane scroll;
+	private JPanel panel;
 	
 	public void mostrarDados(ControleDados dados) {
 		dadosTelaMedico = dados;
-		//tabelaMedicos = new JTable(modeloTabela);
-		//modeloTabela.addColumn("Nome");
-		//modeloTabela.addColumn("Especialidade");
-		//tabelaMedicos.getColumnModel().getColumn(0).setPreferredWidth(150);
-		//tabelaMedicos.getColumnModel().getColumn(1).setPreferredWidth(150);
-		//preencherMedicos(dados);
-		//tabelaMedicos.setEnabled(false);
 		nomesMedicos = new ControleMedico(dados).getNome();
+	
 		frame = new JFrame("Medicos");
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de medicos");
-		listaMedicos = new JList<String>(nomesMedicos);
-		cadastrarMedico = new JButton("Cadastrar");
+		frame.setLayout(null);
+		txtPesquisa = new JTextField();
+		btnPesquisa = new JButton("Pesquisar...");
+		cadastrarMedico  = new JButton("Cadastrar");
 		refreshMedico = new JButton("Refresh");
+		listaMedicos = new JList<String>(nomesMedicos);
+		label.setFont(new Font("Arial", Font.BOLD, 16));
+		listaMedicos.setFont(new Font("Arial", Font.BOLD, 24));
+		panel = new JPanel();
+		listaMedicos.setSize(400, 400);
+		scroll = new JScrollPane();
+		scroll.setViewportView(listaMedicos);
+		listaMedicos.setLayoutOrientation(JList.VERTICAL);
+		panel.add(scroll);
 		
-		cadastrarMedico.setBounds(20, 60, 100, 30);
+		label.setBounds(135, 10, 150, 30);
+		txtPesquisa.setBounds(20, 50, 200, 20);
+		btnPesquisa.setBounds(240, 50, 130, 20);
+		listaMedicos.setVisibleRowCount(5);
+		cadastrarMedico.setBounds(20, 300, 150, 30);
+		panel.setBounds(20, 80, 350, 200);
+		panel.setBackground(Color.CYAN);
+		refreshMedico.setBounds(220, 300, 150, 30);
 
 		
+		
+		panel.add(scroll);
 		frame.add(label);
-		//frame.add(tabelaMedicos);
-		frame.add(listaMedicos);
+		frame.add(txtPesquisa);
+		frame.add(btnPesquisa);
+		frame.add(panel);
 		frame.add(cadastrarMedico);
 		frame.add(refreshMedico);
 
 		
-		frame.setSize(600, 600);
+		frame.setSize(400, 400);
 		frame.setVisible(true);
 		
 		cadastrarMedico.addActionListener(this);
 		refreshMedico.addActionListener(this);
 		listaMedicos.addListSelectionListener(this);
 	}
-	// acredito que devo colocar no controle
-	/*public void preencherMedicos(ControleDados dados) {
-		medicos = dados.getMedicos();
-		modeloTabela.setNumRows(0);
-		for(int i = 0; i < dados.getQtdMedicos(); i++) {
-			modeloTabela.addRow(new Object[] {medicos[i].getNome(), medicos[i].getEspecialidade()});
-		}
-	}*/
+
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarMedico) {

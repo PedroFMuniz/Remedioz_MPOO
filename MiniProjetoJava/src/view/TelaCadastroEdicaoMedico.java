@@ -40,10 +40,10 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 		this.frame.setSize(600, 600);
 		if(opcao == 1) {
 			// sem dados
-			txtNome = new JTextField(200);
-			txtEmail = new JTextField(200);
-			txtCrm = new JTextField(200);
-			txtEspecialidade = new JTextField(200);
+			txtNome = new JTextField(30);
+			txtEmail = new JTextField(30);
+			txtCrm = new JTextField(30);
+			txtEspecialidade = new JTextField(30);
 			txtTelefone = new JTextField(11);
 			this.frame.add(salvar);
 			//salvar.setBounds(245, 175, 115, 30);
