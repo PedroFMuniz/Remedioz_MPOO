@@ -22,7 +22,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		dadosTelaRemedio = dados;
 		
 		frame = new JFrame("Remedios");
-		nomesRemedios = new ControleRemedio(dados).getNome();
+		nomesRemedios = new ControleRemedio(dados).getInfo();
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de remedios");
@@ -50,7 +50,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(1, dadosTelaRemedio, this, 0);
 		}
 		else if(fonte == refreshRemedio) {
-			listaRemedios.setListData(new ControleRemedio(dadosTelaRemedio).getNome());			
+			listaRemedios.setListData(new ControleRemedio(dadosTelaRemedio).getInfo());			
 			listaRemedios.updateUI();
 		}
 	}

@@ -11,44 +11,61 @@ public class ControleMedico {
 		this.qtdMedicos = dados.getQtdMedicos();
 	}
 	
-	public String[] getNome() {
-		String[] nomes = new String[qtdMedicos];
+	public String[] getInfo() {
+		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
-			nomes[i] = medicos[i].getNome(); 
+			infos[i] = Integer.toString(medicos[i].getId()) + "-" + medicos[i].getNome() + "-" + medicos[i].getEspecialidade(); 
 		}
-		return nomes;
-	}
-	
-	public String[] getEspecialidade() {
-		String[] especialidades = new String[qtdMedicos];
-		for(int i = 0; i < qtdMedicos; i++) {
-			especialidades[i] = medicos[i].getEspecialidade(); 
-		}
-		return especialidades;
+		return infos;
 	}
 	
 	public int getId(int i) {
 		return medicos[i].getId();
 	}
 	
-	public String getNome(int i) {
-		return medicos[i].getNome();
+	public String getNome(int id) {
+		for(int i = 0; i < qtdMedicos; i++) {
+			if(medicos[i].getId() == id) {
+				return medicos[i].getNome();
+			}
+		}
+		return null;
 	}
 	
-	public String getTelefone(int i) {
-		return medicos[i].getTelefone();
+	public String getTelefone(int id) {
+		for(int i = 0; i < qtdMedicos; i++) {
+			if(medicos[i].getId() == id) {
+				return medicos[i].getTelefone();
+			}
+		}
+		return null;
 	}
 	
-	public String getEmail(int i) {
-		return medicos[i].getEmail();
+	public String getEmail(int id) {
+		for(int i = 0; i < qtdMedicos; i++) {
+			if(medicos[i].getId() == id) {
+				return medicos[i].getEmail();
+			}
+		}
+		return null;
 	}
 	
-	public String getCrm(int i) {
-		return medicos[i].getCrm();
+	public String getCrm(int id) {
+		for(int i = 0; i < qtdMedicos; i++) {
+			if(medicos[i].getId() == id) {
+				return medicos[i].getCrm();
+			}
+		}
+		return null;
 	}
 	
-	public String getEspecialidade(int i) {
-		return medicos[i].getEspecialidade();
+	public String getEspecialidade(int id) {
+		for(int i = 0; i < qtdMedicos; i++) {
+			if(medicos[i].getId() == id) {
+				return medicos[i].getEspecialidade();
+			}
+		}
+		return null;
 	}
 
 	public void setQtdMedico(int qtd) {

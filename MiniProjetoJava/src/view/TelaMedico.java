@@ -9,7 +9,7 @@ import controle.*;
 
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
-	private String[] nomesMedicos = new String[40];
+	private String[] infosMedicos = new String[40];
 	//private Object[][] matrizTabela = new Object[40][2];
 	//private DefaultTableModel modeloTabela = new DefaultTableModel();
 	private JList<String> listaMedicos;
@@ -28,12 +28,12 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		//tabelaMedicos.getColumnModel().getColumn(1).setPreferredWidth(150);
 		//preencherMedicos(dados);
 		//tabelaMedicos.setEnabled(false);
-		nomesMedicos = new ControleMedico(dados).getNome();
+		infosMedicos = new ControleMedico(dados).getInfo();
 		frame = new JFrame("Medicos");
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de medicos");
-		listaMedicos = new JList<String>(nomesMedicos);
+		listaMedicos = new JList<String>(infosMedicos);
 		cadastrarMedico = new JButton("Cadastrar");
 		refreshMedico = new JButton("Refresh");
 		
@@ -69,7 +69,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, this, 0);
 		}
 		if(fonte == refreshMedico) {
-			listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getNome());			
+			listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
 			listaMedicos.updateUI();
 		}
 	}

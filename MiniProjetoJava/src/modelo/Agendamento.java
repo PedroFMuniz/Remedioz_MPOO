@@ -17,7 +17,7 @@ public class Agendamento {
 	private LocalDate dtFim;
 	private Medico medico;
 	private Paciente paciente;
-	private Remedio[] remedios = new Remedio[40];
+	private Remedio remedio;
 	private DiaDaSemana[] diasDaSemana = new DiaDaSemana[7];
 	
 	// Construtores
@@ -30,13 +30,13 @@ public class Agendamento {
 	/**
 	 * Construtor  para a instanciacao de um paciente com valores definidos.
 	 */
-	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio[] remedios, DiaDaSemana[] diasDaSemana) {
+	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio remedio, DiaDaSemana[] diasDaSemana) {
 		this.id = id;
 		this.dtInicio = dtInicio;
 		this.dtFim = dtFim;
 		this.medico = medico;
 		this.paciente = paciente;
-		this.remedios = remedios;
+		this.remedio = remedio;
 		this.diasDaSemana = diasDaSemana;
 	}
 
@@ -73,11 +73,11 @@ public class Agendamento {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	public Remedio[] getRemedios() {
-		return remedios;
+	public Remedio getRemedio() {
+		return remedio;
 	}
-	public void setRemedios(Remedio[] remedios) {
-		this.remedios = remedios;
+	public void setRemedio(Remedio remedio) {
+		this.remedio = remedio;
 	}
 	public DiaDaSemana[] getDiasDaSemana() {
 		return diasDaSemana;

@@ -21,7 +21,7 @@ public class DetalheTelaCadastroPaciente implements ActionListener{
 	private String[] nomesRemedios = new String[40];
 	
 	public void mostrarLista(ControleDados dados) {
-		nomesRemedios = new ControleRemedio(dados).getNome();
+		nomesRemedios = new ControleRemedio(dados).getInfo();
 		addAlergias = new JButton("Adicionar");
 		listaRemedios = new JList<String>(nomesRemedios);
 		frame = new JFrame();

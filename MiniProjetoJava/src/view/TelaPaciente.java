@@ -14,7 +14,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private Paciente[] pacientes = new Paciente[40];
 	private JFrame frame;
 	private JLabel label;
-	private String[] nomesPacientes = new String[40];
+	private String[] infosPacientes = new String[40];
 	private JButton cadastrarPaciente;
 	private JButton refreshPaciente;
 	private JList<String> listaPacientes;
@@ -23,12 +23,12 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	
 	public void mostrarDados(ControleDados dados) {
 		dadosTelaPaciente = dados;
-		nomesPacientes = new ControlePaciente(dados).getNome();
+		infosPacientes = new ControlePaciente(dados).getInfo();
 		frame = new JFrame("Pacientes");
 		label = new JLabel("Lista de pacientes");
 		cadastrarPaciente = new JButton("Cadastrar");
 		refreshPaciente = new JButton("Refresh");
-		listaPacientes = new JList<String>(nomesPacientes);
+		listaPacientes = new JList<String>(infosPacientes);
 		scroll = new JScrollPane(listaPacientes);
 		
 		frame.add(label);

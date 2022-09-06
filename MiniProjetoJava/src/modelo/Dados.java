@@ -46,7 +46,7 @@ public class Dados {
 			medicos[i] = new Medico(i, "Médico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
 			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
 			remedios[i] = new Remedio(i, "Genérico " + i, "Consulte a bula", "Controlado", "Oral");
-			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios, gerarDias(i));
+			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios[i], gerarDias(i));
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
 		}
 	}
@@ -66,10 +66,18 @@ public class Dados {
 	 * 
 	 * @return void
 	 * */
-	public void inserirOuEditarMedico(Medico medico, int posicao) {
-		this.medicos[posicao] = medico;
-		if(posicao == qtdeMedicos) {
+	public void inserirOuEditarMedico(Medico medico, int id) {
+		if(id == qtdeMedicos) {
 			qtdeMedicos++;
+			this.medicos[id] = medico;
+		}
+		else {
+			for(int i = 0; i < qtdeMedicos; i++) {
+				if(medicos[i].getId() == id) {
+					medicos[i] = medico;
+					break;
+				}
+			}
 		}
 	}
 	public int getQtdeMedicos() {
@@ -94,10 +102,18 @@ public class Dados {
 	 * 
 	 * @return void
 	 * */
-	public void inserirOuEditarPaciente(Paciente paciente, int posicao) {
-		this.pacientes[posicao] = paciente;
-		if(posicao == qtdePacientes) {
+	public void inserirOuEditarPaciente(Paciente paciente, int id) {
+		if(id == qtdePacientes) {
 			qtdePacientes++;
+			this.pacientes[id] = paciente;
+		}
+		else {
+			for(int i = 0; i < qtdePacientes; i++) {
+				if(pacientes[i].getId() == id) {
+					pacientes[i] = paciente;
+					break;
+				}
+			}
 		}
 	}
 	public int getQtdePacientes() {
@@ -122,10 +138,18 @@ public class Dados {
 	 * 
 	 * @return void
 	 * */
-	public void inserirOuEditarRemedio(Remedio remedio, int posicao) {
-		this.remedios[posicao] = remedio;
-		if(posicao == qtdeRemedios) {
+	public void inserirOuEditarRemedio(Remedio remedio, int id) {
+		if(id == qtdeRemedios) {
 			qtdeRemedios++;
+			this.remedios[id] = remedio;
+		}
+		else {
+			for(int i = 0; i < qtdeRemedios; i++) {
+				if(remedios[i].getId() == id) {
+					remedios[i] = remedio;
+					break;
+				}
+			}
 		}
 	}
 	public int getQtdeRemedios() {
@@ -149,10 +173,18 @@ public class Dados {
 	 * 
 	 * @return void
 	 * */
-	public void inserirOuEditarAgendamento(Agendamento agendamento, int posicao) {
-		this.agendamentos[posicao] = agendamento;
-		if(posicao == qtdeAgendamentos) {
+	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {
+		if(id == qtdeAgendamentos) {
 			qtdeAgendamentos++;
+			this.agendamentos[id] = agendamento;
+		}
+		else {
+			for(int i = 0; i < qtdeAgendamentos; i++) {
+				if(agendamentos[i].getId() == id) {
+					agendamentos[i] = agendamento;
+					break;
+				}
+			}
 		}
 	}
 	public int getQtdeAgendamentos() {

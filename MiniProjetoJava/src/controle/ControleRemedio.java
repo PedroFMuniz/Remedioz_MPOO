@@ -11,32 +11,52 @@ public class ControleRemedio {
 		this.qtdRemedios = dados.getQtdRemedios();
 	}
 	
-	public String[] getNome() {
-		String[] nomes = new String[qtdRemedios];
+	public String[] getInfo() {
+		String[] infos = new String[qtdRemedios];
 		for(int i = 0; i < qtdRemedios; i++) {
-			nomes[i] = remedios[i].getNome();
+			infos[i] = Integer.toString(remedios[i].getId()) + "-" + remedios[i].getNome();
 		}
-		return nomes;
+		return infos;
 	}
 	
 	public int getId(int i) {
 		return remedios[i].getId();
 	}
 	
-	public String getNome(int i) {
-		return remedios[i].getNome();
+	public String getNome(int id) {
+		for(int i = 0; i < qtdRemedios; i++) {
+			if(remedios[i].getId() == id) {
+				return remedios[i].getNome();
+			}
+		}
+		return null;
 	}
 	
-	public String getEfeito(int i) {
-		return remedios[i].getEfeito();
+	public String getEfeito(int id) {
+		for(int i = 0; i < qtdRemedios; i++) {
+			if(remedios[i].getId() == id) {
+				return remedios[i].getEfeito();
+			}
+		}
+		return null;
 	}
 	
-	public String getTipo(int i) {
-		return remedios[i].getTipo();
+	public String getTipo(int id) {
+		for(int i = 0; i < qtdRemedios; i++) {
+			if(remedios[i].getId() == id) {
+				return remedios[i].getTipo();
+			}
+		}
+		return null;
 	}
 	
-	public String getViaDeUso(int i) {
-		return remedios[i].getViaDeUso();
+	public String getViaDeUso(int id) {
+		for(int i = 0; i < qtdRemedios; i++) {
+			if(remedios[i].getId() == id) {
+				return remedios[i].getViaDeUso();
+			}
+		}
+		return null;
 	}
 	
 	public void setQtdRemedios(int qtd) {

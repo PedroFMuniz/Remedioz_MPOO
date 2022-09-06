@@ -27,14 +27,14 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private static int opcaoCrud;
 	private static int posicao;
 	private static ControleDados controleTelaEdicaoPaciente;
-	private String[] nomesRemedios = new String[40];
+	private String[] infosRemedios = new String[40];
 	private int[] indicesAlergias = new int[40];
 	
 	public void inserirEditarPaciente(int opcao, ControleDados dados, TelaPaciente tela, int indice) {
 		opcaoCrud = opcao;
 		posicao = indice;
 		controleTelaEdicaoPaciente = dados;
-		nomesRemedios = new ControleRemedio(dados).getNome();
+		infosRemedios = new ControleRemedio(dados).getInfo();
 		listaAlergias = new JList<String>();
 		
 		this.frame = new JFrame();
