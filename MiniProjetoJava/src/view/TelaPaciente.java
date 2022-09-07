@@ -15,6 +15,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JFrame frame;
 	private JLabel label;
 	private String[] infosPacientes = new String[40];
+	private String[] pesquisaPacientes = new String[40];
 	private JButton cadastrarPaciente;
 	private JButton refreshPaciente;
 	private JList<String> listaPacientes;
@@ -22,6 +23,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JPanel panel;
 	private JTextField txtPesquisa;
 	private JButton btnPesquisa;
+	private String id;
 	
 	private static ControleDados dadosTelaPaciente;
 	
@@ -70,19 +72,37 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		cadastrarPaciente.addActionListener(this);
 		refreshPaciente.addActionListener(this);
 		listaPacientes.addListSelectionListener(this);
+		btnPesquisa.addActionListener(this);
 	}
 	
 	//implementar esses dois
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarPaciente) {
-			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, this, 0);
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, 0);
+		}
+		if(fonte == refreshPaciente) {
+			listaPacientes.setListData(new ControlePaciente(dadosTelaPaciente).getInfo());			
+			listaPacientes.updateUI();
+		}
+		if(fonte == btnPesquisa) {
+			pesquisaPacientes = new ControlePaciente(dadosTelaPaciente).getInfo(txtPesquisa.getText());
+			if(txtPesquisa.getText().equals("")) {
+				listaPacientes.setListData(new ControlePaciente(dadosTelaPaciente).getInfo());			
+				listaPacientes.updateUI();
+			}
+			else {
+				listaPacientes.setListData(pesquisaPacientes);			
+				listaPacientes.updateUI();
+			}
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaPacientes) {
-			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, this, listaPacientes.getSelectedIndex());
+			String[] textoSeparado = listaPacientes.getSelectedValue().split("-");
+			System.out.println(textoSeparado[0]);
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, Integer.parseInt(textoSeparado[0]));
 		}
 	}
 }

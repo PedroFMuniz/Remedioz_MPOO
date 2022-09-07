@@ -43,8 +43,8 @@ public class Dados {
 	 * */
 	public void preencherDados() {
 		for(int i = 0; i < 10; i++) {
-			medicos[i] = new Medico(i, "Medico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
-			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
+			medicos[i] = new Medico(i, "Medico " + i, "0123456789" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
+			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456789" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
 			remedios[i] = new Remedio(i, "Generico " + i, "Consulte a bula", "Controlado", "Oral");
 			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios[i], gerarDias(i));
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;

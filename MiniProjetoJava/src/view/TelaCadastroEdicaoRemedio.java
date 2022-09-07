@@ -32,40 +32,41 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	private static int posicao;
 	private static ControleDados controleTelaEdicaoRemedio;
 	
-	public void inserirEditarRemedio(int opcao, ControleDados dados, TelaRemedio tela, int indice) {
+	public void inserirEditarRemedio(int opcao, ControleDados dados, int indice) {
 		opcaoCrud = opcao;
 		posicao = indice;
 		controleTelaEdicaoRemedio = dados;
 		frame = new JFrame("Cadastro e edicao de Remedios");
+		frame.setSize(400, 400);
 		if(opcao == 1) {
 			txtNome = new JTextField(30);
 			txtEfeito = new JTextField(30);
 			txtTipo = new JTextField(30);
 			txtViaUso = new JTextField(30);
-			this.frame.add(salvar);
+			frame.add(salvar);
 		}
 		if(opcao == 2) {
 			txtNome = new JTextField(dados.getRemedios()[indice].getNome(), 30);
 			txtEfeito = new JTextField(dados.getRemedios()[indice].getEfeito(), 30);
 			txtTipo = new JTextField(dados.getRemedios()[indice].getTipo(), 30);
 			txtViaUso = new JTextField(dados.getRemedios()[indice].getViaDeUso(), 30);
-			this.frame.add(salvar);
-			this.frame.add(excluir);
+			frame.add(salvar);
+			frame.add(excluir);
 		}
-		this.frame.setLayout(new FlowLayout());
+		frame.setLayout(new FlowLayout());
 		
-		this.frame.add(labelNome);
-		this.frame.add(txtNome);
-		this.frame.add(labelEfeito);
-		this.frame.add(txtEfeito);
-		this.frame.add(labelTipo);
-		this.frame.add(txtTipo);
-		this.frame.add(labelViaUso);
-		this.frame.add(txtViaUso);
+		frame.add(labelNome);
+		frame.add(txtNome);
+		frame.add(labelEfeito);
+		frame.add(txtEfeito);
+		frame.add(labelTipo);
+		frame.add(txtTipo);
+		frame.add(labelViaUso);
+		frame.add(txtViaUso);
 		
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);
-		this.frame.setVisible(true);
+		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();

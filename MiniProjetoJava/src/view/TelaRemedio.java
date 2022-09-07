@@ -10,7 +10,7 @@ import controle.*;
 
 public class TelaRemedio implements ActionListener, ListSelectionListener{
 	private String[] infosRemedios = new String[40];
-	
+	private String[] pesquisaRemedios = new String[40];
 	private JFrame frame;
 	private JLabel label;
 	private JList<String> listaRemedios;
@@ -68,6 +68,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		cadastrarRemedio.addActionListener(this);
 		refreshRemedio.addActionListener(this);
 		listaRemedios.addListSelectionListener(this);
+		btnPesquisa.addActionListener(this);
 		
 		frame.setSize(400, 400);
 		frame.setVisible(true);
@@ -75,25 +76,28 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarRemedio) {
-			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(1, dadosTelaRemedio, this, 0);
+			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(1, dadosTelaRemedio, 0);
 		}
 		else if(fonte == refreshRemedio) {
 			listaRemedios.setListData(new ControleRemedio(dadosTelaRemedio).getInfo());			
 			listaRemedios.updateUI();
 		}
+		else if(fonte == btnPesquisa) {
+			pesquisaRemedios = new ControleRemedio(dadosTelaRemedio).getInfo(txtPesquisa.getText());
+			if(txtPesquisa.getText().equals("")) {
+				listaRemedios.setListData(new ControleRemedio(dadosTelaRemedio).getInfo());			
+				listaRemedios.updateUI();
+			}
+			else {
+				listaRemedios.setListData(pesquisaRemedios);			
+				listaRemedios.updateUI();
+			}
+		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaRemedios) {
-			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(2, dadosTelaRemedio, this, listaRemedios.getSelectedIndex());
+			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(2, dadosTelaRemedio, listaRemedios.getSelectedIndex());
 		}
 	}
-	/*public void preencherRemedios(ControleDados dados) {
-		remedios = dados.getRemedios();
-		modeloTabela.setNumRows(0);
-		for(int i = 0; i < dados.getQtdRemedios(); i++) {
-			modeloTabela.addRow(new Object[] {remedios[i].getNome(), remedios[i].getEfeito(),
-					remedios[i].getTipo(), remedios[i].getViaDeUso()});
-		}
-	}*/
 }

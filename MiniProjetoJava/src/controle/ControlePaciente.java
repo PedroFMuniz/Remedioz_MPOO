@@ -1,9 +1,12 @@
 package controle;
 
+import java.util.Arrays;
+
 import modelo.*;
 
 public class ControlePaciente {
 	private Paciente[] pacientes;
+	private Remedio[] alergias;
 	private int qtdPacientes;
 
 	public ControlePaciente(ControleDados dados) {
@@ -33,8 +36,11 @@ public class ControlePaciente {
 		String[] nomesRemedios = new String[40];
 		for(int i = 0; i < qtdPacientes; i++) {
 			if(pacientes[i].getId() == id) {
+				alergias = pacientes[i].getAlergias();
 				for(int j = 0; j < pacientes[i].getAlergias().length; j++) {
-					nomesRemedios[j] = pacientes[i].getAlergias()[j].getNome();
+					if(pacientes[i].getAlergias()[j] != null) {
+						nomesRemedios[j] = pacientes[i].getAlergias()[j].getNome();
+					}
 				}
 			}
 		}

@@ -4,10 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
-
 import controle.*;
-import modelo.Paciente;
 
 public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelectionListener{
 	private JFrame frame;
@@ -39,10 +36,12 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JPanel panel2 = new JPanel(); 
 	private JScrollPane scroll1;
 	private JScrollPane scroll2;
+	private JButton addAgendamento = new JButton("Novo agendamento");
+	private JButton refreshAgendamento = new JButton("Refresh...");
 	
-	public void inserirEditarPaciente(int opcao, ControleDados dados, TelaPaciente tela, int indice) {
+	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
 		opcaoCrud = opcao;
-		posicao = indice;
+		posicao = id;
 		controleTelaEdicaoPaciente = dados;
 		infosRemedios = new ControleRemedio(dados).getInfo();
 		//pra deixar as listas em branco
@@ -53,9 +52,16 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		listaAgendamentos.setVisibleRowCount(15);
 		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
 		
+		scroll1 = new JScrollPane();
+		scroll1.setViewportView(listaAlergias);
+		listaAlergias.setLayoutOrientation(JList.VERTICAL);
 		
-		this.frame = new JFrame();
-		this.frame.setSize(800, 600);
+		scroll2 = new JScrollPane();
+		scroll2.setViewportView(listaAgendamentos);
+		listaAlergias.setLayoutOrientation(JList.VERTICAL);
+		
+		frame = new JFrame();
+		
 		if(opcao == 1) {
 			// sem dados
 			titulo = new JLabel("Cadastro de paciente");
@@ -63,19 +69,31 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			txtEmail = new JTextField(60);
 			txtDoencas = new JTextField(60);
 			txtTelefone = new JTextField(11);
-			this.frame.add(salvar);
-			salvar.setBounds(600, 430, 80, 30);
+			frame.add(salvar);
+			salvar.setBounds(500, 430, 80, 30);
+			frame.setSize(600, 600);
 		}
 		else if(opcao == 2) {
+			frame.setSize(800, 600);
 			titulo = new JLabel("Edicao de paciente");
-			txtNome = new JTextField(dados.getPacientes()[indice].getNome(), 60);
-			txtEmail = new JTextField(dados.getPacientes()[indice].getEmail(), 60);
-			txtTelefone = new JTextField(dados.getPacientes()[indice].getTelefone(), 11);
-			txtDoencas = new JTextField(dados.getPacientes()[indice].getHistoricoDoencas(), 60);
-			this.frame.add(salvar);
-			this.frame.add(excluir);
+			txtNome = new JTextField(dados.getPacientes()[id].getNome(), 60);
+			txtEmail = new JTextField(dados.getPacientes()[id].getEmail(), 60);
+			txtTelefone = new JTextField(dados.getPacientes()[id].getTelefone(), 11);
+			txtDoencas = new JTextField(dados.getPacientes()[id].getHistoricoDoencas(), 60);
+			frame.add(salvar);
+			frame.add(excluir);
+			panel2.add(setaEsq);
+			panel2.add(setaDir);
+			panel2.add(labelDatas);
+			panel2.add(scroll2);
+			panel2.add(addAgendamento);
+			frame.add(panel2);
+			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getAlergiasNome(id));
+			listaAlergias.updateUI();
+			panel2.setBounds(400, 40, 300, 360);
 			salvar.setBounds(600, 430, 80, 30);
 			excluir.setBounds(500, 430, 80, 30);
+			addAgendamento.setBounds(140, 320, 150, 30);
 		}
 		
 		txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -86,13 +104,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		setaDir.setFont(new Font("Arial", Font.BOLD, 16));
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		
-		scroll1 = new JScrollPane();
-		scroll1.setViewportView(listaAlergias);
-		listaAlergias.setLayoutOrientation(JList.VERTICAL);
 		
-		scroll2 = new JScrollPane();
-		scroll2.setViewportView(listaAgendamentos);
-		listaAlergias.setLayoutOrientation(JList.VERTICAL);
 		
 		panel1.setBackground(Color.MAGENTA);
 		panel1.setLayout(new FlowLayout());
@@ -111,32 +123,27 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		setaEsq.setBounds(10, 10, 50, 50);
 		setaDir.setBounds(240, 10, 50, 50);
 		labelDatas.setBounds(70, 35, 170, 15);
-		scroll2.setBounds(10, 70, 280, 270);
+		scroll2.setBounds(10, 70, 280, 230);
 		
 		panel1.setBounds(20, 200, 200, 200);
-		panel2.setBounds(400, 40, 300, 360);
 		
 		//listaAlergias.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
-		this.frame.setLayout(null);
+		frame.setLayout(null);
 		panel2.setLayout(null);
 		panel1.add(labelAlergias);
 		panel1.add(scroll1);
-		panel2.add(setaEsq);
-		panel2.add(setaDir);
-		panel2.add(labelDatas);
-		panel2.add(scroll2);
-		this.frame.add(titulo);
-		this.frame.add(labelNome);
-		this.frame.add(txtNome);
-		this.frame.add(labelEmail);
-		this.frame.add(txtEmail);
-		this.frame.add(labelTelefone);
-		this.frame.add(txtTelefone);
-		this.frame.add(labelDoencas);
-		this.frame.add(txtDoencas);
-		this.frame.add(panel1);
-		this.frame.add(panel2);
+		
+		frame.add(titulo);
+		frame.add(labelNome);
+		frame.add(txtNome);
+		frame.add(labelEmail);
+		frame.add(txtEmail);
+		frame.add(labelTelefone);
+		frame.add(txtTelefone);
+		frame.add(labelDoencas);
+		frame.add(txtDoencas);
+		frame.add(panel1);
 		panel1.add(addAlergia);
 		panel1.add(removeAlergia);
 		
@@ -145,12 +152,23 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		excluir.addActionListener(this);
 		addAlergia.addActionListener(this);
 		removeAlergia.addActionListener(this);
+		addAgendamento.addActionListener(this);
+		refreshAgendamento.addActionListener(this);
 		this.frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == addAlergia) {
 			new DetalheTelaCadastroPaciente().mostrarLista(controleTelaEdicaoPaciente);
+		}
+		if(fonte == removeAlergia) {
+			
+		}
+		if(fonte == addAgendamento) {
+			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, 0);
+		}
+		if(fonte == refreshAgendamento) {
+			
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {

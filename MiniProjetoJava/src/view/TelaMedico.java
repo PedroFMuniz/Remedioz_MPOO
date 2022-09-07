@@ -10,11 +10,11 @@ import controle.*;
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
 	private String[] infosMedicos = new String[40];
-	private String nomeMedico;
+	//private String nomeMedico;
 	//private Object[][] matrizTabela = new Object[40][2];
 	//private DefaultTableModel modeloTabela = new DefaultTableModel();
 	private JList<String> listaMedicos;
-	private String[] nomesMedicos = new String[40];
+	private String[] pesquisaMedicos = new String[40];
 	private JFrame frame;
 	private JLabel label;
 	private JButton cadastrarMedico;
@@ -79,32 +79,20 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarMedico) {
-			new TelaCadastroEdicaoMedico().inserirEditarMedico(1, dadosTelaMedico, this, 0);
-			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, this, 0);
+			new TelaCadastroEdicaoMedico().inserirEditarMedico(1, dadosTelaMedico, 0);
 		}
 		if(fonte == refreshMedico) {
 			listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
 			listaMedicos.updateUI();
 		}
 		if(fonte == btnPesquisa) {
-			int j = 0;
-			for(int i = 0; i < dadosTelaMedico.getQtdMedicos(); i++) {
-				nomeMedico = new ControleMedico(dadosTelaMedico).getNome(i);
-				System.out.println(nomeMedico);
-				if(nomeMedico == txtPesquisa.getText() + " ") {
-					nomesMedicos[j] = infosMedicos[i];
-					j++;
-				}
-				else {
-					nomesMedicos[j] = "";
-					j++;
-				}
-				listaMedicos.setListData(nomesMedicos);			
+			pesquisaMedicos = new ControleMedico(dadosTelaMedico).getInfo(txtPesquisa.getText());
+			if(txtPesquisa.getText().equals("")) {
+				listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
 				listaMedicos.updateUI();
 			}
-			if(txtPesquisa.getText().equals("")) {
-				System.out.println("lulw");
-				listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
+			else {
+				listaMedicos.setListData(pesquisaMedicos);			
 				listaMedicos.updateUI();
 			}
 		}
@@ -112,7 +100,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaMedicos) {
-			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, this, listaMedicos.getSelectedIndex());
+			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, listaMedicos.getSelectedIndex());
 			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, this, listaPacientes.getSelectedIndex());
 		}
 	}
