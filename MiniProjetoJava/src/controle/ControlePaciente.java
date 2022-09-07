@@ -19,6 +19,28 @@ public class ControlePaciente {
 		return infos;
 	}
 	
+	public String[] getInfo(String busca) {
+		String[] infos = new String[qtdPacientes];
+		for (int i = 0; i < qtdPacientes; i++) {
+			if(pacientes[i].getNome().contains(busca)) {
+				infos[i] = Integer.toString(pacientes[i].getId()) + "-" + pacientes[i].getNome();
+			}
+		}
+		return infos;
+	}
+	
+	public String[] getAlergiasNome(int id) {
+		String[] nomesRemedios = new String[40];
+		for(int i = 0; i < qtdPacientes; i++) {
+			if(pacientes[i].getId() == id) {
+				for(int j = 0; j < pacientes[i].getAlergias().length; j++) {
+					nomesRemedios[j] = pacientes[i].getAlergias()[j].getNome();
+				}
+			}
+		}
+		return nomesRemedios;
+	}
+	
 	public int getId(int i) {
 		return pacientes[i].getId();
 	}

@@ -27,22 +27,15 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	
 	public void mostrarDados(ControleDados dados) {
 		dadosTelaMedico = dados;
-		
 		infosMedicos = new ControleMedico(dados).getInfo();
-
-		//nomesMedicos = new ControleMedico(dados).getNome();
-	
 		frame = new JFrame("Medicos");
 		label = new JLabel("Lista de medicos");
-
-		//listaMedicos = new JList<String>(infosMedicos);
+		listaMedicos = new JList<String>(infosMedicos);
 		cadastrarMedico = new JButton("Cadastrar");
-
 		frame.setLayout(null);
 		txtPesquisa = new JTextField();
 		btnPesquisa = new JButton("Pesquisar...");
 		cadastrarMedico  = new JButton("Cadastrar");
-
 		refreshMedico = new JButton("Refresh");
 		listaMedicos = new JList<String>(infosMedicos);
 		label.setFont(new Font("Arial", Font.BOLD, 16));
