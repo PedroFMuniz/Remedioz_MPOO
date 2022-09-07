@@ -10,10 +10,11 @@ import controle.*;
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
 	private String[] infosMedicos = new String[40];
-	private String[] nomesMedicos = new String[40];
+	private String nomeMedico;
 	//private Object[][] matrizTabela = new Object[40][2];
 	//private DefaultTableModel modeloTabela = new DefaultTableModel();
 	private JList<String> listaMedicos;
+	private String[] nomesMedicos = new String[40];
 	private JFrame frame;
 	private JLabel label;
 	private JButton cadastrarMedico;
@@ -78,6 +79,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		
 		cadastrarMedico.addActionListener(this);
 		refreshMedico.addActionListener(this);
+		btnPesquisa.addActionListener(this);
 		listaMedicos.addListSelectionListener(this);
 	}
 
@@ -90,6 +92,28 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		if(fonte == refreshMedico) {
 			listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
 			listaMedicos.updateUI();
+		}
+		if(fonte == btnPesquisa) {
+			int j = 0;
+			for(int i = 0; i < dadosTelaMedico.getQtdMedicos(); i++) {
+				nomeMedico = new ControleMedico(dadosTelaMedico).getNome(i);
+				System.out.println(nomeMedico);
+				if(nomeMedico == txtPesquisa.getText() + " ") {
+					nomesMedicos[j] = infosMedicos[i];
+					j++;
+				}
+				else {
+					nomesMedicos[j] = "";
+					j++;
+				}
+				listaMedicos.setListData(nomesMedicos);			
+				listaMedicos.updateUI();
+			}
+			if(txtPesquisa.getText().equals("")) {
+				System.out.println("lulw");
+				listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
+				listaMedicos.updateUI();
+			}
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
