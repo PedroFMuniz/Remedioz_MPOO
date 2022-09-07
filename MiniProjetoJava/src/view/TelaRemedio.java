@@ -9,7 +9,7 @@ import javax.swing.event.*;
 import controle.*;
 
 public class TelaRemedio implements ActionListener, ListSelectionListener{
-	private String[] nomesRemedios = new String[40];
+	private String[] infosRemedios = new String[40];
 	
 	private JFrame frame;
 	private JLabel label;
@@ -27,22 +27,19 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		dadosTelaRemedio = dados;
 		
 		frame = new JFrame("Remedios");
-<<<<<<< HEAD
-		nomesRemedios = new ControleRemedio(dados).getInfo();
+		infosRemedios = new ControleRemedio(dados).getInfo();
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de remedios");
-=======
 		txtPesquisa = new JTextField("");
 		btnPesquisa = new JButton("Pesquisar...");
-		nomesRemedios = new ControleRemedio(dados).getNome();
+		infosRemedios = new ControleRemedio(dados).getInfo();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(null);
 		label = new JLabel("Lista de remédios");
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		cadastrarRemedio = new JButton("Cadastrar");
 		refreshRemedio = new JButton("Refresh");
-		listaRemedios = new JList<String>(nomesRemedios);
+		listaRemedios = new JList<String>(infosRemedios);
 		label.setFont(new Font("Arial", Font.BOLD, 16));
 		listaRemedios.setFont(new Font("Arial", Font.BOLD, 24));
 		scroll = new JScrollPane();
