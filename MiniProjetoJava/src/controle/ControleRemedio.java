@@ -19,6 +19,16 @@ public class ControleRemedio {
 		return infos;
 	}
 	
+	public String[] getInfo(String busca) {
+		String[] infos = new String[qtdRemedios];
+		for(int i = 0; i < qtdRemedios; i++) {
+			if(remedios[i].getNome().contains(busca)) {
+				infos[i] = Integer.toString(remedios[i].getId()) + "-" + remedios[i].getNome();
+			}
+		}
+		return infos;
+	}
+	
 	public int getId(int i) {
 		return remedios[i].getId();
 	}
