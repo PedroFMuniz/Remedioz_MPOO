@@ -33,6 +33,10 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		label = new JLabel("Lista de remedios");
 		txtPesquisa = new JTextField("");
 		btnPesquisa = new JButton("Pesquisar...");
+<<<<<<< HEAD
+=======
+		infosRemedios = new ControleRemedio(dados).getInfo();
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(null);
 		label = new JLabel("Lista de remédios");

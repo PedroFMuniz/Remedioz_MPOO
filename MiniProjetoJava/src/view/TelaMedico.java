@@ -10,6 +10,7 @@ import controle.*;
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
 	private String[] infosMedicos = new String[40];
+	private String[] nomesMedicos = new String[40];
 	//private Object[][] matrizTabela = new Object[40][2];
 	//private DefaultTableModel modeloTabela = new DefaultTableModel();
 	private JList<String> listaMedicos;
@@ -25,6 +26,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	
 	public void mostrarDados(ControleDados dados) {
 		dadosTelaMedico = dados;
+<<<<<<< HEAD
 		//tabelaMedicos = new JTable(modeloTabela);
 		//modeloTabela.addColumn("Nome");
 		//modeloTabela.addColumn("Especialidade");
@@ -32,15 +34,37 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		//tabelaMedicos.getColumnModel().getColumn(1).setPreferredWidth(150);
 		//preencherMedicos(dados);
 		//tabelaMedicos.setEnabled(false);
+=======
+		
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		infosMedicos = new ControleMedico(dados).getInfo();
+<<<<<<< HEAD
+=======
+
+		//nomesMedicos = new ControleMedico(dados).getNome();
+	
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		frame = new JFrame("Medicos");
 		label = new JLabel("Lista de medicos");
+<<<<<<< HEAD
 		listaMedicos = new JList<String>(infosMedicos);
+=======
+
+		//listaMedicos = new JList<String>(infosMedicos);
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		cadastrarMedico = new JButton("Cadastrar");
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		frame.setLayout(null);
 		txtPesquisa = new JTextField();
 		btnPesquisa = new JButton("Pesquisar...");
 		cadastrarMedico  = new JButton("Cadastrar");
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 		refreshMedico = new JButton("Refresh");
 		listaMedicos = new JList<String>(infosMedicos);
 		label.setFont(new Font("Arial", Font.BOLD, 16));
