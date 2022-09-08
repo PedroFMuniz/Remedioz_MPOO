@@ -24,7 +24,7 @@ public class DetalheTelaCadastroPaciente implements ActionListener{
 		nomesRemedios = new ControleRemedio(dados).getInfo();
 		addAlergias = new JButton("Adicionar");
 		listaRemedios = new JList<String>(nomesRemedios);
-		frame = new JFrame();
+		frame = new JFrame("sas");
 		frame.setLayout(new FlowLayout());
 		listaRemedios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		frame.setVisible(true);

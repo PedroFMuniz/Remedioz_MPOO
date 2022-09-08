@@ -13,9 +13,7 @@ public class TelaAgendamento implements ActionListener{
 	// sujeito a mudancas
 	private JComboBox<Object> remedios;
 	private JComboBox<Object> medicos;
-	private JList<String> diasSemana;
-	private String[] strDiasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira",
-			"Quinta-feira", "Sexta-feira", "Sabado", "Domingo"};
+	//private JList<String> diasSemana;
 	private JComboBox<Object> dataInicioDia;
 	private JComboBox dataInicioMes;
 	private JComboBox dataInicioAno;
@@ -24,8 +22,13 @@ public class TelaAgendamento implements ActionListener{
 	private JComboBox dataFimAno;
 	private JComboBox hora;
 	private JComboBox minuto;
+	private JList<String> listaHorarios;
+	private JButton btnHorario = new JButton("Novo horario");
 	private JButton salvar = new JButton("Salvar");
+	private JButton refreshHorario = new JButton("Refresh...");
 	private JFrame frame;
+	private JPanel panel = new JPanel();
+	private JScrollPane scroll;
 	private int idPaciente;
 	private int opc;
 	private ControleDados controleDadosAgendamento;
@@ -45,8 +48,16 @@ public class TelaAgendamento implements ActionListener{
 		dataFimDia = new JComboBox<Object>(preencheDias());
 		dataFimMes = new JComboBox<Object>(preencheMeses());
 		dataFimAno = new JComboBox<Object>(preencheAnos());
-		diasSemana = new JList<String>(strDiasSemana);
-		diasSemana.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+		//diasSemana = new JList<String>(strDiasSemana);
+		//diasSemana.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+		
+		listaHorarios = new JList<String>();
+		listaHorarios.setVisibleRowCount(5);
+		listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+		
+		scroll = new JScrollPane();
+		scroll.setViewportView(listaHorarios);
+		listaHorarios.setLayoutOrientation(JList.VERTICAL);
 		
 		frame.setLayout(new FlowLayout());
 		frame.add(remedios);
@@ -57,10 +68,16 @@ public class TelaAgendamento implements ActionListener{
 		frame.add(dataFimDia);
 		frame.add(dataFimMes);
 		frame.add(dataFimAno);
-		frame.add(diasSemana);
+		//frame.add(diasSemana);
+		panel.add(scroll);
+		frame.add(panel);
+		frame.add(btnHorario);
+		frame.add(refreshHorario);
 		frame.setVisible(true);
 		
 		salvar.addActionListener(this);
+		btnHorario.addActionListener(this);
+		refreshHorario.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -78,6 +95,20 @@ public class TelaAgendamento implements ActionListener{
 			}
 			catch(NumberFormatException exc1) {
 				
+			}
+		}
+		else if(fonte == btnHorario) {
+			new TelaHorario().mostrarHorarios(controleDadosAgendamento);
+		}
+		else if(fonte == refreshHorario) {
+			listaHorarios.setSelectedIndex(0);
+			for(int i = 0; i < 40; i++) {
+				if(listaHorarios.getSelectedValue() != "") {
+					listaHorarios.setSelectedIndex(i + 1);
+				}
+				else {
+					listaHorarios.setSelectedValue(e, false);
+				}
 			}
 		}
 	}
@@ -103,5 +134,8 @@ public class TelaAgendamento implements ActionListener{
 			ano++;
 		}
 		return arrayAnos; 
+	}
+	public String updateListaHorarios(String str) {
+		return str;
 	}
 }
