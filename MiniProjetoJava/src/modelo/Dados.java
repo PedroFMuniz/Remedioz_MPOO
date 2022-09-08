@@ -209,10 +209,4 @@ public class Dados {
 	public void setQtdeAgendamentos(int qtdeAgendamentos) {
 		this.qtdeAgendamentos = qtdeAgendamentos;
 	}
-	
-	public DiaDaSemana[] gerarDias(int i) {
-		DiaDaSemana dia = new DiaDaSemana("Segunda", horarios);
-		DiaDaSemana[] dias = {dia};
-		return dias;
-	}
 }
