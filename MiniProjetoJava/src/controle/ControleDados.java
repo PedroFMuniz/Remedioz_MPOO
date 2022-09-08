@@ -174,7 +174,6 @@ public class ControleDados {
 
 	public boolean inserirEditarAgendamento(String[] dadosAgendamento) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate ld = LocalDate.now();
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
@@ -190,13 +189,21 @@ public class ControleDados {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
 		for (int i = 0; i < agendamentos.length; i++) {
-			if (agendamentos[i].getId() == idAgendamento) {
+			if (agendamentos[i] != null && agendamentos[i].getId() == idAgendamento) {
 				dias = agendamentos[i].getDiasDaSemana();
-				for (int j = 0; j < dias.length; j++) {
-					if (dias[j].getDiaSemana() == dia) {
-						dias[j].getHorario()[dias[j].getHorario().length] = hora;
+				int cont = 0;
+				if(dias[transformarDiaSemana(dia)] != null) {
+					while(dias[transformarDiaSemana(dia)].getHorario()[cont] != null) {
+						cont++;
 					}
+					dias[transformarDiaSemana(dia)].getHorario()[cont] = hora;
+				}else {
+					LocalTime[] ld = new LocalTime[40];
+					ld[0] = hora;
+					DiaDaSemana d = new DiaDaSemana(dia, ld);
+					dias[transformarDiaSemana(dia)] = d;
 				}
+				
 				dados.getAgendamentos()[i].setDiasDaSemana(dias);
 				return true;
 			}
@@ -204,24 +211,26 @@ public class ControleDados {
 		return false;
 	}
 
-	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime horaAntiga,
-			LocalTime horaNova) {
+	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime horaAntiga, LocalTime horaNova) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		for (int i = 0; i < agendamentos.length; i++) {
-			if (agendamentos[i].getId() == idAgendamento) {
+			if (agendamentos[i] != null && agendamentos[i].getId() == idAgendamento) {
 				dias = agendamentos[i].getDiasDaSemana();
 				for (int j = 0; j < dias.length; j++) {
-					if (dias[j].getDiaSemana() == dia) {
+					if (dias[j] != null && dias[j].getDiaSemana() == dia) {
 						for (int k = 0; k < dias[j].getHorario().length; k++) {
-							if (dias[j].getHorario()[k] == horaAntiga) {
+							if (dias[j].getHorario()[k] != null && dias[j].getHorario()[k].equals(horaAntiga)) {
 								dias[j].getHorario()[k] = horaNova;
+								dados.getAgendamentos()[i].setDiasDaSemana(dias);
+								return true;
 							}
 						}
+					}else if(j == dias.length - 1) {
+						return false;
 					}
 				}
-				dados.getAgendamentos()[i].setDiasDaSemana(dias);
-				return true;
 			}
 		}
 		return false;
@@ -230,7 +239,7 @@ public class ControleDados {
 	public boolean inserirAlergiasPaciente(int idPaciente, Remedio remedio) {
 		Paciente paciente = new Paciente();
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
-			if (dados.getPacientes()[i].getId() == idPaciente) {
+			if (dados.getPacientes()[i] != null && dados.getPacientes()[i].getId() == idPaciente) {
 				paciente = dados.getPacientes()[i];
 			}
 		}
@@ -505,7 +514,7 @@ public class ControleDados {
 					indice++;
 				}
 			}
-			DiaDaSemana d = new DiaDaSemana(i, transformarDiaSemana(i), horarios);
+			DiaDaSemana d = new DiaDaSemana(transformarDiaSemana(i), horarios);
 			dias[i] = d;
 		}
 		return dias;

@@ -43,10 +43,20 @@ public class Dados {
 	 * */
 	public void preencherDados() {
 		for(int i = 0; i < 10; i++) {
-			medicos[i] = new Medico(i, "Médico " + i, "0123456" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
-			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
-			remedios[i] = new Remedio(i, "Genérico " + i, "Consulte a bula", "Controlado", "Oral");
-			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios[i], gerarDias(i));
+			Medico md = new Medico(i, "Dr. teste", "61999994444", "doutor@teste.com", "999999999999", "Diagnóstico");
+			Remedio rd1 = new Remedio(i, "Generico", "Placebo", "Comprimido", "Oral");
+			Remedio rd2 = new Remedio(i+1, "Generico2", "Placebo", "Comprimido", "Oral");
+			Remedio[] alergias = {rd1};
+			Paciente pa = new Paciente(i, "Teste", "61999994444", "paciente@teste.com", alergias, "Saudável");
+			LocalTime[] horarios = new LocalTime[40];
+			horarios[0] = LocalTime.of(18, 30);
+			DiaDaSemana d1 = new DiaDaSemana("Segunda", horarios);
+			DiaDaSemana[] dias = {d1, null, null, null, null, null, null};
+			Agendamento ag = new Agendamento(0, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), md, pa, rd2, dias);
+			medicos[i] = md;
+			pacientes[i] = pa;
+			remedios[i] = rd1;
+			agendamentos[i] = ag;
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
 		}
 	}
@@ -195,7 +205,7 @@ public class Dados {
 	}
 	
 	public DiaDaSemana[] gerarDias(int i) {
-		DiaDaSemana dia = new DiaDaSemana(i, "Segunda", horarios);
+		DiaDaSemana dia = new DiaDaSemana("Segunda", horarios);
 		DiaDaSemana[] dias = {dia};
 		return dias;
 	}

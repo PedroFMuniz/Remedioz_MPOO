@@ -36,6 +36,7 @@ public class ControlePaciente {
 				for(int j = 0; j < pacientes[i].getAlergias().length; j++) {
 					nomesRemedios[j] = pacientes[i].getAlergias()[j].getNome();
 				}
+				break;
 			}
 		}
 		return nomesRemedios;

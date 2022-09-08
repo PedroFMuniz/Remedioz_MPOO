@@ -10,9 +10,8 @@ import java.time.LocalTime;
  * @version 1.0
  */
 public class DiaDaSemana {
-	private int id;
 	private String diaSemana;
-	private LocalTime[] horario;
+	private LocalTime[] horario = new LocalTime[40];
 	
 	// Construtores
 	/**
@@ -24,20 +23,12 @@ public class DiaDaSemana {
 	/**
 	 * Construtor para a instanciacao de uma data com valores definidos.
 	 */
-	public DiaDaSemana(int id, String diaSemana, LocalTime[] horario) {
-		this.id = id;
+	public DiaDaSemana(String diaSemana, LocalTime[] horario) {
 		this.diaSemana = diaSemana;
 		this.horario = horario;
 	}
 	
 	// Gatters e Setters
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getDiaSemana() {
 		return diaSemana;
 	}
