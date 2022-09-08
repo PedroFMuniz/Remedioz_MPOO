@@ -32,7 +32,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	private static int posicao;
 	private static ControleDados controleTelaEdicaoMedico;
 	
-	public void inserirEditarMedico(int opcao, ControleDados dados, TelaMedico tela, int indice) {
+	public void inserirEditarMedico(int opcao, ControleDados dados, int indice) {
 		opcaoCrud = opcao;
 		posicao = indice;
 		controleTelaEdicaoMedico = dados;
@@ -45,7 +45,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtCrm = new JTextField(30);
 			txtEspecialidade = new JTextField(30);
 			txtTelefone = new JTextField(11);
-			this.frame.add(salvar);
+			frame.add(salvar);
 			//salvar.setBounds(245, 175, 115, 30);
 		}
 		else if(opcao == 2) {
@@ -54,8 +54,8 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtTelefone = new JTextField(dados.getMedicos()[indice].getTelefone(), 11);
 			txtCrm = new JTextField(dados.getMedicos()[indice].getCrm(), 30);
 			txtEspecialidade = new JTextField(dados.getMedicos()[indice].getEspecialidade(), 30);
-			this.frame.add(salvar);
-			this.frame.add(excluir);
+			frame.add(salvar);
+			frame.add(excluir);
 		}
 		
 		
@@ -66,22 +66,22 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 		txtCrm.setSize(60, 20);
 		txtEspecialidade.setSize(60, 20);
 		
-		this.frame.setLayout(new FlowLayout());
-		this.frame.add(labelNome);
-		this.frame.add(txtNome);
-		this.frame.add(labelEmail);
-		this.frame.add(txtEmail);
-		this.frame.add(labelTelefone);
-		this.frame.add(txtTelefone);
-		this.frame.add(labelCrm);
-		this.frame.add(txtCrm);
-		this.frame.add(labelEspecialidade);
-		this.frame.add(txtEspecialidade);
+		frame.setLayout(new FlowLayout());
+		frame.add(labelNome);
+		frame.add(txtNome);
+		frame.add(labelEmail);
+		frame.add(txtEmail);
+		frame.add(labelTelefone);
+		frame.add(txtTelefone);
+		frame.add(labelCrm);
+		frame.add(txtCrm);
+		frame.add(labelEspecialidade);
+		frame.add(txtEspecialidade);
 		
 		
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);
-		this.frame.setVisible(true);
+		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
@@ -104,63 +104,49 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 				resultado = controleTelaEdicaoMedico.inserirEditarMedico(novoCadastro);
 				System.out.println(resultado);
 				if(resultado) {
-					mensagemSucessoCadastro();
+					sucessoCadastrar();
 				}
 				else{
-					mensagemErroCadastro();
+					erroCadastrar();
 				}
 			
 			}
 			catch(NullPointerException exc1) {
-				mensagemErroCadastro();
+				erroCadastrar();
 			}
 			catch(NumberFormatException exc2) {
-				mensagemErroCadastro();
+				erroCadastrar();
 			}
 		}
 		if(fonte == excluir) {
 			boolean resultado = false;
 			resultado = controleTelaEdicaoMedico.removerMedico(posicao);
-			if (resultado) mensagemSucessoExclusao(); 
-			else mensagemErroExclusaoAluno(); 
+			if (resultado) sucessoExcluir(); 
+			else erroExcluir(); 
 		}
 	}
-	
-	// Mudar esses metodos aqui lembra disso cabeca oca
-	
-	public void mensagemSucessoExclusao() {
-		JOptionPane.showMessageDialog(null, "Os dados foram excluidos com sucesso!", null, 
+		
+	public void sucessoExcluir() {
+		JOptionPane.showMessageDialog(null, "O medico foi excluido com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 
-	public void mensagemSucessoCadastro() {
-		JOptionPane.showMessageDialog(null, "Os dados foram salvos com sucesso!", null, 
+	public void sucessoCadastrar() {
+		JOptionPane.showMessageDialog(null, "O medico foi salvo com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 
-	public void mensagemErroCadastro() {
-		JOptionPane.showMessageDialog(null,"ERRO AO SALVAR OS DADOS!\n "
-				+ "Pode ter ocorrido um dos dois erros a seguir:  \n"
-				+ "1. Nem todos os campos foram preenchidos \n"
-				+ "2. CPF, identidade, DDD e telefone não contém apenas números", null, 
-				JOptionPane.ERROR_MESSAGE);
-	}
-
-	public void mensagemErroExclusaoAluno() {
-		JOptionPane.showMessageDialog(null,"Ocorreu um erro ao excluir o dado.\n "
-				+ "Verifique se o aluno está matriculado\n"
-				+ "em alguma disciplina. Se sim, cancele\n "
-				+ "a matricula e tente novamente.", null, 
+	public void erroCadastrar() {
+		JOptionPane.showMessageDialog(null,"ERRO\n "
+				+ "Verifique os dados inseridos e tente novamente.  \n", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public void mensagemErroExclusaoProf() {
-		JOptionPane.showMessageDialog(null,"Ocorreu um erro ao excluir o dado.\n "
-				+ "Verifique se o professor está responsável\n"
-				+ "por alguma disciplina. Se sim, substitua\n "
-				+ "o professor e tente novamente.", null, 
+	public void erroExcluir() {
+		JOptionPane.showMessageDialog(null,"ERRO\n "
+				+ "Houve um erro desconhecido ao tetnar excluir o medico.  \n", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
 }

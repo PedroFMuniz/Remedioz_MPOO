@@ -43,6 +43,7 @@ public class Dados {
 	 * */
 	public void preencherDados() {
 		for(int i = 0; i < 10; i++) {
+<<<<<<< HEAD
 			Medico md = new Medico(i, "Dr. teste", "61999994444", "doutor@teste.com", "999999999999", "Diagnóstico");
 			Remedio rd1 = new Remedio(i, "Generico", "Placebo", "Comprimido", "Oral");
 			Remedio rd2 = new Remedio(i+1, "Generico2", "Placebo", "Comprimido", "Oral");
@@ -57,6 +58,12 @@ public class Dados {
 			pacientes[i] = pa;
 			remedios[i] = rd1;
 			agendamentos[i] = ag;
+=======
+			medicos[i] = new Medico(i, "Medico " + i, "0123456789" + i, "medico" + i + "@email.com", "98765" + i, "Generalista");
+			pacientes[i] = new Paciente(i, "Paciente " + i, "0123456789" + i, "paciente" + i + "@email.com", remedios, "Nenhum");
+			remedios[i] = new Remedio(i, "Generico " + i, "Consulte a bula", "Controlado", "Oral");
+			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 9, i+1), LocalDate.of(2022, 10, i+1), medicos[i], pacientes[i], remedios[i], gerarDias(i));
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
 		}
 	}

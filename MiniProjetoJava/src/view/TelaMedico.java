@@ -10,10 +10,11 @@ import controle.*;
 
 public class TelaMedico implements ActionListener, ListSelectionListener {
 	private String[] infosMedicos = new String[40];
-	private String[] nomesMedicos = new String[40];
+	//private String nomeMedico;
 	//private Object[][] matrizTabela = new Object[40][2];
 	//private DefaultTableModel modeloTabela = new DefaultTableModel();
 	private JList<String> listaMedicos;
+	private String[] pesquisaMedicos = new String[40];
 	private JFrame frame;
 	private JLabel label;
 	private JButton cadastrarMedico;
@@ -71,24 +72,35 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		
 		cadastrarMedico.addActionListener(this);
 		refreshMedico.addActionListener(this);
+		btnPesquisa.addActionListener(this);
 		listaMedicos.addListSelectionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarMedico) {
-			new TelaCadastroEdicaoMedico().inserirEditarMedico(1, dadosTelaMedico, this, 0);
-			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, this, 0);
+			new TelaCadastroEdicaoMedico().inserirEditarMedico(1, dadosTelaMedico, 0);
 		}
 		if(fonte == refreshMedico) {
 			listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
 			listaMedicos.updateUI();
 		}
+		if(fonte == btnPesquisa) {
+			pesquisaMedicos = new ControleMedico(dadosTelaMedico).getInfo(txtPesquisa.getText());
+			if(txtPesquisa.getText().equals("")) {
+				listaMedicos.setListData(new ControleMedico(dadosTelaMedico).getInfo());			
+				listaMedicos.updateUI();
+			}
+			else {
+				listaMedicos.setListData(pesquisaMedicos);			
+				listaMedicos.updateUI();
+			}
+		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaMedicos) {
-			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, this, listaMedicos.getSelectedIndex());
+			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, listaMedicos.getSelectedIndex());
 			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, this, listaPacientes.getSelectedIndex());
 		}
 	}
