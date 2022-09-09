@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalTime;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import controle.*;
@@ -14,8 +16,12 @@ public class TelaHorario implements ActionListener{
 	private JComboBox<String> diasSemana;
 	private JButton salvar;
 	private JFrame frame;
+	private ControleDados controleHorario;
+	private int idAg;
 	
-	public void mostrarHorarios(ControleDados dados) {
+	public void mostrarHorarios(ControleDados dados, int idAgendamento) {
+		controleHorario = dados;
+		idAg = idAgendamento;
 		frame = new JFrame("Horario");
 		hora = new JComboBox<Integer>(preencheCombo(1));
 		minuto = new JComboBox<Integer>(preencheCombo(2));
@@ -51,11 +57,11 @@ public class TelaHorario implements ActionListener{
 		Object fonte = e.getSource();
 		if(fonte == salvar) {
 			String diaS = diasSemana.getSelectedItem().toString();
-			String horaS = Integer.toString(hora.getSelectedIndex());
-			String minS = Integer.toString(minuto.getSelectedIndex());
-			System.out.println(horaS + " " + minS);
-			TelaAgendamento ag = new TelaAgendamento();
-			ag.updateListaHorarios(diaS + ", " + horaS + ":" + minS);
+			int horaS = hora.getSelectedIndex();
+			int minS = minuto.getSelectedIndex();
+			LocalTime lt = LocalTime.of(horaS, minS);
+			controleHorario.manipularHorarioAgendamento(idAg, diaS, lt);
+			frame.dispose();
 		}
 	}
 }

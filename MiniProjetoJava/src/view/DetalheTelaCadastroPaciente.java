@@ -36,6 +36,5 @@ public class DetalheTelaCadastroPaciente implements ActionListener{
 		if(fonte == addAlergias) {
 			
 		}
-		
 	}
 }

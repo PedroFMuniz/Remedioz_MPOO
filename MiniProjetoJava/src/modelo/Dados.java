@@ -51,8 +51,8 @@ public class Dados {
 			Paciente pa = new Paciente(i, "Teste", "61999994444", "paciente@teste.com", alergias, "Saudável");
 			LocalTime[] horarios = new LocalTime[40];
 			horarios[0] = LocalTime.of(18, 30);
-			DiaDaSemana d1 = new DiaDaSemana("Segunda", horarios);
-			DiaDaSemana[] dias = {d1, null, null, null, null, null, null};
+			DiaDaSemana d1 = new DiaDaSemana("Sexta", horarios);
+			DiaDaSemana[] dias = {null, null, null, null, d1, null, null};
 			Agendamento ag = new Agendamento(0, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), md, pa, rd2, dias);
 			medicos[i] = md;
 			pacientes[i] = pa;

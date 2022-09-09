@@ -28,7 +28,6 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		
 		frame = new JFrame("Remedios");
 		infosRemedios = new ControleRemedio(dados).getInfo();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new FlowLayout());
 		label = new JLabel("Lista de remedios");
 		txtPesquisa = new JTextField("");
@@ -50,8 +49,6 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		label.setBounds(135, 10, 150, 30);
 		txtPesquisa.setBounds(20, 50, 200, 20);
 		btnPesquisa.setBounds(240, 50, 130, 20);
-		//listaRemedios.setBounds(20, 80, 350, 200);
-		//scroll.setBounds(0, 0, 350, 200);
 		listaRemedios.setVisibleRowCount(5);
 		cadastrarRemedio.setBounds(20, 300, 150, 30);
 		panel.setBounds(20, 80, 350, 200);

@@ -2,8 +2,11 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+
 import javax.swing.*;
 import javax.swing.event.*;
+import java.util.Date;
 import controle.*;
 
 public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelectionListener{
@@ -14,7 +17,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JLabel labelEmail = new JLabel("Email: ");
 	private JLabel labelDoencas = new JLabel("Historico de doencas: ");
 	private JLabel labelAlergias = new JLabel("Alergias");
-	private JLabel labelDatas = new JLabel("placeholder data");
+	private JLabel labelDatas;
 	private JTextField txtNome;
 	private JTextField txtTelefone;
 	private JTextField txtEmail;
@@ -38,6 +41,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JScrollPane scroll2;
 	private JButton addAgendamento = new JButton("Novo agendamento");
 	private JButton refreshAgendamento = new JButton("Refresh...");
+	private LocalDate hoje = LocalDate.now();
 	
 	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
 		opcaoCrud = opcao;
@@ -48,9 +52,9 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		listaAlergias = new JList<String>();
 		listaAlergias.setVisibleRowCount(5);
 		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
-		listaAgendamentos = new JList<String>();
+		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, hoje));
 		listaAgendamentos.setVisibleRowCount(15);
-		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
+		
 		
 		scroll1 = new JScrollPane();
 		scroll1.setViewportView(listaAlergias);
@@ -60,8 +64,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		scroll2.setViewportView(listaAgendamentos);
 		listaAlergias.setLayoutOrientation(JList.VERTICAL);
 		
-		frame = new JFrame();
-		
+		frame = new JFrame("Paciente");
+		labelDatas = new JLabel(hoje.toString());
 		if(opcao == 1) {
 			// sem dados
 			titulo = new JLabel("Cadastro de paciente");
@@ -154,6 +158,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		removeAlergia.addActionListener(this);
 		addAgendamento.addActionListener(this);
 		refreshAgendamento.addActionListener(this);
+		listaAgendamentos.addListSelectionListener(this);
 		this.frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -165,14 +170,18 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			
 		}
 		if(fonte == addAgendamento) {
-			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, 0);
+			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, 0, posicao);
 		}
 		if(fonte == refreshAgendamento) {
 			
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
-		
+		Object fonte = e.getSource();
+		if(e.getValueIsAdjusting() && fonte == listaAgendamentos) {
+			String[] textoSeparado = listaAgendamentos.getSelectedValue().split("-");
+			new TelaAgendamento().inserirEditarAgendamento(2, controleTelaEdicaoPaciente, Integer.parseInt(textoSeparado[0]), posicao);
+		}
 	}
 	
 	public void setIndicesAlergias(int[] indicesAlergias) {

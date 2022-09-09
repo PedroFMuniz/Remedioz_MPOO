@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
@@ -29,13 +31,15 @@ public class TelaAgendamento implements ActionListener{
 	private JFrame frame;
 	private JPanel panel = new JPanel();
 	private JScrollPane scroll;
-	private int idPaciente;
+	private int idAgendamento;
 	private int opc;
+	private int idPac;
 	private ControleDados controleDadosAgendamento;
 	private String[] novoCadastro = new String[10];
 	
-	public void inserirEditarAgendamento(int opcao, ControleDados dados, int id) {
-		idPaciente = id;
+	public void inserirEditarAgendamento(int opcao, ControleDados dados, int idAg, int idPaciente) {
+		idAgendamento = idAg;
+		idPac = idPaciente;
 		opc = opcao;
 		controleDadosAgendamento = dados;
 		frame = new JFrame("Agendamentos");
@@ -48,17 +52,26 @@ public class TelaAgendamento implements ActionListener{
 		dataFimDia = new JComboBox<Object>(preencheDias());
 		dataFimMes = new JComboBox<Object>(preencheMeses());
 		dataFimAno = new JComboBox<Object>(preencheAnos());
-		//diasSemana = new JList<String>(strDiasSemana);
-		//diasSemana.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
-		
 		listaHorarios = new JList<String>();
-		listaHorarios.setVisibleRowCount(5);
-		listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+		if(opc == 1) {
+			//sem dados
+			
+			listaHorarios.setVisibleRowCount(5);
+			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+		}
+		else if(opc == 2) {
+			// preenchidos
+			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAg));
+			listaHorarios.updateUI();
+			listaHorarios.setVisibleRowCount(5);
+			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+		}
+		
+		
 		
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaHorarios);
 		listaHorarios.setLayoutOrientation(JList.VERTICAL);
-		
 		frame.setLayout(new FlowLayout());
 		frame.add(remedios);
 		frame.add(medicos);
@@ -87,7 +100,20 @@ public class TelaAgendamento implements ActionListener{
 				if(opc == 1) {
 					novoCadastro[0] = Integer.toString(controleDadosAgendamento.getQtdAgendamentos());
 				}
-				
+				else {
+					novoCadastro[0] = Integer.toString(idAgendamento);
+				}
+				LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), dataInicioMes.getSelectedIndex(), 
+										dataInicioDia.getSelectedIndex());
+				LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), dataFimMes.getSelectedIndex(), 
+						dataFimDia.getSelectedIndex());
+				novoCadastro[1] = ld1.toString();
+				novoCadastro[2] = ld2.toString();
+				String[] separa = medicos.getSelectedItem().toString().split("-");
+				novoCadastro[3] = separa[0];
+				novoCadastro[4] = String.valueOf(idPac);
+				separa = remedios.getSelectedItem().toString().split("-");
+				novoCadastro[5] = separa[0];
 				
 			}
 			catch(NullPointerException exc1) {
@@ -98,18 +124,11 @@ public class TelaAgendamento implements ActionListener{
 			}
 		}
 		else if(fonte == btnHorario) {
-			new TelaHorario().mostrarHorarios(controleDadosAgendamento);
+			new TelaHorario().mostrarHorarios(controleDadosAgendamento, idAgendamento);
 		}
 		else if(fonte == refreshHorario) {
-			listaHorarios.setSelectedIndex(0);
-			for(int i = 0; i < 40; i++) {
-				if(listaHorarios.getSelectedValue() != "") {
-					listaHorarios.setSelectedIndex(i + 1);
-				}
-				else {
-					listaHorarios.setSelectedValue(e, false);
-				}
-			}
+			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento));
+			listaHorarios.updateUI();
 		}
 	}
 	public Integer[] preencheDias() {

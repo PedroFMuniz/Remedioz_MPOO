@@ -88,60 +88,49 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 				resultado = controleTelaEdicaoRemedio.inserirEditarRemedio(novoCadastro);
 				System.out.println(resultado);
 				if(resultado) {
-					mensagemSucessoCadastro();
+					sucessoCadastrar();
 				}
 				else{
-					mensagemErroCadastro();
+					erroCadastrar();
 				}
 			
 			}
 			catch(NullPointerException exc1) {
-				mensagemErroCadastro();
+				erroCadastrar();
 			}
 			catch(NumberFormatException exc2) {
-				mensagemErroCadastro();
+				erroCadastrar();
 			}
 		}
 		if(fonte == excluir) {
 			boolean resultado = false;
 			resultado = controleTelaEdicaoRemedio.removerRemedio(posicao);
-			if (resultado) mensagemSucessoExclusao(); 
-			else mensagemErroExclusaoAluno(); 
+			if (resultado) sucessoExcluir(); 
+			else erroExcluir(); 
 		}
 	}
-	public void mensagemSucessoExclusao() {
-		JOptionPane.showMessageDialog(null, "Os dados foram excluidos com sucesso!", null, 
+	public void sucessoExcluir() {
+		JOptionPane.showMessageDialog(null, "O medico foi excluido com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 
-	public void mensagemSucessoCadastro() {
-		JOptionPane.showMessageDialog(null, "Os dados foram salvos com sucesso!", null, 
+	public void sucessoCadastrar() {
+		JOptionPane.showMessageDialog(null, "O medico foi salvo com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 
-	public void mensagemErroCadastro() {
-		JOptionPane.showMessageDialog(null,"ERRO AO SALVAR OS DADOS!\n "
-				+ "Pode ter ocorrido um dos dois erros a seguir:  \n"
-				+ "1. Nem todos os campos foram preenchidos \n"
-				+ "2. CPF, identidade, DDD e telefone não contém apenas números", null, 
-				JOptionPane.ERROR_MESSAGE);
-	}
-
-	public void mensagemErroExclusaoAluno() {
-		JOptionPane.showMessageDialog(null,"Ocorreu um erro ao excluir o dado.\n "
-				+ "Verifique se o aluno está matriculado\n"
-				+ "em alguma disciplina. Se sim, cancele\n "
-				+ "a matricula e tente novamente.", null, 
+	public void erroCadastrar() {
+		JOptionPane.showMessageDialog(null,"ERRO\n "
+				+ "Verifique os dados inseridos e tente novamente.  \n", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public void mensagemErroExclusaoProf() {
-		JOptionPane.showMessageDialog(null,"Ocorreu um erro ao excluir o dado.\n "
-				+ "Verifique se o professor está responsável\n"
-				+ "por alguma disciplina. Se sim, substitua\n "
-				+ "o professor e tente novamente.", null, 
+	public void erroExcluir() {
+		JOptionPane.showMessageDialog(null,"ERRO\n "
+				+ "Houve um erro desconhecido ao tetnar excluir o medico.  \n", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
+
 }
