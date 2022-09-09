@@ -117,7 +117,7 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
-		if (dadosPaciente[2].matches("\\d{10,11}") && dadosPaciente[3].matches("\\.+\\@\\w+\\.\\w(2,3)\\.\\w(2,3)")) {
+		if (verificarTelEmail(dadosPaciente[2],dadosPaciente[3])) {
 			Remedio[] alergias = separarVetorRemedio(dadosPaciente[4]);
 			Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 					dadosPaciente[3], alergias, dadosPaciente[5]);
@@ -127,7 +127,7 @@ public class ControleDados {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Metodo responsavel por inserir ou editar um medico. Verifica se os dados de
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
@@ -137,7 +137,7 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarMedico(String[] dadosMedico) {
-		if (dadosMedico[2].matches("\\d{10,11}") && dadosMedico[3].matches("\\.+\\@\\w+\\.\\w(2,3)\\.\\w(2,3)")) {
+		if (verificarTelEmail(dadosMedico[2], dadosMedico[3])) {
 			Medico m = new Medico(Integer.parseInt(dadosMedico[0]), dadosMedico[1], dadosMedico[2], dadosMedico[3],
 					dadosMedico[4], dadosMedico[5]);
 			dados.inserirOuEditarMedico(m, m.getId());
@@ -192,18 +192,18 @@ public class ControleDados {
 			if (agendamentos[i] != null && agendamentos[i].getId() == idAgendamento) {
 				dias = agendamentos[i].getDiasDaSemana();
 				int cont = 0;
-				if(dias[transformarDiaSemana(dia)] != null) {
-					while(dias[transformarDiaSemana(dia)].getHorario()[cont] != null) {
+				if (dias[transformarDiaSemana(dia)] != null) {
+					while (dias[transformarDiaSemana(dia)].getHorario()[cont] != null) {
 						cont++;
 					}
 					dias[transformarDiaSemana(dia)].getHorario()[cont] = hora;
-				}else {
+				} else {
 					LocalTime[] ld = new LocalTime[40];
 					ld[0] = hora;
 					DiaDaSemana d = new DiaDaSemana(dia, ld);
 					dias[transformarDiaSemana(dia)] = d;
 				}
-				
+
 				dados.getAgendamentos()[i].setDiasDaSemana(dias);
 				return true;
 			}
@@ -211,7 +211,8 @@ public class ControleDados {
 		return false;
 	}
 
-	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime horaAntiga, LocalTime horaNova) {
+	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime horaAntiga,
+			LocalTime horaNova) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -227,7 +228,7 @@ public class ControleDados {
 								return true;
 							}
 						}
-					}else if(j == dias.length - 1) {
+					} else if (j == dias.length - 1) {
 						return false;
 					}
 				}
@@ -237,14 +238,19 @@ public class ControleDados {
 	}
 
 	public boolean inserirAlergiasPaciente(int idPaciente, Remedio remedio) {
-		Paciente paciente = new Paciente();
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
 			if (dados.getPacientes()[i] != null && dados.getPacientes()[i].getId() == idPaciente) {
-				paciente = dados.getPacientes()[i];
+				int cont = 0;
+				while (dados.getPacientes()[i].getAlergias()[cont] != null) {
+					cont++;
+				}
+				dados.getPacientes()[i].getAlergias()[cont] = remedio;
+				return true;
+			} else {
+				return false;
 			}
 		}
-		paciente.getAlergias()[paciente.getAlergias().length] = remedio;
-		return true;
+		return false;
 	}
 
 	// Métodos de exlusão
@@ -259,25 +265,19 @@ public class ControleDados {
 	 * @param int informando a posicao do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
-	public boolean removerAgendamento(int posicao) {
+	public boolean removerAgendamento(int id) {
 		int qtdAgendamentos = dados.getQtdeAgendamentos();
-		if (posicao == qtdAgendamentos - 1) {
-			dados.getAgendamentos()[posicao] = null;
-			dados.setQtdeAgendamentos(qtdAgendamentos - 1);
-			return true;
-		} else {
-			int cont = 0;
-			while (dados.getAgendamentos()[cont].getId() != dados.getAgendamentos()[posicao].getId()) {
-				cont++;
-			}
-			for (int i = cont; i < qtdAgendamentos; i++) {
-				dados.getAgendamentos()[i] = null;
-				dados.getAgendamentos()[i] = dados.getAgendamentos()[i + 1];
-			}
-			dados.getAgendamentos()[qtdAgendamentos] = null;
-			dados.setQtdeAgendamentos(qtdAgendamentos - 1);
-			return true;
+		int cont = 0;
+		while (dados.getAgendamentos()[cont].getId() != id) {
+			cont++;
 		}
+		for (int i = cont; i < qtdAgendamentos; i++) {
+			dados.getAgendamentos()[i] = null;
+			dados.getAgendamentos()[i] = dados.getAgendamentos()[i + 1];
+		}
+		dados.getAgendamentos()[qtdAgendamentos] = null;
+		dados.setQtdeAgendamentos(qtdAgendamentos - 1);
+		return true;
 	}
 
 	/**
@@ -293,28 +293,22 @@ public class ControleDados {
 	 * @param int informando a posicao do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
-	public boolean removerPaciente(int posicao) {
+	public boolean removerPaciente(int id) {
 		int qtdPacientes = dados.getQtdePacientes();
-		if (verificarRelacao(posicao, 1)) {
+		if (verificarRelacao(id, 1)) {
 			return false;
 		} else {
-			if (posicao == qtdPacientes - 1) {
-				dados.getPacientes()[posicao] = null;
-				dados.setQtdePacientes(qtdPacientes - 1);
-				return true;
-			} else {
-				int cont = 0;
-				while (dados.getPacientes()[cont].getId() != dados.getPacientes()[posicao].getId()) {
-					cont++;
-				}
-				for (int i = cont; i < qtdPacientes; i++) {
-					dados.getPacientes()[i] = null;
-					dados.getPacientes()[i] = dados.getPacientes()[i + 1];
-				}
-				dados.getPacientes()[qtdPacientes] = null;
-				dados.setQtdePacientes(qtdPacientes - 1);
-				return true;
+			int cont = 0;
+			while (dados.getPacientes()[cont].getId() != id) {
+				cont++;
 			}
+			for (int i = cont; i < qtdPacientes; i++) {
+				dados.getPacientes()[i] = null;
+				dados.getPacientes()[i] = dados.getPacientes()[i + 1];
+			}
+			dados.getPacientes()[qtdPacientes] = null;
+			dados.setQtdePacientes(qtdPacientes - 1);
+			return true;
 		}
 	}
 
@@ -332,28 +326,22 @@ public class ControleDados {
 	 * @param int informando a posicao do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
-	public boolean removerRemedio(int posicao) {
+	public boolean removerRemedio(int id) {
 		int qtdRemedios = dados.getQtdeRemedios();
-		if (verificarRelacao(posicao, 1) && verificarRelacao(posicao, 2)) {
+		if (verificarRelacao(id, 1) && verificarRelacao(id, 2)) {
 			return false;
 		} else {
-			if (posicao == qtdRemedios - 1) {
-				dados.getRemedios()[posicao] = null;
-				dados.setQtdeRemedios(qtdRemedios - 1);
-				return true;
-			} else {
-				int cont = 0;
-				while (dados.getRemedios()[cont].getId() != dados.getRemedios()[posicao].getId()) {
-					cont++;
-				}
-				for (int i = cont; i < qtdRemedios; i++) {
-					dados.getRemedios()[i] = null;
-					dados.getRemedios()[i] = dados.getRemedios()[i + 1];
-				}
-				dados.getRemedios()[qtdRemedios] = null;
-				dados.setQtdeRemedios(qtdRemedios - 1);
-				return true;
+			int cont = 0;
+			while (dados.getRemedios()[cont].getId() != id) {
+				cont++;
 			}
+			for (int i = cont; i < qtdRemedios; i++) {
+				dados.getRemedios()[i] = null;
+				dados.getRemedios()[i] = dados.getRemedios()[i + 1];
+			}
+			dados.getRemedios()[qtdRemedios] = null;
+			dados.setQtdeRemedios(qtdRemedios - 1);
+			return true;
 		}
 	}
 
@@ -370,30 +358,25 @@ public class ControleDados {
 	 * @param int informando a posicao do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
-	public boolean removerMedico(int posicao) {
+	public boolean removerMedico(int id) {
 		int qtdMedicos = dados.getQtdeMedicos();
-		if (verificarRelacao(posicao, 3)) {
+		if (verificarRelacao(id, 3)) {
 			return false;
 		} else {
-			if (posicao == qtdMedicos - 1) {
-				dados.getMedicos()[posicao] = null;
-				dados.setQtdeMedicos(qtdMedicos - 1);
-				return true;
-			} else {
-				int cont = 0;
-				while (dados.getMedicos()[cont].getId() != dados.getMedicos()[posicao].getId()) {
-					cont++;
-				}
-				for (int i = cont; i < qtdMedicos; i++) {
-					dados.getMedicos()[i] = null;
-					dados.getMedicos()[i] = dados.getMedicos()[i + 1];
-				}
-				dados.getMedicos()[qtdMedicos] = null;
-				dados.setQtdeMedicos(qtdMedicos - 1);
-				return true;
+			int cont = 0;
+			while (dados.getMedicos()[cont].getId() != id) {
+				cont++;
 			}
+			for (int i = cont; i < qtdMedicos; i++) {
+				dados.getMedicos()[i] = null;
+				dados.getMedicos()[i] = dados.getMedicos()[i + 1];
+			}
+			dados.getMedicos()[qtdMedicos] = null;
+			dados.setQtdeMedicos(qtdMedicos - 1);
+			return true;
 		}
 	}
+
 
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
@@ -453,13 +436,13 @@ public class ControleDados {
 	 *            remedios
 	 * @return boolean informando se possui ou nao relacoes
 	 */
-	public boolean verificarRelacao(int posicao, int op) {
+	public boolean verificarRelacao(int id, int op) {
 		boolean verificador = false;
 		switch (op) {
 		case 1: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
 			for (int i = 0; i < qtdAgendamentos; i++) {
-				if (dados.getAgendamentos()[i].getPaciente() == dados.getPacientes()[posicao]) {
+				if (dados.getAgendamentos()[i].getPaciente().getId() == id) {
 					verificador = true;
 				}
 			}
@@ -468,7 +451,7 @@ public class ControleDados {
 			int qtdPacientes = dados.getQtdePacientes();
 			for (int i = 0; i < qtdPacientes; i++) {
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
-					if (dados.getPacientes()[i].getAlergias()[j] == dados.getRemedios()[posicao]) {
+					if (dados.getPacientes()[i].getAlergias()[j] != null && dados.getPacientes()[i].getAlergias()[j].getId() == id) {
 						verificador = true;
 					}
 				}
@@ -477,7 +460,7 @@ public class ControleDados {
 		case 3: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
 			for (int i = 0; i < qtdAgendamentos; i++) {
-				if (dados.getAgendamentos()[i].getMedico() == dados.getMedicos()[posicao]) {
+				if (dados.getAgendamentos()[i].getMedico().getId() == id) {
 					verificador = true;
 				}
 			}
@@ -571,6 +554,10 @@ public class ControleDados {
 			}
 		}
 		return null;
+	}
+	
+	public boolean verificarTelEmail(String tel, String email) {
+		return (tel.matches("\\d{10,11}") && email.matches("^(.+)@(.+)$"));
 	}
 
 }

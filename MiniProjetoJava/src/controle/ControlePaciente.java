@@ -17,7 +17,7 @@ public class ControlePaciente {
 	public String[] getInfo() {
 		String[] infos = new String[qtdPacientes];
 		for (int i = 0; i < qtdPacientes; i++) {
-			infos[i] = Integer.toString(pacientes[i].getId()) + "-" + pacientes[i].getNome();
+			infos[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome();
 		}
 		return infos;
 	}
@@ -26,20 +26,20 @@ public class ControlePaciente {
 		String[] infos = new String[qtdPacientes];
 		for (int i = 0; i < qtdPacientes; i++) {
 			if(pacientes[i].getNome().contains(busca)) {
-				infos[i] = Integer.toString(pacientes[i].getId()) + "-" + pacientes[i].getNome();
+				infos[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome();
 			}
 		}
 		return infos;
 	}
 	
-	public String[] getAlergiasNome(int id) {
+	public String[] getInfoAlergias(int id) {
 		String[] nomesRemedios = new String[40];
 		for(int i = 0; i < qtdPacientes; i++) {
 			if(pacientes[i].getId() == id) {
 				alergias = pacientes[i].getAlergias();
 				for(int j = 0; j < pacientes[i].getAlergias().length; j++) {
 					if(pacientes[i].getAlergias()[j] != null) {
-						nomesRemedios[j] = pacientes[i].getAlergias()[j].getNome();
+						nomesRemedios[j] = Integer.toString(pacientes[i].getAlergias()[j].getId()) + " - " + pacientes[i].getAlergias()[j].getNome();
 					}
 				}
 				break;

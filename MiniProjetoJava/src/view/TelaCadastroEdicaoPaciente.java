@@ -92,7 +92,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			panel2.add(scroll2);
 			panel2.add(addAgendamento);
 			frame.add(panel2);
-			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getAlergiasNome(id));
+			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(id));
 			listaAlergias.updateUI();
 			panel2.setBounds(400, 40, 300, 360);
 			salvar.setBounds(600, 430, 80, 30);

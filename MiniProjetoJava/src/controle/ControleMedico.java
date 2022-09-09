@@ -14,7 +14,7 @@ public class ControleMedico {
 	public String[] getInfo() {
 		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
-			infos[i] = Integer.toString(medicos[i].getId()) + "-" + medicos[i].getNome() + "-" + medicos[i].getEspecialidade(); 
+			infos[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome() + " - " + medicos[i].getEspecialidade(); 
 		}
 		return infos;
 	}
@@ -23,7 +23,7 @@ public class ControleMedico {
 		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
 			if(medicos[i].getNome().contains(busca)) {
-				infos[i] = Integer.toString(medicos[i].getId()) + "-" + medicos[i].getNome() + "-" + medicos[i].getEspecialidade();
+				infos[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome() + " - " + medicos[i].getEspecialidade();
 			}
 		}
 		return infos;
