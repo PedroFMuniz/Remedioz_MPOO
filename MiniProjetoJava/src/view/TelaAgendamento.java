@@ -36,12 +36,20 @@ public class TelaAgendamento implements ActionListener{
 	private int idPac;
 	private ControleDados controleDadosAgendamento;
 	private String[] novoCadastro = new String[10];
+	private Agendamento agendamentoTemp;
+	private Medico medicoTemp = new Medico();
+	private Remedio remedioTemp = new Remedio();
+	private DiaDaSemana[] diasSemTemp = new DiaDaSemana[7];
+	private LocalDate data = LocalDate.now();
 	
 	public void inserirEditarAgendamento(int opcao, ControleDados dados, int idAg, int idPaciente) {
 		idAgendamento = idAg;
 		idPac = idPaciente;
 		opc = opcao;
 		controleDadosAgendamento = dados;
+		
+		// Agendamento temporario pra poder preencher
+		agendamentoTemp = new Agendamento(idAgendamento, data, data, medicoTemp, controleDadosAgendamento.getPacientes()[idPac], remedioTemp, diasSemTemp);
 		frame = new JFrame("Agendamentos");
 		frame.setSize(600,600);
 		remedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());

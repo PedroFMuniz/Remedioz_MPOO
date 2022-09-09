@@ -170,7 +170,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			
 		}
 		if(fonte == addAgendamento) {
-			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, 0, posicao);
+			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getQtdAgendamentos(), posicao);
 		}
 		if(fonte == refreshAgendamento) {
 			
