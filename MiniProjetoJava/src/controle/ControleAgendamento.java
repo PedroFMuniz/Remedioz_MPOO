@@ -18,7 +18,7 @@ public class ControleAgendamento {
 	public String[] getInfo() {
 		String[] infos = new String[40];
 		for (int i = 0; i < qtdAgendamentos; i++) {
-			infos[i] = Integer.toString(agendamentos[i].getId()) + "-" + agendamentos[i].getRemedio().getNome();
+			infos[i] = Integer.toString(agendamentos[i].getId()) + " - " + agendamentos[i].getRemedio().getNome();
 		}
 		return infos;
 	}
@@ -37,8 +37,8 @@ public class ControleAgendamento {
 							&& agendamentos[i].getDiasDaSemana()[j].getDiaSemana() == diaSemana) {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
-								infos[indice] = Integer.toString(agendamentos[i].getId()) + "-"
-										+ agendamentos[i].getRemedio().getNome() + "-"
+								infos[indice] = Integer.toString(agendamentos[i].getId()) + " - "
+										+ agendamentos[i].getRemedio().getNome() + " - "
 										+ agendamentos[i].getDiasDaSemana()[j].getHorario()[k].format(formatterHora);
 								indice++;
 							}
@@ -60,8 +60,8 @@ public class ControleAgendamento {
 					if (agendamentos[i].getDiasDaSemana()[j] != null) {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
-								infos[indice] = Integer.toString(agendamentos[i].getId()) + "-"
-										+ agendamentos[i].getDiasDaSemana()[j].getDiaSemana() + "-"
+								infos[indice] = 
+										agendamentos[i].getDiasDaSemana()[j].getDiaSemana() + " - "
 										+ agendamentos[i].getDiasDaSemana()[j].getHorario()[k].format(formatterHora);
 								indice++;
 							}

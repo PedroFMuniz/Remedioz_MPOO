@@ -47,7 +47,8 @@ public class Dados {
 			Medico md = new Medico(i, "Dr. teste", "61999994444", "doutor@teste.com", "999999999999", "Diagnóstico");
 			Remedio rd1 = new Remedio(i, "Generico", "Placebo", "Comprimido", "Oral");
 			Remedio rd2 = new Remedio(i+1, "Generico2", "Placebo", "Comprimido", "Oral");
-			Remedio[] alergias = {rd1};
+			Remedio[] alergias = new Remedio[40];
+			alergias[0] = rd2;
 			Paciente pa = new Paciente(i, "Teste", "61999994444", "paciente@teste.com", alergias, "Saudável");
 			LocalTime[] horarios = new LocalTime[40];
 			horarios[0] = LocalTime.of(18, 30);

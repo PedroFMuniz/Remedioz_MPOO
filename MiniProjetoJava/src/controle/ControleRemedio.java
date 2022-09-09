@@ -14,7 +14,7 @@ public class ControleRemedio {
 	public String[] getInfo() {
 		String[] infos = new String[qtdRemedios];
 		for(int i = 0; i < qtdRemedios; i++) {
-			infos[i] = Integer.toString(remedios[i].getId()) + "-" + remedios[i].getNome();
+			infos[i] = Integer.toString(remedios[i].getId()) + " - " + remedios[i].getNome();
 		}
 		return infos;
 	}
@@ -23,7 +23,7 @@ public class ControleRemedio {
 		String[] infos = new String[qtdRemedios];
 		for(int i = 0; i < qtdRemedios; i++) {
 			if(remedios[i].getNome().contains(busca)) {
-				infos[i] = Integer.toString(remedios[i].getId()) + "-" + remedios[i].getNome();
+				infos[i] = Integer.toString(remedios[i].getId()) + " - " + remedios[i].getNome();
 			}
 		}
 		return infos;
