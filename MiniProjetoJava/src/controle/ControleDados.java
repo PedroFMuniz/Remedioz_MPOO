@@ -117,8 +117,8 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
-		if (verificarTelEmail(dadosPaciente[2],dadosPaciente[3])) {
-			Remedio[] alergias = separarVetorRemedio(dadosPaciente[4]);
+		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
+			Remedio[] alergias = separarVetorAlergia(Integer.parseInt(dadosPaciente[0]), dadosPaciente[4]);
 			Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 					dadosPaciente[3], alergias, dadosPaciente[5]);
 			dados.inserirOuEditarPaciente(p, p.getId());
@@ -127,7 +127,7 @@ public class ControleDados {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Metodo responsavel por inserir ou editar um medico. Verifica se os dados de
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
@@ -239,7 +239,13 @@ public class ControleDados {
 
 	public boolean inserirAlergiasPaciente(int idPaciente, Remedio remedio) {
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
-			if (dados.getPacientes()[i] != null && dados.getPacientes()[i].getId() == idPaciente) {
+			if (dados.getPacientes()[i].getId() == idPaciente) {
+				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
+					if (dados.getPacientes()[i].getAlergias()[j] != null
+							&& dados.getPacientes()[i].getAlergias()[j] == remedio) {
+						return false;
+					}
+				}
 				int cont = 0;
 				while (dados.getPacientes()[i].getAlergias()[cont] != null) {
 					cont++;
@@ -377,7 +383,6 @@ public class ControleDados {
 		}
 	}
 
-
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
@@ -451,7 +456,8 @@ public class ControleDados {
 			int qtdPacientes = dados.getQtdePacientes();
 			for (int i = 0; i < qtdPacientes; i++) {
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
-					if (dados.getPacientes()[i].getAlergias()[j] != null && dados.getPacientes()[i].getAlergias()[j].getId() == id) {
+					if (dados.getPacientes()[i].getAlergias()[j] != null
+							&& dados.getPacientes()[i].getAlergias()[j].getId() == id) {
 						verificador = true;
 					}
 				}
@@ -511,13 +517,26 @@ public class ControleDados {
 	 * @param String contendo os ids dos remedios
 	 * @return Array de remedios a partir dos dados fornecidos
 	 */
-	public Remedio[] separarVetorRemedio(String vetor) {
-		String[] vetorSeparado = vetor.split("_");
-		Remedio[] remedios = new Remedio[vetorSeparado.length];
-		Remedio[] dadosRemedios = dados.getRemedios();
-		for (int i = 0; i < vetorSeparado.length; i++) {
-			int indiceRemedio = Integer.parseInt(vetorSeparado[i]);
-			remedios[i] = dadosRemedios[indiceRemedio];
+	public Remedio[] separarVetorAlergia(int idPaciente, String vetor) {
+		Remedio[] remedios = new Remedio[40];
+		if (vetor != null) {
+			String[] vetorSeparado = vetor.split("_");
+			for (int i = 0; i < dados.getQtdePacientes(); i++) {
+				if (dados.getPacientes()[i].getId() == idPaciente) {
+					remedios = dados.getPacientes()[i].getAlergias();
+					int cont = 0;
+					while (dados.getPacientes()[i].getAlergias()[cont] != null) {
+						cont++;
+					}
+					for (int j = 0; j < vetorSeparado.length; j++) {
+						for (int k = 0; k < dados.getQtdeRemedios(); k++) {
+							if (dados.getRemedios()[k].getId() == Integer.parseInt(vetorSeparado[j])) {
+								dados.getPacientes()[i].getAlergias()[cont] = dados.getRemedios()[k];
+							}
+						}
+					}
+				}
+			}
 		}
 		return remedios;
 	}
@@ -555,7 +574,7 @@ public class ControleDados {
 		}
 		return null;
 	}
-	
+
 	public boolean verificarTelEmail(String tel, String email) {
 		return (tel.matches("\\d{10,11}") && email.matches("^(.+)@(.+)$"));
 	}
