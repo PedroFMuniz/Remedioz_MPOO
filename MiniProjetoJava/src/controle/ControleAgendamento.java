@@ -156,7 +156,7 @@ public class ControleAgendamento {
 		LocalDate ld = LocalDate.parse(dia, formatter);
 		if (op == 1) {
 			ld = ld.plusDays(1);
-		} else {
+		} else if(op == 2){
 			ld = ld.minusDays(1);
 		}
 		dia = ld.format(formatter);

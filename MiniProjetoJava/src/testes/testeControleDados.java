@@ -57,6 +57,6 @@ class testeControleDados {
 		dados.inserirEditarRemedio(dadosRemedio);
 	
 		
-		assertTrue(dados.inserirAlergiasPaciente(0, dados.getRemedios()[11]));
+		assertTrue(dados.inserirAlergiasPaciente(0, dados.getRemedios()[11].getId()));
 	}
 }
