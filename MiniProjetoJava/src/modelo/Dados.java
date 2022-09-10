@@ -25,6 +25,10 @@ public class Dados {
 	private int qtdePacientes= 0;
 	private int qtdeRemedios = 0;
 	private int qtdeAgendamentos = 0;
+	private int ultimoIdMedicos = 0;
+	private int ultimoIdPacientes= 0;
+	private int ultimoIdRemedios = 0;
+	private int ultimoIdAgendamentos = 0;
 	
 	/**
 	 * Construtor para a instanciacao da classe. Esta classe nao necessita de um 
@@ -59,6 +63,7 @@ public class Dados {
 			remedios[i] = rd1;
 			agendamentos[i] = ag;
 			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
+			ultimoIdMedicos = ultimoIdPacientes = ultimoIdRemedios = ultimoIdAgendamentos = 9;
 		}
 	}
 	
@@ -78,8 +83,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
-		if(id == qtdeMedicos) {
+		if(id == ultimoIdMedicos) {
 			qtdeMedicos++;
+			ultimoIdMedicos++;
+			medico.setId(ultimoIdMedicos);
 			this.medicos[id] = medico;
 		}
 		else {
@@ -98,6 +105,13 @@ public class Dados {
 		this.qtdeMedicos = qtdeMedicos;
 	}
 	
+	public int getUltimoIdMedicos() {
+		return ultimoIdMedicos;
+	}
+	public void setUltimoIdMedicos(int ultimoIdMedicos) {
+		this.ultimoIdMedicos = ultimoIdMedicos;
+	}
+	
 	// Métodos para vetor de paciente
 	
 	public Paciente[] getPacientes() {
@@ -114,8 +128,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
-		if(id == qtdePacientes) {
+		if(id == ultimoIdPacientes) {
+			ultimoIdPacientes++;
 			qtdePacientes++;
+			paciente.setId(ultimoIdPacientes);
 			this.pacientes[id] = paciente;
 		}
 		else {
@@ -134,6 +150,13 @@ public class Dados {
 		this.qtdePacientes = qtdePacientes;
 	}
 	
+	public int getUltimoIdPacientes() {
+		return ultimoIdPacientes;
+	}
+	public void setUltimoIdPacientes(int ultimoIdPacientes) {
+		this.ultimoIdPacientes = ultimoIdPacientes;
+	}
+	
 	// Métodos para vetor de remédios
 	
 	public Remedio[] getRemedios() {
@@ -150,8 +173,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
-		if(id == qtdeRemedios) {
+		if(id == ultimoIdRemedios) {
+			ultimoIdRemedios++;
 			qtdeRemedios++;
+			remedio.setId(ultimoIdRemedios);
 			this.remedios[id] = remedio;
 		}
 		else {
@@ -169,6 +194,14 @@ public class Dados {
 	public void setQtdeRemedios(int qtdeRemedios) {
 		this.qtdeRemedios = qtdeRemedios;
 	}
+	
+	public int getUltimoIdRemedios() {
+		return ultimoIdRemedios;
+	}
+	public void setUltimoIdRemedios(int ultimoIdRemedios) {
+		this.ultimoIdRemedios = ultimoIdRemedios;
+	}
+	
 	// Métodos para vetor de agendamentos
 
 	public Agendamento[] getAgendamentos() {
@@ -185,8 +218,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {
-		if(id == qtdeAgendamentos) {
+		if(id == ultimoIdAgendamentos) {
+			ultimoIdAgendamentos++;
 			qtdeAgendamentos++;
+			agendamento.setId(ultimoIdAgendamentos);
 			this.agendamentos[id] = agendamento;
 		}
 		else {
@@ -198,10 +233,18 @@ public class Dados {
 			}
 		}
 	}
+	
 	public int getQtdeAgendamentos() {
 		return qtdeAgendamentos;
 	}
 	public void setQtdeAgendamentos(int qtdeAgendamentos) {
 		this.qtdeAgendamentos = qtdeAgendamentos;
+	}
+	
+	public int getUltimoIdAgendamentos() {
+		return ultimoIdAgendamentos;
+	}
+	public void setUltimoIdAgendamentos(int ultimoIdAgendamentos) {
+		this.ultimoIdAgendamentos = ultimoIdAgendamentos;
 	}
 }

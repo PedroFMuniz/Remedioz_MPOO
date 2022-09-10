@@ -47,12 +47,28 @@ public class ControleDados {
 		dados.setQtdePacientes(qtd);
 	}
 
+	public int getUltimoIdPacientes() {
+		return dados.getUltimoIdPacientes();
+	}
+
+	public void setUltimoIdPacientes(int id) {
+		dados.setUltimoIdPacientes(id);
+	}
+	
 	public int getQtdMedicos() {
 		return dados.getQtdeMedicos();
 	}
 
 	public void setQtdMedicos(int qtd) {
 		dados.setQtdeMedicos(qtd);
+	}
+	
+	public int getUltimoIdMedicos() {
+		return dados.getUltimoIdMedicos();
+	}
+
+	public void setUltimoIdMedicos(int id) {
+		dados.setUltimoIdMedicos(id);
 	}
 
 	public int getQtdRemedios() {
@@ -62,6 +78,14 @@ public class ControleDados {
 	public void setQtdRemedios(int qtd) {
 		dados.setQtdeRemedios(qtd);
 	}
+	
+	public int getUltimoIdRemedios() {
+		return dados.getUltimoIdRemedios();
+	}
+
+	public void setUltimoIdRemedios(int id) {
+		dados.setUltimoIdRemedios(id);
+	}
 
 	public int getQtdAgendamentos() {
 		return dados.getQtdeAgendamentos();
@@ -69,6 +93,14 @@ public class ControleDados {
 
 	public void setQtdAgendamentos(int qtd) {
 		dados.setQtdeAgendamentos(qtd);
+	}
+	
+	public int getUltimoIdAgendamentos() {
+		return dados.getUltimoIdAgendamentos();
+	}
+
+	public void setUltimoIdAgendamentos(int id) {
+		dados.setUltimoIdAgendamentos(id);
 	}
 
 	public Paciente[] getPacientes() {
@@ -118,7 +150,7 @@ public class ControleDados {
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
 		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
-			if (Integer.parseInt(dadosPaciente[0]) == dados.getQtdePacientes()) {
+			if (Integer.parseInt(dadosPaciente[0]) == dados.getUltimoIdPacientes()) {
 				Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 						dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
 				dados.inserirOuEditarPaciente(p, p.getId());
@@ -189,7 +221,7 @@ public class ControleDados {
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
-		if (Integer.parseInt(dadosAgendamento[0]) == dados.getQtdeAgendamentos()) {
+		if (Integer.parseInt(dadosAgendamento[0]) == dados.getUltimoIdAgendamentos()) {
 			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
 					LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
 					medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
@@ -244,40 +276,6 @@ public class ControleDados {
 
 				dados.getAgendamentos()[i].setDiasDaSemana(dias);
 				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Metodo responsavel por editar um horario em um determinado agendamento. Verifica se
-	 * existe neste agendamento um dia e horario como os indicados e os edita.
-	 * 
-	 * @param idAgendamento : int indicando qual agendamento deve ser editado
-	 * @param dia : String indicando o nome do dia da semana a ser editado
-	 * @param horaAntiga : LocalTime indicando o horario a ser editado
-	 * @param horaNova : LocalTime indicando o novo horario
-	 * @return boolean indicando se a operacao foi realizada com sucesso
-	 */
-	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime horaAntiga,
-			LocalTime horaNova) {
-		Agendamento[] agendamentos = dados.getAgendamentos();
-		DiaDaSemana[] dias = new DiaDaSemana[7];
-		for (int i = 0; i < agendamentos.length; i++) {
-			if (agendamentos[i] != null && agendamentos[i].getId() == idAgendamento) {
-				dias = agendamentos[i].getDiasDaSemana();
-				for (int j = 0; j < dias.length; j++) {
-					if (dias[j] != null && dias[j].getDiaSemana() == dia) {
-						for (int k = 0; k < dias[j].getHorario().length; k++) {
-							if (dias[j].getHorario()[k] != null && dias[j].getHorario()[k].equals(horaAntiga)) {
-								dias[j].getHorario()[k] = horaNova;
-								dados.getAgendamentos()[i].setDiasDaSemana(dias);
-								return true;
-							}
-						}
-					} 
-				}
-				return false;
 			}
 		}
 		return false;
