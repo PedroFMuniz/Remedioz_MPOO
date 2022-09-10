@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,7 +38,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 		posicao = indice;
 		controleTelaEdicaoMedico = dados;
 		this.frame = new JFrame("Cadastro e edicao de medicos");
-		this.frame.setSize(600, 600);
+		this.frame.setSize(350, 320);
 		if(opcao == 1) {
 			// sem dados
 			txtNome = new JTextField(30);
@@ -48,8 +46,8 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtCrm = new JTextField(30);
 			txtEspecialidade = new JTextField(30);
 			txtTelefone = new JTextField(11);
-			titulo.setBounds(70, 0, 200, 30);
-			salvar.setBounds(245, 175, 70, 30);
+			titulo.setBounds(95, 0, 200, 30);
+			salvar.setBounds(250, 240, 70, 30);
 			frame.add(salvar);
 		}
 		else if(opcao == 2) {
@@ -59,9 +57,9 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtCrm = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getCrm(indice), 30);
 			txtEspecialidade = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getEspecialidade(indice), 30);
 			titulo.setText("Edicao de medico");
-			titulo.setBounds(70, 0, 200, 30);
-			salvar.setBounds(245, 175, 70, 30);
-			excluir.setBounds(130, 175, 115, 30);
+			titulo.setBounds(110, 0, 200, 30);
+			salvar.setBounds(250, 240, 70, 30);
+			excluir.setBounds(130, 240, 100, 30);
 			frame.add(salvar);
 			frame.add(excluir);
 		}
@@ -80,10 +78,10 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 		labelCrm.setBounds(10, 155, 80, 30);
 		labelEspecialidade.setBounds(10, 195, 110, 30);
 		txtNome.setBounds(60, 40, 200, 20);
-		txtEmail.setBounds(60, 80, 200, 20);
-		txtTelefone.setBounds(60, 120, 200, 20);
-		txtCrm.setBounds(60, 160, 200, 20);
-		txtEspecialidade.setBounds(60, 200, 200, 20);
+		txtEmail.setBounds(55, 80, 200, 20);
+		txtTelefone.setBounds(80, 120, 200, 20);
+		txtCrm.setBounds(50, 160, 200, 20);
+		txtEspecialidade.setBounds(120, 200, 200, 20);
 		
 		frame.setLayout(null);
 		

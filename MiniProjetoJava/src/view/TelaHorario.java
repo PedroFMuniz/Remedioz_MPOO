@@ -54,12 +54,32 @@ public class TelaHorario implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == salvar) {
-			String diaS = diasSemana.getSelectedItem().toString();
-			int horaS = hora.getSelectedIndex();
-			int minS = minuto.getSelectedIndex();
-			LocalTime lt = LocalTime.of(horaS, minS);
-			controleHorario.manipularHorarioAgendamento(idAg, diaS, lt);
-			frame.dispose();
+			try {
+				boolean resultado;
+				String diaS = diasSemana.getSelectedItem().toString();
+				int horaS = hora.getSelectedIndex();
+				int minS = minuto.getSelectedIndex();
+				LocalTime lt = LocalTime.of(horaS, minS);
+				resultado = controleHorario.manipularHorarioAgendamento(idAg, diaS, lt);
+				if(resultado) {
+					mesagemSucessoHorario();
+				}
+				else {
+					mensagemErroHorario();
+				}	
+			}
+			catch(NullPointerException exc1) {
+				mensagemErroHorario();
+			}
+			catch(NumberFormatException exc1) {
+				mensagemErroHorario();
+			}
 		}
+	}
+	private void mensagemErroHorario() {
+		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar cadastrar o horario.\nVerifique se o horario e igual a outro ja cadastrado.", null, JOptionPane.ERROR_MESSAGE);
+	}
+	private void mesagemSucessoHorario() {
+		frame.dispose();
 	}
 }

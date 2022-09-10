@@ -76,7 +76,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			txtTelefone = new JTextField(11);
 			frame.add(salvar);
 			salvar.setBounds(500, 430, 80, 30);
-			frame.setSize(600, 600);
+			frame.setSize(800, 400);
+			panel1.setBounds(450, 10, 200, 200);
 			refreshAlergia.setEnabled(false);
 		}
 		else if(opcao == 2) {
@@ -101,6 +102,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			salvar.setBounds(600, 430, 80, 30);
 			excluir.setBounds(500, 430, 80, 30);
 			addAgendamento.setBounds(140, 320, 150, 30);
+			panel1.setBounds(20, 200, 200, 200);
 			refreshAgendamento.setBounds(10, 320, 100, 30);
 			refreshAlergia.setEnabled(true);
 		}
@@ -134,7 +136,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		labelDatas.setBounds(70, 35, 170, 15);
 		scroll2.setBounds(10, 70, 280, 230);
 		
-		panel1.setBounds(20, 200, 200, 200);
+		
 		
 		//listaAlergias.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
