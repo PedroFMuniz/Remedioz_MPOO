@@ -2,14 +2,10 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.Date;
 import java.util.Locale;
 
 import controle.*;

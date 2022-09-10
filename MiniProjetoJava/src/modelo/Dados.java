@@ -17,7 +17,7 @@ public class Dados {
 	private Paciente[] pacientes = new Paciente[40];
 	private Remedio[] remedios = new Remedio[40];
 	private Agendamento[] agendamentos = new Agendamento[40];
-	private LocalTime[] horarios = {LocalTime.now(), LocalTime.of(19, 00)};
+	
 	
 	// variáveis para quantidades
 	

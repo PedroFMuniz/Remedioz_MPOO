@@ -7,8 +7,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 
 import controle.*;
 import modelo.*;
@@ -18,14 +16,12 @@ public class TelaAgendamento implements ActionListener{
 	private JComboBox<Object> remedios;
 	private JComboBox<Object> medicos;
 	//private JList<String> diasSemana;
-	private JComboBox<Object> dataInicioDia;
-	private JComboBox dataInicioMes;
-	private JComboBox dataInicioAno;
-	private JComboBox dataFimDia;
-	private JComboBox dataFimMes;
-	private JComboBox dataFimAno;
-	private JComboBox hora;
-	private JComboBox minuto;
+	private JComboBox<Integer> dataInicioDia;
+	private JComboBox<Integer> dataInicioMes;
+	private JComboBox<Integer> dataInicioAno;
+	private JComboBox<Integer> dataFimDia;
+	private JComboBox<Integer> dataFimMes;
+	private JComboBox<Integer> dataFimAno;
 	private JList<String> listaHorarios;
 	private JButton btnHorario = new JButton("Novo horario");
 	private JButton salvar = new JButton("Salvar");
@@ -39,11 +35,6 @@ public class TelaAgendamento implements ActionListener{
 	private int opc;
 	private int idPac;
 	private ControleDados controleDadosAgendamento;
-	private String[] novoCadastro = new String[10];
-	private Medico medico = new Medico();
-	private Remedio remedio = new Remedio();
-	private DiaDaSemana diaSem;
-	private LocalDate data = LocalDate.now();
 	private String[] agendamentoInicial = new String[10];
 	
 	public void inserirEditarAgendamento(int opcao, ControleDados dados, int idAg, int idPaciente) {
@@ -58,12 +49,12 @@ public class TelaAgendamento implements ActionListener{
 		frame.setSize(600,600);
 		remedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());
 		medicos = new JComboBox<Object>(new ControleMedico(controleDadosAgendamento).getInfo());
-		dataInicioDia = new JComboBox<Object>(preencheDias());
-		dataInicioMes = new JComboBox<Object>(preencheMeses());
-		dataInicioAno = new JComboBox<Object>(preencheAnos());
-		dataFimDia = new JComboBox<Object>(preencheDias());
-		dataFimMes = new JComboBox<Object>(preencheMeses());
-		dataFimAno = new JComboBox<Object>(preencheAnos());
+		dataInicioDia = new JComboBox<Integer>(preencheDias());
+		dataInicioMes = new JComboBox<Integer>(preencheMeses());
+		dataInicioAno = new JComboBox<Integer>(preencheAnos());
+		dataFimDia = new JComboBox<Integer>(preencheDias());
+		dataFimMes = new JComboBox<Integer>(preencheMeses());
+		dataFimAno = new JComboBox<Integer>(preencheAnos());
 		listaHorarios = new JList<String>();
 		if(opc == 1) {
 			//sem dados
