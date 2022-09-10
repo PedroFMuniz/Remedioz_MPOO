@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	private JLabel labelEmail = new JLabel("Email: ");
 	private JLabel labelCrm = new JLabel("CRM: ");
 	private JLabel labelEspecialidade = new JLabel("Especialidade: ");
+	private JLabel titulo = new JLabel("Cadastro de medico");
 	private String[] novoCadastro = new String[9];
 	private JTextField txtNome;
 	private JTextField txtTelefone;
@@ -46,8 +48,9 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtCrm = new JTextField(30);
 			txtEspecialidade = new JTextField(30);
 			txtTelefone = new JTextField(11);
+			titulo.setBounds(70, 0, 200, 30);
+			salvar.setBounds(245, 175, 70, 30);
 			frame.add(salvar);
-			//salvar.setBounds(245, 175, 115, 30);
 		}
 		else if(opcao == 2) {
 			txtNome = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getNome(indice), 30);
@@ -55,19 +58,36 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtTelefone = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getTelefone(indice), 11);
 			txtCrm = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getCrm(indice), 30);
 			txtEspecialidade = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getEspecialidade(indice), 30);
+			titulo.setText("Edicao de medico");
+			titulo.setBounds(70, 0, 200, 30);
+			salvar.setBounds(245, 175, 70, 30);
+			excluir.setBounds(130, 175, 115, 30);
 			frame.add(salvar);
 			frame.add(excluir);
 		}
 		
+		// Definicoes de fonte
+		titulo.setFont(new Font("Arial", Font.BOLD, 16));
+		labelNome.setFont(new Font("Arial", Font.BOLD, 14));
+		labelEmail.setFont(new Font("Arial", Font.BOLD, 14));
+		labelTelefone.setFont(new Font("Arial", Font.BOLD, 14));
+		labelCrm.setFont(new Font("Arial", Font.BOLD, 14));
+		labelEspecialidade.setFont(new Font("Arial", Font.BOLD, 14));
 		
+		labelNome.setBounds(10, 35, 80, 30);
+		labelEmail.setBounds(10, 75, 80, 30);
+		labelTelefone.setBounds(10, 115, 100, 30);
+		labelCrm.setBounds(10, 155, 80, 30);
+		labelEspecialidade.setBounds(10, 195, 110, 30);
+		txtNome.setBounds(60, 40, 200, 20);
+		txtEmail.setBounds(60, 80, 200, 20);
+		txtTelefone.setBounds(60, 120, 200, 20);
+		txtCrm.setBounds(60, 160, 200, 20);
+		txtEspecialidade.setBounds(60, 200, 200, 20);
 		
-		txtNome.setSize(60, 20);
-		txtEmail.setSize(60, 20);
-		txtTelefone.setSize(60, 20);
-		txtCrm.setSize(60, 20);
-		txtEspecialidade.setSize(60, 20);
+		frame.setLayout(null);
 		
-		frame.setLayout(new FlowLayout());
+		frame.add(titulo);
 		frame.add(labelNome);
 		frame.add(txtNome);
 		frame.add(labelEmail);

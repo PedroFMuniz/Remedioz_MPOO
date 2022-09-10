@@ -40,6 +40,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		controleTelaEdicaoRemedio = dados;
 		frame = new JFrame("Cadastro e edicao de Remedios");
 		frame.setSize(320, 300);
+		//Se a opcao for cadastrar um novo remedio
 		if(opcao == 1) {
 			txtNome = new JTextField(30);
 			txtEfeito = new JTextField(30);
@@ -49,26 +50,30 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 			salvar.setBounds(225, 220, 70, 30);
 			frame.add(salvar);
 		}
+		//Se a opcao for editar um remedio existente
 		if(opcao == 2) {
 			titulo.setText("Edicao de remedio");
 			txtNome = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getNome(indice), 30);
 			txtEfeito = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getEfeito(indice), 30);
 			txtTipo = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getTipo(indice), 30);
 			txtViaUso = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getViaDeUso(indice), 15);
-			titulo.setBounds(50, 0, 200, 30);
+			titulo.setBounds(85, 0, 200, 30);
 			salvar.setBounds(225, 220, 70, 30);
 			excluir.setBounds(115, 220, 100, 30);
 			frame.add(salvar);
 			frame.add(excluir);
 		}
+		
 		frame.setLayout(null);
 		
+		// Definicao de fontes
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		labelNome.setFont(new Font("Arial", Font.BOLD, 14));
 		labelEfeito.setFont(new Font("Arial", Font.BOLD, 14));
 		labelTipo.setFont(new Font("Arial", Font.BOLD, 14));
 		labelViaUso.setFont(new Font("Arial", Font.BOLD, 14));
 		
+		// Definicao de localizacoes
 		labelNome.setBounds(10, 35, 80, 30);
 		labelEfeito.setBounds(10, 75, 80, 30);
 		labelTipo.setBounds(10, 115, 80, 30);
@@ -78,7 +83,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		txtTipo.setBounds(50, 120, 200, 20);
 		txtViaUso.setBounds(95, 160, 200, 20);
 		
-		
+		// Adicoes ao frame
 		frame.add(titulo);
 		frame.add(labelNome);
 		frame.add(txtNome);
@@ -89,8 +94,10 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		frame.add(labelViaUso);
 		frame.add(txtViaUso);
 		
+		// ActionListeners
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);
+		
 		frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
