@@ -179,13 +179,22 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			}
 			else {
 				boolean resultado;
+				if(opc == 1) {
 				novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getUltimoIdPacientes() + 1);
 				novoCadastro[1] = txtNome.getText();
 				novoCadastro[2] = txtTelefone.getText();
 				novoCadastro[3] = txtEmail.getText();
 				novoCadastro[4] = txtDoencas.getText();
+				opc = 2;
+				posicao = controleTelaEdicaoPaciente.getUltimoIdPacientes() + 1;
+				}else {
+					novoCadastro[0] = Integer.toString(posicao);
+					novoCadastro[1] = txtNome.getText();
+					novoCadastro[2] = txtTelefone.getText();
+					novoCadastro[3] = txtEmail.getText();
+					novoCadastro[4] = txtDoencas.getText();
+				}
 				resultado = controleTelaEdicaoPaciente.inserirEditarPaciente(novoCadastro);
-				posicao = controleTelaEdicaoPaciente.getUltimoIdPacientes();
 				if(!resultado) {
 					erroCadastroPaciente();
 				}
@@ -193,7 +202,6 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 				if(refreshAlergia.isEnabled() == false) {
 					refreshAlergia.setEnabled(true);
 				}
-				opc = 2;
 			}
 			
 		}
