@@ -1,7 +1,5 @@
 package controle;
 
-import java.util.Arrays;
-
 import modelo.*;
 
 /**
