@@ -4,16 +4,33 @@ import java.util.Arrays;
 
 import modelo.*;
 
+/**
+ * Classe "ControlePaciente". Responsavel por retornar informacoes acerca dos pacientes
+ * cadastrados.
+ * 
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class ControlePaciente {
 	private Paciente[] pacientes;
-	private Remedio[] alergias;
 	private int qtdPacientes;
 
+	/**
+	 * Construtor para obter os pacientes cadastrados
+	 * 
+	 * @param dados : ControleDados que retorna os pacientes cadastrados
+	 */
 	public ControlePaciente(ControleDados dados) {
 		this.pacientes = dados.getPacientes();
 		this.qtdPacientes = dados.getQtdPacientes();
 	}
 
+	/**
+	 * Metodo responsavel por retornar os dados necessarios de todos os pacientes cadastrados
+	 * 
+	 * @return Array de Strings no formato: id - nome
+	 */
 	public String[] getInfo() {
 		String[] infos = new String[qtdPacientes];
 		for (int i = 0; i < qtdPacientes; i++) {
@@ -22,6 +39,12 @@ public class ControlePaciente {
 		return infos;
 	}
 	
+	/**
+	 * Metodo responsavel por retornar os dados necessarios de pacientes com base em uma String de busca
+	 * 
+	 * @param busca : String com o nome do paciente a ser pesquisado no registro
+	 * @return Array de Strings no formato: id - nome
+	 */
 	public String[] getInfo(String busca) {
 		String[] infos = new String[qtdPacientes];
 		for (int i = 0; i < qtdPacientes; i++) {
@@ -32,11 +55,16 @@ public class ControlePaciente {
 		return infos;
 	}
 	
+	/**
+	 * Metodo responsavel por retornar os as alergias de um paciente especifico
+	 * 
+	 * @param id : int indicando o paciente
+	 * @return Array de Strings no formato: id do remedio - nome do remedio
+	 */
 	public String[] getInfoAlergias(int id) {
 		String[] nomesRemedios = new String[40];
 		for(int i = 0; i < qtdPacientes; i++) {
 			if(pacientes[i].getId() == id) {
-				alergias = pacientes[i].getAlergias();
 				for(int j = 0; j < pacientes[i].getAlergias().length; j++) {
 					if(pacientes[i].getAlergias()[j] != null) {
 						nomesRemedios[j] = Integer.toString(pacientes[i].getAlergias()[j].getId()) + " - " + pacientes[i].getAlergias()[j].getNome();
