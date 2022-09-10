@@ -96,7 +96,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 				boolean resultado;
 				if(opcaoCrud == 1) {
 					// novo remedio
-					novoCadastro[0] = Integer.toString(controleTelaEdicaoRemedio.getQtdRemedios());
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoRemedio.getUltimoIdRemedios() + 1);
 				}
 				else {
 					//edicao

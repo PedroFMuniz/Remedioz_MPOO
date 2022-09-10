@@ -179,12 +179,13 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			}
 			else {
 				boolean resultado;
-				novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getQtdPacientes());
+				novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getUltimoIdPacientes() + 1);
 				novoCadastro[1] = txtNome.getText();
 				novoCadastro[2] = txtTelefone.getText();
 				novoCadastro[3] = txtEmail.getText();
 				novoCadastro[4] = txtDoencas.getText();
 				resultado = controleTelaEdicaoPaciente.inserirEditarPaciente(novoCadastro);
+				posicao = controleTelaEdicaoPaciente.getUltimoIdPacientes();
 				if(!resultado) {
 					erroCadastroPaciente();
 				}
@@ -222,7 +223,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			listaAlergias.updateUI();
 		}
 		if(fonte == addAgendamento) {
-			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getQtdAgendamentos(), posicao);
+			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getUltimoIdAgendamentos(), posicao);
 		}
 		if(fonte == refreshAgendamento) {
 			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
@@ -242,7 +243,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			try {
 				boolean resultado;
 				if(opc == 1) {
-					novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getQtdPacientes());
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getUltimoIdPacientes() + 1);
 				}
 				else {
 					novoCadastro[0] = Integer.toString(posicao);

@@ -90,7 +90,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 				boolean resultado;
 				if(opcaoCrud == 1) {
 					// novo medico
-					novoCadastro[0] = Integer.toString(controleTelaEdicaoMedico.getQtdMedicos());
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoMedico.getUltimoIdMedicos() + 1);
 				}
 				else {
 					//edicao

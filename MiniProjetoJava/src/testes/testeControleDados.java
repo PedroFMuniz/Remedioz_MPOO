@@ -16,16 +16,7 @@ class testeControleDados {
 		
 		assertTrue(dados.manipularHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
 	}
-	
-	@Test
-	void testeManipularHorarioAgendamento2() {
-		ControleDados dados = new ControleDados();
-		
-		assertTrue(dados.manipularHorarioAgendamento(0, "Sexta", LocalTime.of(18, 30), LocalTime.of(19, 30)));
-		
-		assertFalse(dados.manipularHorarioAgendamento(0, "Terça", LocalTime.of(18, 30), LocalTime.of(19, 30)));
-	}
-	
+
 	@Test
 	void testeValidacaoTelEmail() {
 		ControleDados dados = new ControleDados();

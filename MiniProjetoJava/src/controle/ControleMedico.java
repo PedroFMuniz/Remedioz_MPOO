@@ -2,15 +2,33 @@ package controle;
 
 import modelo.*;
 
+/**
+ * Classe "ControleMedico". Responsavel por retornar informacoes acerca dos medicos
+ * cadastrados.
+ * 
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class ControleMedico {
 	private Medico[] medicos;
 	private int qtdMedicos;
 	
+	/**
+	 * Construtor para obter os medicos cadastrados
+	 * 
+	 * @param dados : ControleDados que retorna os medicos cadastrados
+	 */
 	public ControleMedico(ControleDados dados) {
 		this.medicos = dados.getMedicos();
 		this.qtdMedicos = dados.getQtdMedicos();
 	}
 	
+	/**
+	 * Metodo responsavel por retornar os dados necessarios de todos os medicos cadastrados
+	 * 
+	 * @return Array de Strings no formato: id - nome - especialidade
+	 */
 	public String[] getInfo() {
 		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
@@ -19,6 +37,12 @@ public class ControleMedico {
 		return infos;
 	}
 	
+	/**
+	 *Metodo responsavel por retornar os dados necessarios de medicos com base em uma String de busca 
+	 * 
+	 * @param busca : String com o nome do medico a ser pesquisado
+	 * @return Array de Strings no formato: id - nome - especialidade
+	 */
 	public String[] getInfo(String busca) {
 		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
@@ -28,6 +52,8 @@ public class ControleMedico {
 		}
 		return infos;
 	}
+	
+	//gets e sets
 	
 	public int getId(int i) {
 		return medicos[i].getId();
