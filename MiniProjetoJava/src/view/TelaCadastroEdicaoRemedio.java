@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +15,7 @@ import controle.ControleDados;
 
 public class TelaCadastroEdicaoRemedio implements ActionListener {
 	private JFrame frame;
+	private JLabel titulo = new JLabel("Cadastro de remedio");
 	private JLabel labelNome = new JLabel("Nome: ");
 	private JLabel labelEfeito = new JLabel("Efeito: ");
 	private JLabel labelTipo = new JLabel("Tipo: ");
@@ -42,27 +43,47 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 			txtNome = new JTextField(30);
 			txtEfeito = new JTextField(30);
 			txtTipo = new JTextField(30);
-			txtViaUso = new JTextField(30);
+			txtViaUso = new JTextField(15);
+			titulo.setBounds(130, 0, 200, 30);
+			salvar.setBounds(310, 360, 70, 30);
 			frame.add(salvar);
 		}
 		if(opcao == 2) {
+			titulo.setText("Edicao de remedio");
 			txtNome = new JTextField(dados.getRemedios()[indice].getNome(), 30);
 			txtEfeito = new JTextField(dados.getRemedios()[indice].getEfeito(), 30);
 			txtTipo = new JTextField(dados.getRemedios()[indice].getTipo(), 30);
-			txtViaUso = new JTextField(dados.getRemedios()[indice].getViaDeUso(), 30);
+			txtViaUso = new JTextField(dados.getRemedios()[indice].getViaDeUso(), 15);
+			titulo.setBounds(110, 0, 200, 30);
+			salvar.setBounds(310, 360, 70, 30);
+			excluir.setBounds(220, 360, 70, 30);
 			frame.add(salvar);
 			frame.add(excluir);
 		}
-		frame.setLayout(new FlowLayout());
+		frame.setLayout(null);
 		
+		titulo.setFont(new Font("Arial", Font.BOLD, 16));
+		labelNome.setFont(new Font("Arial", Font.BOLD, 14));
+		labelEfeito.setFont(new Font("Arial", Font.BOLD, 14));
+		labelTipo.setFont(new Font("Arial", Font.BOLD, 14));
+		labelViaUso.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		labelNome.setBounds(10, 20, 40, 30);
+		labelEfeito.setBounds(10, 60, 40, 30);
+		labelTipo.setBounds(10, 100, 30, 30);
+		labelViaUso.setBounds(10, 140, 40, 30);
+		txtNome.setBounds(50, 20, 100, 20);
+		
+		
+		frame.add(titulo);
 		frame.add(labelNome);
 		frame.add(txtNome);
 		frame.add(labelEfeito);
-		frame.add(txtEfeito);
+		//frame.add(txtEfeito);
 		frame.add(labelTipo);
-		frame.add(txtTipo);
+		//frame.add(txtTipo);
 		frame.add(labelViaUso);
-		frame.add(txtViaUso);
+		//frame.add(txtViaUso);
 		
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);

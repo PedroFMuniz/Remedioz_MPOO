@@ -7,7 +7,6 @@ import javax.swing.event.*;
 
 import controle.*;
 
-
 public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JFrame frame;
 	private JLabel label;
@@ -20,7 +19,6 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JPanel panel;
 	private JTextField txtPesquisa;
 	private JButton btnPesquisa;
-	
 	private static ControleDados dadosTelaPaciente;
 	
 	public void mostrarDados(ControleDados dados) {
@@ -50,7 +48,6 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		panel.setBackground(Color.CYAN);
 		refreshPaciente.setBounds(220, 300, 150, 30);
 
-		
 		panel.add(scroll);
 		frame.add(label);
 		frame.add(txtPesquisa);
@@ -59,9 +56,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		frame.add(refreshPaciente);
 		frame.add(panel);
 		
-		
 		frame.setSize(400, 400);
-		
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
@@ -70,8 +65,6 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		listaPacientes.addListSelectionListener(this);
 		btnPesquisa.addActionListener(this);
 	}
-	
-	//implementar esses dois
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarPaciente) {

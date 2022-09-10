@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import controle.*;
 
-
 /**
  * Classe "TelaMenu". Contem o metodo "main" do programa. Descreve uma tela
  * simples, com 5 botoes e um label. Cada botao leva para outra tela com a
@@ -31,18 +30,14 @@ public class TelaMenu implements ActionListener {
 	 */
 	public TelaMenu() {
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
-		frame.setSize(655, 150);
+		frame.setSize(400, 150);
 		frame.setLayout(null);
-		titulo.setBounds(265, 0, 150 ,50);
+		titulo.setBounds(135, 0, 150 ,50);
 		btnPaciente.setBounds(20, 60, 100, 30);
 		btnMedico.setBounds(140, 60, 100, 30);
 		btnRemedio.setBounds(260, 60, 100, 30);
-		//btnHorario.setBounds(380, 60, 100, 30);
-		//btnAgendamento.setBounds(500, 60, 120, 30);
-		
+
 		frame.add(titulo);
-		//frame.add(btnAgendamento);
-		//frame.add(btnHorario);
 		frame.add(btnMedico);
 		frame.add(btnPaciente);
 		frame.add(btnRemedio);
@@ -70,11 +65,5 @@ public class TelaMenu implements ActionListener {
 		else if(fonteEvento == btnRemedio) {
 			new TelaRemedio().mostrarDados(dados);
 		}
-		/*else if(fonteEvento == btnHorario) {
-			System.out.println("4");
-		}
-		else if(fonteEvento == btnAgendamento) {
-			System.out.println("5");
-		}*/
 	}
 }
