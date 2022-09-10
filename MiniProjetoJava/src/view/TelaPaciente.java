@@ -68,8 +68,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarPaciente) {
-			int qtdePacientes = dadosTelaPaciente.getQtdPacientes();
-			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, qtdePacientes);
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, dadosTelaPaciente.getUltimoIdPacientes() + 1);
 		}
 		if(fonte == refreshPaciente) {
 			listaPacientes.setListData(new ControlePaciente(dadosTelaPaciente).getInfo());			

@@ -54,7 +54,7 @@ public class ControleDados {
 	public void setUltimoIdPacientes(int id) {
 		dados.setUltimoIdPacientes(id);
 	}
-	
+
 	public int getQtdMedicos() {
 		return dados.getQtdeMedicos();
 	}
@@ -62,7 +62,7 @@ public class ControleDados {
 	public void setQtdMedicos(int qtd) {
 		dados.setQtdeMedicos(qtd);
 	}
-	
+
 	public int getUltimoIdMedicos() {
 		return dados.getUltimoIdMedicos();
 	}
@@ -78,7 +78,7 @@ public class ControleDados {
 	public void setQtdRemedios(int qtd) {
 		dados.setQtdeRemedios(qtd);
 	}
-	
+
 	public int getUltimoIdRemedios() {
 		return dados.getUltimoIdRemedios();
 	}
@@ -94,7 +94,7 @@ public class ControleDados {
 	public void setQtdAgendamentos(int qtd) {
 		dados.setQtdeAgendamentos(qtd);
 	}
-	
+
 	public int getUltimoIdAgendamentos() {
 		return dados.getUltimoIdAgendamentos();
 	}
@@ -145,30 +145,20 @@ public class ControleDados {
 	 * Em caso de cadastro, inicia o array de alergias como um array vazio, em caso
 	 * de edicao recupera da memoria as alergias do paciente indicado
 	 * 
-	 * @param dadosPaciente : Array de strings informando os dados a serem cadastrados
+	 * @param dadosPaciente : Array de strings informando os dados a serem
+	 *                      cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
 		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
-			if (Integer.parseInt(dadosPaciente[0]) == dados.getUltimoIdPacientes() + 1) {
-				Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
-						dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
-				dados.inserirOuEditarPaciente(p, p.getId());
-				return true;
-			}else {
-				for(int i = 0; i < dados.getQtdePacientes(); i++) {
-					if(dados.getPacientes()[i].getId() == Integer.parseInt(dadosPaciente[0])) {
-						Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
-								dadosPaciente[3], dados.getPacientes()[i].getAlergias(), dadosPaciente[4]);
-						dados.inserirOuEditarPaciente(p, p.getId());
-						return true;
-					}
-				}
-				return false;
-			}
+			Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
+					dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
+			dados.inserirOuEditarPaciente(p, p.getId());
+			return true;
 		} else {
 			return false;
 		}
+
 	}
 
 	/**
@@ -194,7 +184,8 @@ public class ControleDados {
 	 * Metodo responsavel por inserir ou editar um remedio. Cadastra os novos dados
 	 * na base de dados
 	 * 
-	 * @param dadosRemedio : Array de strings informando os dados a serem cadastrados
+	 * @param dadosRemedio : Array de strings informando os dados a serem
+	 *                     cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarRemedio(String[] dadosRemedio) {
@@ -208,10 +199,11 @@ public class ControleDados {
 	 * Metodo responsavel por inserir ou editar um agendamento. Cadastra os novos
 	 * dados na base de dados
 	 * 
-	 * Em caso de cadastro, inicia o array de dias da semana como um array vazio, em caso
-	 * de edicao recupera da memoria os dias da semana do agendamento indicado
+	 * Em caso de cadastro, inicia o array de dias da semana como um array vazio, em
+	 * caso de edicao recupera da memoria os dias da semana do agendamento indicado
 	 * 
-	 * @param dadosAgendamento : Array de strings informando os dados a serem cadastrados
+	 * @param dadosAgendamento : Array de strings informando os dados a serem
+	 *                         cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 
@@ -220,38 +212,24 @@ public class ControleDados {
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
-		if (Integer.parseInt(dadosAgendamento[0]) == dados.getUltimoIdAgendamentos() + 1) {
-			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
-					LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
-					medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
-					remedios[Integer.parseInt(dadosAgendamento[5])], new DiaDaSemana[7]);
-			dados.inserirOuEditarAgendamento(a, a.getId());
-			return true;
-		} else {
-			Agendamento ag = new Agendamento();
-			for (int i = 0; i < dados.getQtdeAgendamentos(); i++) {
-				if (dados.getAgendamentos()[i].getId() == Integer.parseInt(dadosAgendamento[0])) {
-					ag = dados.getAgendamentos()[i];
-				}
-			}
-			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
-					LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
-					medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
-					remedios[Integer.parseInt(dadosAgendamento[5])], ag.getDiasDaSemana());
-			dados.inserirOuEditarAgendamento(a, a.getId());
-			return true;
-		}
+		Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
+				LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
+				medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
+				remedios[Integer.parseInt(dadosAgendamento[5])], new DiaDaSemana[7]);
+		dados.inserirOuEditarAgendamento(a, a.getId());
+		return true;
 
 	}
 
 	/**
-	 * Metodo responsavel por inserir novos horarios em um determinado agendamento. Verifica ate
-	 * que ponto o vetor de horarios de um dia esta preenchido e adiciona o novo dado na primeira posicao
-	 * nula. 
+	 * Metodo responsavel por inserir novos horarios em um determinado agendamento.
+	 * Verifica ate que ponto o vetor de horarios de um dia esta preenchido e
+	 * adiciona o novo dado na primeira posicao nula.
 	 * 
 	 * @param idAgendamento : int indicando qual agendamento deve ser editado
-	 * @param dia : String indicando o nome do dia da semana a ser adicionado
-	 * @param hora : LocalTime indicando o horario a ser adicionado
+	 * @param dia           : String indicando o nome do dia da semana a ser
+	 *                      adicionado
+	 * @param hora          : LocalTime indicando o horario a ser adicionado
 	 * @return boolean indicando se a operacao foi realizada com sucesso
 	 */
 	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
@@ -272,8 +250,10 @@ public class ControleDados {
 					DiaDaSemana d = new DiaDaSemana(dia, ld);
 					dias[transformarDiaSemana(dia)] = d;
 				}
-
+				
+				System.out.println(dados.getAgendamentos()[i].getDiasDaSemana());
 				dados.getAgendamentos()[i].setDiasDaSemana(dias);
+				System.out.println(dados.getAgendamentos()[i].getDiasDaSemana());
 				return true;
 			}
 		}
@@ -281,18 +261,19 @@ public class ControleDados {
 	}
 
 	/**
-	 * Metodo responsavel por inserir novas alergias em um determinado paciente. Verifica se um determinado remedio ja
-	 * nao esta cadastrado como alergia no paciente indicado, em caso negativo cadastra a nova alergia
+	 * Metodo responsavel por inserir novas alergias em um determinado paciente.
+	 * Verifica se um determinado remedio ja nao esta cadastrado como alergia no
+	 * paciente indicado, em caso negativo cadastra a nova alergia
 	 * 
 	 * 
 	 * @param idPaciente : int indicando o paciente que deve ser editado
-	 * @param remedio : int indicando o remedio a ser adicionado como alergia
+	 * @param remedio    : int indicando o remedio a ser adicionado como alergia
 	 * @return boolean indicando se a operacao teve sucesso
 	 */
 	public boolean inserirAlergiasPaciente(int idPaciente, int remedio) {
 		Remedio alergia = new Remedio();
-		for(int i = 0; i < dados.getQtdeRemedios(); i++) {
-			if(dados.getRemedios()[i].getId() == remedio) {
+		for (int i = 0; i < dados.getQtdeRemedios(); i++) {
+			if (dados.getRemedios()[i].getId() == remedio) {
 				alergia = dados.getRemedios()[i];
 				break;
 			}
@@ -447,8 +428,8 @@ public class ControleDados {
 	 * 
 	 * 
 	 * @param idAgendamento : int indicando o agendamento a ser editado
-	 * @param dia : String indicando o dia da semana a ser editado
-	 * @param hora : LocalTime indicando o horario a ser deletado
+	 * @param dia           : String indicando o dia da semana a ser editado
+	 * @param hora          : LocalTime indicando o horario a ser deletado
 	 * @return boolean indicando o sucesso da operacao
 	 */
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
@@ -480,21 +461,20 @@ public class ControleDados {
 		return false;
 	}
 
-	
 	/**
-	 * Metodo responsavel por remover um remedio da lista de alergias de
-	 * um paciente indicado, verifica se o remedio esta nas alergias deste paciente.
-	 * Em caso positovo, deleta o registro
+	 * Metodo responsavel por remover um remedio da lista de alergias de um paciente
+	 * indicado, verifica se o remedio esta nas alergias deste paciente. Em caso
+	 * positovo, deleta o registro
 	 * 
 	 * 
 	 * @param idPaciente : int indicando o paciente a ser editado
-	 * @param remedio : int indicando o remedio a ser excluido
+	 * @param remedio    : int indicando o remedio a ser excluido
 	 * @return boolean indicando o sucesso da operacao
 	 */
 	public boolean removerAlergiaPaciente(int idPaciente, int remedio) {
 		Remedio alergia = new Remedio();
-		for(int i = 0; i < dados.getQtdeRemedios(); i++) {
-			if(dados.getRemedios()[i].getId() == remedio) {
+		for (int i = 0; i < dados.getQtdeRemedios(); i++) {
+			if (dados.getRemedios()[i].getId() == remedio) {
 				alergia = dados.getRemedios()[i];
 			}
 		}
@@ -507,7 +487,7 @@ public class ControleDados {
 		int cont = 0;
 		while (paciente.getAlergias()[cont] != alergia) {
 			cont++;
-			if(cont == paciente.getAlergias().length) {
+			if (cont == paciente.getAlergias().length) {
 				return false;
 			}
 		}
@@ -525,7 +505,7 @@ public class ControleDados {
 	 * 
 	 * @param id : int informando a posicao do paciente, medico ou remedio
 	 * @param op : int informando se deve-se buscar na base de pacientes, medicos ou
-	 *            remedios
+	 *           remedios
 	 * @return boolean informando se possui ou nao relacoes
 	 */
 	public boolean verificarRelacao(int id, int op) {
@@ -586,7 +566,7 @@ public class ControleDados {
 	 * Metodo responsavel por transformar um dia da semana. Transforma o indice do
 	 * dia em seu nome
 	 * 
-	 * @param dia :  int representando o indice do dia
+	 * @param dia : int representando o indice do dia
 	 * @return String contendo o nome do dia
 	 */
 	public String transformarDiaSemana(int dia) {
@@ -600,10 +580,10 @@ public class ControleDados {
 	}
 
 	/**
-	 * Metodo responsavel por validar a formatacao de telefone e email para cadastro de 
-	 * pessoas
+	 * Metodo responsavel por validar a formatacao de telefone e email para cadastro
+	 * de pessoas
 	 * 
-	 * @param tel : String indicando o telefone a ser validado
+	 * @param tel   : String indicando o telefone a ser validado
 	 * @param email : String indicando o email a ser validado
 	 * @return boolean indicando a validade do telefone e email
 	 */

@@ -135,6 +135,7 @@ public class Dados {
 		else {
 			for(int i = 0; i < qtdePacientes; i++) {
 				if(pacientes[i].getId() == id) {
+					paciente.setAlergias(pacientes[i].getAlergias());
 					pacientes[i] = paciente;
 					break;
 				}
@@ -223,6 +224,7 @@ public class Dados {
 		else {
 			for(int i = 0; i < qtdeAgendamentos; i++) {
 				if(agendamentos[i].getId() == id) {
+					agendamento.setDiasDaSemana(agendamentos[i].getDiasDaSemana());
 					agendamentos[i] = agendamento;
 					break;
 				}
