@@ -2,6 +2,8 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import javax.swing.*;
@@ -42,6 +44,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton addAgendamento = new JButton("Novo agendamento");
 	private JButton refreshAgendamento = new JButton("Refresh...");
 	private LocalDate hoje = LocalDate.now();
+	private int diaSemana = hoje.getDayOfWeek().getValue();
+	private String diaUs;
 	
 	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
 		opcaoCrud = opcao;
@@ -55,6 +59,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, hoje));
 		listaAgendamentos.setVisibleRowCount(15);
 		
+		diaUs = Integer.toString(diaSemana(diaSemana));
 		
 		scroll1 = new JScrollPane();
 		scroll1.setViewportView(listaAlergias);
@@ -178,7 +183,10 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			
 		}
 		if(fonte == setaDir) {
-			
+			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 1));
+		}
+		if(fonte == setaEsq) {
+			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 2));
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
@@ -191,5 +199,34 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	
 	public void setIndicesAlergias(int[] indicesAlergias) {
 		this.indicesAlergias = indicesAlergias; 
+	}
+	public String diaSemanaUs(int value) {
+		String diaUs;
+		switch (diaSemana) {
+        	case 1:
+        		diaUs = "Mon";
+        		break;
+	        case 2:
+	        	diaUs = "Tue";
+	            break;
+	        case 3:
+	        	diaUs = "Wed";
+	            break;
+	        case 4:
+	        	diaUs = "Thu";
+	            break;
+	        case 5:
+	        	diaUs = "Fri";
+	            break;
+	        case 6:
+	        	diaUs = "Sat";
+	            break;
+	        case 7:
+	        	diaUs = "Sun";
+	            break;
+	        default:
+	            break;
+	    }
+		return diaUs;
 	}
 }
