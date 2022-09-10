@@ -58,7 +58,7 @@ public class TelaHorario implements ActionListener{
 			int horaS = hora.getSelectedIndex();
 			int minS = minuto.getSelectedIndex();
 			LocalTime lt = LocalTime.of(horaS, minS);
-			controleHorario.manipularHorarioAgendamento(idAg, diaS, lt);
+			controleHorario.inserirHorarioAgendamento(idAg, diaS, lt);
 			frame.dispose();
 		}
 	}

@@ -103,7 +103,6 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 				novoCadastro[4] =  txtCrm.getText();	
 				novoCadastro[5] =  txtEspecialidade.getText();
 				resultado = controleTelaEdicaoMedico.inserirEditarMedico(novoCadastro);
-				System.out.println(resultado);
 				if(resultado) {
 					sucessoCadastrar();
 				}

@@ -78,7 +78,6 @@ public class TelaAgendamento implements ActionListener{
 			dataFimAno.setSelectedItem(Integer.parseInt(dataFimString[0]));
 			medicos.setSelectedIndex(medicoAg.getId());
 			remedios.setSelectedIndex(remedioAg.getId());
-			System.out.println(dataInicio.toString() + " " + dataFim.toString());
 			//dataInicioDia.setSelectedIndex();
 			listaHorarios.updateUI();
 			listaHorarios.setVisibleRowCount(5);
