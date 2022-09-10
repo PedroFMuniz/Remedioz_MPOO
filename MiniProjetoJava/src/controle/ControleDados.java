@@ -142,9 +142,6 @@ public class ControleDados {
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
 	 * base de dados
 	 * 
-	 * Em caso de cadastro, inicia o array de alergias como um array vazio, em caso
-	 * de edicao recupera da memoria as alergias do paciente indicado
-	 * 
 	 * @param dadosPaciente : Array de strings informando os dados a serem
 	 *                      cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
@@ -199,8 +196,6 @@ public class ControleDados {
 	 * Metodo responsavel por inserir ou editar um agendamento. Cadastra os novos
 	 * dados na base de dados
 	 * 
-	 * Em caso de cadastro, inicia o array de dias da semana como um array vazio, em
-	 * caso de edicao recupera da memoria os dias da semana do agendamento indicado
 	 * 
 	 * @param dadosAgendamento : Array de strings informando os dados a serem
 	 *                         cadastrados

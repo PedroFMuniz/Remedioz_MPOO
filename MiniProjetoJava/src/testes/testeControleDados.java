@@ -11,7 +11,7 @@ import controle.*;
 class testeControleDados {
 
 	@Test
-	void testeManipularHorarioAgendamento() {
+	void testeInserirHorarioAgendamento() {
 		ControleDados dados = new ControleDados();
 		
 		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
