@@ -82,10 +82,10 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		else if(opcao == 2) {
 			frame.setSize(800, 600);
 			titulo = new JLabel("Edicao de paciente");
-			txtNome = new JTextField(dados.getPacientes()[id].getNome(), 60);
-			txtEmail = new JTextField(dados.getPacientes()[id].getEmail(), 60);
-			txtTelefone = new JTextField(dados.getPacientes()[id].getTelefone(), 11);
-			txtDoencas = new JTextField(dados.getPacientes()[id].getHistoricoDoencas(), 60);
+			txtNome = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getNome(id), 60);
+			txtEmail = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getEmail(id), 60);
+			txtTelefone = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getTelefone(id), 11);
+			txtDoencas = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getHistoricoDoencas(id), 60);
 			frame.add(salvar);
 			frame.add(excluir);
 			panel2.add(setaEsq);

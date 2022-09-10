@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 
 import controle.ControleDados;
+import controle.ControleMedico;
 
 public class TelaCadastroEdicaoMedico implements ActionListener{
 	private JFrame frame;
@@ -49,11 +50,11 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			//salvar.setBounds(245, 175, 115, 30);
 		}
 		else if(opcao == 2) {
-			txtNome = new JTextField(dados.getMedicos()[indice].getNome(), 30);
-			txtEmail = new JTextField(dados.getMedicos()[indice].getEmail(), 30);
-			txtTelefone = new JTextField(dados.getMedicos()[indice].getTelefone(), 11);
-			txtCrm = new JTextField(dados.getMedicos()[indice].getCrm(), 30);
-			txtEspecialidade = new JTextField(dados.getMedicos()[indice].getEspecialidade(), 30);
+			txtNome = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getNome(indice), 30);
+			txtEmail = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getEmail(indice), 30);
+			txtTelefone = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getTelefone(indice), 11);
+			txtCrm = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getCrm(indice), 30);
+			txtEspecialidade = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getEspecialidade(indice), 30);
 			frame.add(salvar);
 			frame.add(excluir);
 		}

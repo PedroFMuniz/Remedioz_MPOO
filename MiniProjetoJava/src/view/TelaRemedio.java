@@ -94,7 +94,8 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaRemedios) {
-			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(2, dadosTelaRemedio, listaRemedios.getSelectedIndex());
+			String split[] = listaRemedios.getSelectedValue().split(" - ");
+			new TelaCadastroEdicaoRemedio().inserirEditarRemedio(2, dadosTelaRemedio, Integer.parseInt(split[0]));
 		}
 	}
 }

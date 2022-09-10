@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controle.ControleDados;
+import controle.ControleRemedio;
 
 
 public class TelaCadastroEdicaoRemedio implements ActionListener {
@@ -50,10 +51,10 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		}
 		if(opcao == 2) {
 			titulo.setText("Edicao de remedio");
-			txtNome = new JTextField(dados.getRemedios()[indice].getNome(), 30);
-			txtEfeito = new JTextField(dados.getRemedios()[indice].getEfeito(), 30);
-			txtTipo = new JTextField(dados.getRemedios()[indice].getTipo(), 30);
-			txtViaUso = new JTextField(dados.getRemedios()[indice].getViaDeUso(), 15);
+			txtNome = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getNome(indice), 30);
+			txtEfeito = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getEfeito(indice), 30);
+			txtTipo = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getTipo(indice), 30);
+			txtViaUso = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getViaDeUso(indice), 15);
 			titulo.setBounds(110, 0, 200, 30);
 			salvar.setBounds(310, 360, 70, 30);
 			excluir.setBounds(220, 360, 70, 30);

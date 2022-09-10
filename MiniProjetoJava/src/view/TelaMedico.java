@@ -100,7 +100,8 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaMedicos) {
-			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, listaMedicos.getSelectedIndex());
+			String split[] = listaMedicos.getSelectedValue().split(" - ");
+			new TelaCadastroEdicaoMedico().inserirEditarMedico(2, dadosTelaMedico, Integer.parseInt(split[0]));
 			//new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, this, listaPacientes.getSelectedIndex());
 		}
 	}
