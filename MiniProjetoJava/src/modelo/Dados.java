@@ -83,11 +83,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
-		if(id == ultimoIdMedicos) {
+		if(id == ultimoIdMedicos + 1) {
+			this.medicos[qtdeMedicos] = medico;
 			qtdeMedicos++;
 			ultimoIdMedicos++;
-			medico.setId(ultimoIdMedicos);
-			this.medicos[id] = medico;
 		}
 		else {
 			for(int i = 0; i < qtdeMedicos; i++) {
@@ -128,11 +127,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
-		if(id == ultimoIdPacientes) {
+		if(id == ultimoIdPacientes + 1) {
+			this.pacientes[qtdePacientes] = paciente;
 			ultimoIdPacientes++;
 			qtdePacientes++;
-			paciente.setId(ultimoIdPacientes);
-			this.pacientes[id] = paciente;
 		}
 		else {
 			for(int i = 0; i < qtdePacientes; i++) {
@@ -173,11 +171,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
-		if(id == ultimoIdRemedios) {
+		if(id == ultimoIdRemedios + 1) {
+			this.remedios[qtdeRemedios] = remedio;
 			ultimoIdRemedios++;
 			qtdeRemedios++;
-			remedio.setId(ultimoIdRemedios);
-			this.remedios[id] = remedio;
 		}
 		else {
 			for(int i = 0; i < qtdeRemedios; i++) {
@@ -218,11 +215,10 @@ public class Dados {
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {
-		if(id == ultimoIdAgendamentos) {
+		if(id == ultimoIdAgendamentos + 1) {
+			this.agendamentos[qtdeAgendamentos] = agendamento;
 			ultimoIdAgendamentos++;
 			qtdeAgendamentos++;
-			agendamento.setId(ultimoIdAgendamentos);
-			this.agendamentos[id] = agendamento;
 		}
 		else {
 			for(int i = 0; i < qtdeAgendamentos; i++) {

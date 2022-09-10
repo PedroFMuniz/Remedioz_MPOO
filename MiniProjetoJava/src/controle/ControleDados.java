@@ -150,11 +150,10 @@ public class ControleDados {
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
 		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
-			if (Integer.parseInt(dadosPaciente[0]) == dados.getUltimoIdPacientes()) {
+			if (Integer.parseInt(dadosPaciente[0]) == dados.getUltimoIdPacientes() + 1) {
 				Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 						dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
 				dados.inserirOuEditarPaciente(p, p.getId());
-				System.out.println("here");
 				return true;
 			}else {
 				for(int i = 0; i < dados.getQtdePacientes(); i++) {
@@ -221,7 +220,7 @@ public class ControleDados {
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
-		if (Integer.parseInt(dadosAgendamento[0]) == dados.getUltimoIdAgendamentos()) {
+		if (Integer.parseInt(dadosAgendamento[0]) == dados.getUltimoIdAgendamentos() + 1) {
 			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
 					LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
 					medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
