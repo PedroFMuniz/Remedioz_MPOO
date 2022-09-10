@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
@@ -29,6 +30,8 @@ public class TelaAgendamento implements ActionListener{
 	private JButton btnHorario = new JButton("Novo horario");
 	private JButton salvar = new JButton("Salvar");
 	private JButton refreshHorario = new JButton("Refresh...");
+	private JButton excluirHorario = new JButton("Exclluir horario");
+	private JButton excluirAgendamento = new JButton("Excluir agendamento");
 	private JFrame frame;
 	private JPanel panel = new JPanel();
 	private JScrollPane scroll;
@@ -37,7 +40,6 @@ public class TelaAgendamento implements ActionListener{
 	private int idPac;
 	private ControleDados controleDadosAgendamento;
 	private String[] novoCadastro = new String[10];
-	private Agendamento agendamentoTemp;
 	private Medico medico = new Medico();
 	private Remedio remedio = new Remedio();
 	private DiaDaSemana diaSem;
@@ -65,19 +67,6 @@ public class TelaAgendamento implements ActionListener{
 		listaHorarios = new JList<String>();
 		if(opc == 1) {
 			//sem dados
-			// criar um agendamento sem nada
-			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			//agendamentoInicial[0] = Integer.toString(idAgendamento);
-			//agendamentoInicial[1] = LocalDate.now().format(formatter);
-			//agendamentoInicial[2] = LocalDate.now().format(formatter);
-			// perigoso
-			//tome jeito rapaz
-			//agendamentoInicial[3] = Integer.toString(39);
-			//agendamentoInicial[4] = Integer.toString(39);
-			//agendamentoInicial[5] = Integer.toString(39);
-			//agendamentoInicial[6] = null;
-			
-			//controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
 		}
@@ -90,11 +79,11 @@ public class TelaAgendamento implements ActionListener{
 			Remedio remedioAg = new ControleAgendamento(controleDadosAgendamento).getRemedio(idAgendamento);
 			String[] dataInicioString = dataInicio.toString().split("-");
 			String[] dataFimString = dataFim.toString().split("-");
-			dataInicioDia.setSelectedIndex(Integer.parseInt(dataInicioString[1]) - 1);
-			dataInicioMes.setSelectedIndex(Integer.parseInt(dataInicioString[2]) - 1);
+			dataInicioDia.setSelectedIndex(Integer.parseInt(dataInicioString[2]) - 1);
+			dataInicioMes.setSelectedIndex(Integer.parseInt(dataInicioString[1]) - 1);
 			dataInicioAno.setSelectedItem(Integer.parseInt(dataInicioString[0]));
-			dataFimDia.setSelectedIndex(Integer.parseInt(dataFimString[1]) - 1);
-			dataFimMes.setSelectedIndex(Integer.parseInt(dataFimString[2]) - 1);
+			dataFimDia.setSelectedIndex(Integer.parseInt(dataFimString[2]) - 1);
+			dataFimMes.setSelectedIndex(Integer.parseInt(dataFimString[1]) - 1);
 			dataFimAno.setSelectedItem(Integer.parseInt(dataFimString[0]));
 			medicos.setSelectedIndex(medicoAg.getId());
 			remedios.setSelectedIndex(remedioAg.getId());
@@ -104,7 +93,7 @@ public class TelaAgendamento implements ActionListener{
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
 		}
-		
+		refreshHorario.setEnabled(false);
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaHorarios);
 		listaHorarios.setLayoutOrientation(JList.VERTICAL);
@@ -114,49 +103,58 @@ public class TelaAgendamento implements ActionListener{
 		frame.add(dataInicioDia);
 		frame.add(dataInicioMes);
 		frame.add(dataInicioAno);
-		frame.add(dataFimDia);
 		frame.add(dataFimMes);
+		frame.add(dataFimDia);
 		frame.add(dataFimAno);
-		//frame.add(diasSemana);
 		panel.add(scroll);
 		frame.add(panel);
 		frame.add(btnHorario);
 		frame.add(refreshHorario);
+		frame.add(excluirHorario);
+		if(opc == 2) {
+			frame.add(excluirAgendamento);
+		}
+		frame.add(salvar);
 		frame.setVisible(true);
 		
 		salvar.addActionListener(this);
 		btnHorario.addActionListener(this);
 		refreshHorario.addActionListener(this);
+		excluirHorario.addActionListener(this);
+		excluirAgendamento.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == salvar) {
-			try {
-				/*if(opc == 1) {
-					novoCadastro[0] = Integer.toString(controleDadosAgendamento.getQtdAgendamentos());
-				}
-				else {
-					novoCadastro[0] = Integer.toString(idAgendamento);
-				}
-				LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), dataInicioMes.getSelectedIndex(), 
-										dataInicioDia.getSelectedIndex());
-				LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), dataFimMes.getSelectedIndex(), 
-						dataFimDia.getSelectedIndex());
-				novoCadastro[1] = ld1.toString();
-				novoCadastro[2] = ld2.toString();
-				String[] separa = medicos.getSelectedItem().toString().split(" - ");
-				novoCadastro[3] = separa[0];
-				novoCadastro[4] = String.valueOf(idPac);
-				separa = remedios.getSelectedItem().toString().split(" - ");
-				novoCadastro[5] = separa[0];*/
-				
+			if(listaHorarios.getModel().getSize() == 0) {
+				mensagemErroAgendamento();
 			}
-			catch(NullPointerException exc1) {
-				
-			}
-			catch(NumberFormatException exc1) {
-				
+			else {
+				try {
+					boolean resultado;
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), Integer.parseInt(dataInicioMes.getSelectedItem().toString()), Integer.parseInt(dataInicioDia.getSelectedItem().toString()));
+					LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), Integer.parseInt(dataFimMes.getSelectedItem().toString()), Integer.parseInt(dataFimDia.getSelectedItem().toString()));
+					agendamentoInicial[0] = Integer.toString(idAgendamento);
+					agendamentoInicial[1] = ld1.format(formatter);
+					agendamentoInicial[2] = ld2.format(formatter);
+					agendamentoInicial[3] = Integer.toString(medicos.getSelectedIndex());
+					agendamentoInicial[4] = Integer.toString(idPac);
+					agendamentoInicial[5] = Integer.toString(remedios.getSelectedIndex());
+					resultado = controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
+					if(resultado)
+						mensagemSucessoAgendamento();
+					else
+						mensagemErroAgendamento();
+					
+				}
+				catch(NullPointerException exc1) {
+					mensagemErroAgendamento();
+				}
+				catch(NumberFormatException exc1) {
+					mensagemErroAgendamento();
+				}
 			}
 		}
 		else if(fonte == btnHorario) {
@@ -170,26 +168,43 @@ public class TelaAgendamento implements ActionListener{
 			agendamentoInicial[4] = Integer.toString(idPac);
 			agendamentoInicial[5] = Integer.toString(remedios.getSelectedIndex());
 			listaHorarios.setSelectedIndex(0);
-			if(opc == 1) {
-				agendamentoInicial[6] = "";
-			}
-			else if(opc == 2) {
-				/*String[] ca = new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento);
-				agendamentoInicial[6] = "";
-				for(int i = 0; i < ca.length; i++) {
-					if(ca[i] != null) {
-						agendamentoInicial[6] += ca[i].split(" - ")[0] + "," + ca[i].split(" - ")[1] + "_";
-					}
-				}
-				System.out.println(agendamentoInicial[6]);*/
-			}
-			opc = 2;
 			controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 			new TelaHorario().mostrarHorarios(controleDadosAgendamento, idAgendamento);
+			refreshHorario.setEnabled(true);
 		}
 		else if(fonte == refreshHorario) {
 			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento));
 			listaHorarios.updateUI();
+		}
+		else if(fonte == excluirHorario) {
+			if(listaHorarios.getSelectedIndex() == -1) {
+				erroExcluirHorario();
+			}
+			else {
+				boolean resultado;
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+				String[] itemLista = listaHorarios.getSelectedValue().split(" - ");
+				resultado = controleDadosAgendamento.removerHorarioAgendamento(idAgendamento, itemLista[0], LocalTime.parse(itemLista[1], formatter));
+				listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento));
+				listaHorarios.updateUI();
+				if(resultado) {
+					sucessoExcluirHorario();
+					refreshHorario.setEnabled(true);
+				}
+				else {
+					erroExcluirHorario();
+				}
+			}
+		}
+		else if(fonte == excluirAgendamento) {
+			boolean resultado;
+			resultado = controleDadosAgendamento.removerAgendamento(idAgendamento);
+			if(resultado) {
+				mensagemSucessoExclusaoAgendamento();
+			}
+			else {
+				mensagemErroExclusaoAgendamento();
+			}
 		}
 	}
 	public Integer[] preencheDias() {
@@ -215,7 +230,27 @@ public class TelaAgendamento implements ActionListener{
 		}
 		return arrayAnos; 
 	}
-	public String updateListaHorarios(String str) {
-		return str;
+	public void sucessoExcluirHorario() {
+		JOptionPane.showMessageDialog(null, "O horario foi excluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+	}
+	public void erroExcluirHorario() {
+		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao excluir esse horario. Selecione um item e tente novamente.", null, 
+				JOptionPane.ERROR_MESSAGE);
+	}
+	public void mensagemErroAgendamento() {
+		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao cadastrar esse agendamento. Cadastre um horario e tente novamente.", null, 
+				JOptionPane.ERROR_MESSAGE);
+	}
+	public void mensagemSucessoAgendamento() {
+		JOptionPane.showMessageDialog(null, "O agendamento foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		frame.dispose();
+	}
+	public void mensagemErroExclusaoAgendamento() {
+		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao excluir esse agendamento. Tente novamente.", null, 
+				JOptionPane.ERROR_MESSAGE);
+	}
+	public void mensagemSucessoExclusaoAgendamento() {
+		JOptionPane.showMessageDialog(null, "O agendamento foi excluído com sucesso!", null, 
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

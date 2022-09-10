@@ -75,7 +75,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 				boolean resultado;
 				if(opcaoCrud == 1) {
 					// novo remedio
-					novoCadastro[0] = Integer.toString(controleTelaEdicaoRemedio.getQtdMedicos());
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoRemedio.getQtdRemedios());
 				}
 				else {
 					//edicao
@@ -110,13 +110,13 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		}
 	}
 	public void sucessoExcluir() {
-		JOptionPane.showMessageDialog(null, "O medico foi excluido com sucesso!", null, 
+		JOptionPane.showMessageDialog(null, "O remedio foi excluido com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 
 	public void sucessoCadastrar() {
-		JOptionPane.showMessageDialog(null, "O medico foi salvo com sucesso!", null, 
+		JOptionPane.showMessageDialog(null, "O remedio foi salvo com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}

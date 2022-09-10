@@ -5,13 +5,17 @@ import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.Date;
+import java.util.Locale;
+
 import controle.*;
 
 public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelectionListener{
+	private int opc;
 	private JFrame frame;
 	private JLabel titulo;
 	private JLabel labelNome = new JLabel("Nome: ");
@@ -28,15 +32,13 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton salvar = new JButton("Salvar");
 	private JButton addAlergia = new JButton("+");
 	private JButton removeAlergia = new JButton("-");
+	private JButton refreshAlergia = new JButton("Refresh...");
 	private JButton setaEsq = new JButton("<-");
 	private JButton setaDir = new JButton("->");
 	private JList<String> listaAlergias;
 	private JList<String> listaAgendamentos;
-	private static int opcaoCrud;
 	private static int posicao;
 	private static ControleDados controleTelaEdicaoPaciente;
-	private String[] infosRemedios = new String[40];
-	private int[] indicesAlergias = new int[40];
 	private JPanel panel1 = new JPanel(); 
 	private JPanel panel2 = new JPanel(); 
 	private JScrollPane scroll1;
@@ -44,23 +46,22 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton addAgendamento = new JButton("Novo agendamento");
 	private JButton refreshAgendamento = new JButton("Refresh...");
 	private LocalDate hoje = LocalDate.now();
-	private int diaSemana = hoje.getDayOfWeek().getValue();
-	private String diaUs;
+	private String[] novoCadastro = new String[10];
 	
 	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
-		opcaoCrud = opcao;
 		posicao = id;
 		controleTelaEdicaoPaciente = dados;
-		infosRemedios = new ControleRemedio(dados).getInfo();
+		opc = opcao;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
+		frame = new JFrame("Paciente");
+		labelDatas = new JLabel(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(hoje.format(formatter), 3));
 		//pra deixar as listas em branco
 		listaAlergias = new JList<String>();
-		listaAlergias.setVisibleRowCount(5);
+		//listaAlergias.setVisibleRowCount(5);
 		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
-		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, hoje));
-		listaAgendamentos.setVisibleRowCount(15);
-		
-		diaUs = Integer.toString(diaSemana(diaSemana));
-		
+		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, labelDatas.getText()));
+		//listaAgendamentos.setVisibleRowCount(15);
+				
 		scroll1 = new JScrollPane();
 		scroll1.setViewportView(listaAlergias);
 		listaAlergias.setLayoutOrientation(JList.VERTICAL);
@@ -69,8 +70,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		scroll2.setViewportView(listaAgendamentos);
 		listaAlergias.setLayoutOrientation(JList.VERTICAL);
 		
-		frame = new JFrame("Paciente");
-		labelDatas = new JLabel(hoje.toString());
+		
 		if(opcao == 1) {
 			// sem dados
 			titulo = new JLabel("Cadastro de paciente");
@@ -81,6 +81,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			frame.add(salvar);
 			salvar.setBounds(500, 430, 80, 30);
 			frame.setSize(600, 600);
+			refreshAlergia.setEnabled(false);
 		}
 		else if(opcao == 2) {
 			frame.setSize(800, 600);
@@ -96,6 +97,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			panel2.add(labelDatas);
 			panel2.add(scroll2);
 			panel2.add(addAgendamento);
+			panel2.add(refreshAgendamento);
 			frame.add(panel2);
 			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(id));
 			listaAlergias.updateUI();
@@ -103,6 +105,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			salvar.setBounds(600, 430, 80, 30);
 			excluir.setBounds(500, 430, 80, 30);
 			addAgendamento.setBounds(140, 320, 150, 30);
+			refreshAgendamento.setBounds(10, 320, 100, 30);
+			refreshAlergia.setEnabled(true);
 		}
 		
 		txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -155,6 +159,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		frame.add(panel1);
 		panel1.add(addAlergia);
 		panel1.add(removeAlergia);
+		panel1.add(refreshAlergia);
 		
 		
 		salvar.addActionListener(this);
@@ -163,6 +168,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		removeAlergia.addActionListener(this);
 		addAgendamento.addActionListener(this);
 		refreshAgendamento.addActionListener(this);
+		refreshAlergia.addActionListener(this);
 		listaAgendamentos.addListSelectionListener(this);
 		setaDir.addActionListener(this);
 		setaEsq.addActionListener(this);
@@ -171,22 +177,109 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == addAlergia) {
-			new DetalheTelaCadastroPaciente().mostrarLista(controleTelaEdicaoPaciente);
+			if(txtNome.getText().equals("") || txtEmail.getText().equals("") || txtTelefone.getText().equals("") ||
+					txtDoencas.getText().equals("")) {
+				mensagemPreencherDados();
+			}
+			else {
+				boolean resultado;
+				novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getQtdPacientes());
+				novoCadastro[1] = txtNome.getText();
+				novoCadastro[2] = txtTelefone.getText();
+				novoCadastro[3] = txtEmail.getText();
+				novoCadastro[4] = txtDoencas.getText();
+				resultado = controleTelaEdicaoPaciente.inserirEditarPaciente(novoCadastro);
+				if(!resultado) {
+					erroCadastroPaciente();
+				}
+				new TelaAlergias().mostrarLista(controleTelaEdicaoPaciente, posicao);
+				if(refreshAlergia.isEnabled() == false) {
+					refreshAlergia.setEnabled(true);
+				}
+				opc = 2;
+			}
+			
 		}
 		if(fonte == removeAlergia) {
-			
+			if(listaAlergias.getSelectedIndex() == -1) {
+				erroExcluirAlergia();
+			}
+			else {
+				boolean resultado;
+				String[] itemLista = listaAlergias.getSelectedValue().split(" - ");
+				resultado = controleTelaEdicaoPaciente.removerAlergiaPaciente(posicao, Integer.parseInt(itemLista[0]));
+				listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
+				listaAlergias.updateUI();
+				if(resultado) 
+					sucessoExcluirAlergia();
+				else
+					erroExcluirAlergia();
+			}
+		}
+		/*if(fonte == removeAlergia) {
+			controleTelaEdicaoPaciente.removerAlergiaPaciente(posicao, listaAlergias.getSelectedIndex());
+			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
+			listaAlergias.updateUI();
+		}*/
+		if(fonte == refreshAlergia) {
+			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
+			listaAlergias.updateUI();
 		}
 		if(fonte == addAgendamento) {
 			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getQtdAgendamentos(), posicao);
 		}
 		if(fonte == refreshAgendamento) {
-			
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.updateUI();
 		}
 		if(fonte == setaDir) {
 			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 1));
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.updateUI();
 		}
 		if(fonte == setaEsq) {
 			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 2));
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.updateUI();
+		}
+		if(fonte == salvar) {
+			try {
+				boolean resultado;
+				if(opc == 1) {
+					novoCadastro[0] = Integer.toString(controleTelaEdicaoPaciente.getQtdPacientes());
+				}
+				else {
+					novoCadastro[0] = Integer.toString(posicao);
+				}
+				novoCadastro[1] = txtNome.getText();
+				novoCadastro[2] = txtTelefone.getText();
+				novoCadastro[3] = txtEmail.getText();
+				novoCadastro[4] = txtDoencas.getText();
+				resultado = controleTelaEdicaoPaciente.inserirEditarPaciente(novoCadastro);
+				if(resultado) {
+					sucessoCadastroPaciente();
+				}
+				else {
+					erroCadastroPaciente();
+				}
+				
+			}
+			catch(NullPointerException exc1) {
+				erroCadastroPaciente();
+			}
+			catch(NumberFormatException exc1) {
+				erroCadastroPaciente();
+			}
+		}
+		if(fonte == excluir) {
+			boolean resultado;
+			resultado = controleTelaEdicaoPaciente.removerPaciente(posicao);
+			if(resultado) {
+				sucessoExcluirPaciente();
+			}
+			else {
+				erroExcluirPaciente();
+			}
 		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
@@ -196,37 +289,29 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			new TelaAgendamento().inserirEditarAgendamento(2, controleTelaEdicaoPaciente, Integer.parseInt(textoSeparado[0]), posicao);
 		}
 	}
-	
-	public void setIndicesAlergias(int[] indicesAlergias) {
-		this.indicesAlergias = indicesAlergias; 
+	public void sucessoExcluirAlergia() {
+		JOptionPane.showMessageDialog(null, "A alergia foi excluida com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 	}
-	public String diaSemanaUs(int value) {
-		String diaUs;
-		switch (diaSemana) {
-        	case 1:
-        		diaUs = "Mon";
-        		break;
-	        case 2:
-	        	diaUs = "Tue";
-	            break;
-	        case 3:
-	        	diaUs = "Wed";
-	            break;
-	        case 4:
-	        	diaUs = "Thu";
-	            break;
-	        case 5:
-	        	diaUs = "Fri";
-	            break;
-	        case 6:
-	        	diaUs = "Sat";
-	            break;
-	        case 7:
-	        	diaUs = "Sun";
-	            break;
-	        default:
-	            break;
-	    }
-		return diaUs;
+	public void erroExcluirAlergia() {
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir essa alergia. Selecione um item e tente novamente.", null, 
+				JOptionPane.ERROR_MESSAGE);
 	}
+	private void mensagemPreencherDados() {
+		JOptionPane.showMessageDialog(null, "Preencha os outros campos antes de adicionar uma alergia.", null, JOptionPane.INFORMATION_MESSAGE);
+	}
+	private void erroCadastroPaciente() {
+		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar cadastrar o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
+	}
+	private void sucessoCadastroPaciente() {
+		JOptionPane.showMessageDialog(null, "O paciente foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		frame.dispose();
+	}
+	private void erroExcluirPaciente() {
+		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar excluir o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
+	}
+	private void sucessoExcluirPaciente() {
+		JOptionPane.showMessageDialog(null, "O paciente foi exluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		frame.dispose();
+	}
+
 }

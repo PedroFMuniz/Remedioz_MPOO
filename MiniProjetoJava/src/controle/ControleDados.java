@@ -120,14 +120,15 @@ public class ControleDados {
 		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
 			if (Integer.parseInt(dadosPaciente[0]) == dados.getQtdePacientes()) {
 				Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
-						dadosPaciente[3], new Remedio[40], dadosPaciente[5]);
+						dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
 				dados.inserirOuEditarPaciente(p, p.getId());
+				System.out.println("here");
 				return true;
 			}else {
 				for(int i = 0; i < dados.getQtdePacientes(); i++) {
 					if(dados.getPacientes()[i].getId() == Integer.parseInt(dadosPaciente[0])) {
 						Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
-								dadosPaciente[3], dados.getPacientes()[i].getAlergias(), dadosPaciente[5]);
+								dadosPaciente[3], dados.getPacientes()[i].getAlergias(), dadosPaciente[4]);
 						dados.inserirOuEditarPaciente(p, p.getId());
 						return true;
 					}
@@ -296,6 +297,7 @@ public class ControleDados {
 		for(int i = 0; i < dados.getQtdeRemedios(); i++) {
 			if(dados.getRemedios()[i].getId() == remedio) {
 				alergia = dados.getRemedios()[i];
+				break;
 			}
 		}
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
@@ -312,8 +314,6 @@ public class ControleDados {
 				}
 				dados.getPacientes()[i].getAlergias()[cont] = alergia;
 				return true;
-			} else {
-				return false;
 			}
 		}
 		return false;
@@ -456,19 +456,18 @@ public class ControleDados {
 	 */
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
-		DiaDaSemana[] dias = new DiaDaSemana[7];
-		for (int i = 0; i < agendamentos.length; i++) {
+		for (int i = 0; i < dados.getQtdeAgendamentos(); i++) {
 			if (agendamentos[i].getId() == idAgendamento) {
-				dias = agendamentos[i].getDiasDaSemana();
-				for (int j = 0; j < dias.length; j++) {
-					if (dias[j].getDiaSemana() == dia) {
+				DiaDaSemana[] dias = agendamentos[i].getDiasDaSemana();
+				for (int j = 0; j < 7; j++) {
+					if (dias[j] != null && dias[j].getDiaSemana().equals(dia)) {
 						for (int k = 0; k < dias[j].getHorario().length; k++) {
-							if (dias[j].getHorario()[k] == hora) {
+							if (dias[j].getHorario()[k].equals(hora)) {
 								if (k == dias[j].getHorario().length - 1) {
 									dias[j].getHorario()[k] = null;
 									return true;
 								} else {
-									for (int l = k; l < dias[j].getHorario().length; l++) {
+									for (int l = k; l < dias[j].getHorario().length - 1; l++) {
 										dias[j].getHorario()[l] = null;
 										dias[j].getHorario()[l] = dias[j].getHorario()[l + 1];
 									}
@@ -515,11 +514,11 @@ public class ControleDados {
 				return false;
 			}
 		}
-		for (int i = cont; i < paciente.getAlergias().length; i++) {
+		for (int i = cont; i < paciente.getAlergias().length - 1; i++) {
 			paciente.getAlergias()[i] = null;
 			paciente.getAlergias()[i] = paciente.getAlergias()[i + 1];
 		}
-		paciente.getAlergias()[paciente.getAlergias().length] = null;
+		paciente.getAlergias()[paciente.getAlergias().length - 1] = null;
 		return true;
 	}
 

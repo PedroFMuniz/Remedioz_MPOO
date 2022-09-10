@@ -16,28 +16,29 @@ public class ControleAgendamento {
 	}
 
 	public String[] getInfo() {
-		String[] infos = new String[40];
+		String[] infos = new String[qtdAgendamentos];
 		for (int i = 0; i < qtdAgendamentos; i++) {
 			infos[i] = Integer.toString(agendamentos[i].getId()) + " - " + agendamentos[i].getRemedio().getNome();
 		}
 		return infos;
 	}
 
-	public String[] getInfo(int idPaciente, LocalDate data) {
+	public String[] getInfo(int idPaciente, String data) {
 		int indice = 0;
-		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("E,dd/MM/yyyy", Locale.US);
+		String[] infotemp = new String[40];
+		DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
-		String diaSemana = transformarDiaSemana(data.format(formatterData).split(",")[0], 1);
-		String[] infos = new String[40];
+		String diaSemana = data.split(", ")[0];
+		LocalDate ld = LocalDate.parse(transformarDiaSemana(diaSemana, 2) + ", " + data.split(", ")[1], formatterData);
 		for (int i = 0; i < qtdAgendamentos; i++) {
 			if (agendamentos[i] != null && agendamentos[i].getPaciente().getId() == idPaciente
-					&& data.isAfter(agendamentos[i].getDtInicio()) && data.isBefore(agendamentos[i].getDtFim())) {
-				for (int j = 0; j < agendamentos[i].getDiasDaSemana().length; j++) {
+					&& ld.isAfter(agendamentos[i].getDtInicio()) && ld.isBefore(agendamentos[i].getDtFim())) {
+				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null
-							&& agendamentos[i].getDiasDaSemana()[j].getDiaSemana() == diaSemana) {
+							&& agendamentos[i].getDiasDaSemana()[j].getDiaSemana().equals(diaSemana)) {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
-								infos[indice] = Integer.toString(agendamentos[i].getId()) + " - "
+								infotemp[indice] = Integer.toString(agendamentos[i].getId()) + " - "
 										+ agendamentos[i].getRemedio().getNome() + " - "
 										+ agendamentos[i].getDiasDaSemana()[j].getHorario()[k].format(formatterHora);
 								indice++;
@@ -47,30 +48,38 @@ public class ControleAgendamento {
 				}
 			}
 		}
-		return infos;
+		String[] info = new String[indice];
+		for (int w = 0; w < indice; w++) {
+			info[w] = infotemp[w];
+		}
+		return info;
 	}
 
 	public String[] getInfo(int id) {
 		int indice = 0;
+		String[] infotemp = new String[40];
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
-		String[] infos = new String[40];
 		for (int i = 0; i < qtdAgendamentos; i++) {
 			if (agendamentos[i].getId() == id) {
 				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null) {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
-								infos[indice] = 
-										agendamentos[i].getDiasDaSemana()[j].getDiaSemana() + " - "
+								infotemp[indice] = agendamentos[i].getDiasDaSemana()[j].getDiaSemana() + " - "
 										+ agendamentos[i].getDiasDaSemana()[j].getHorario()[k].format(formatterHora);
 								indice++;
 							}
 						}
 					}
 				}
+				String[] info = new String[indice];
+				for (int j = 0; j < indice; j++) {
+					info[j] = infotemp[j];
+				}
+				return info;
 			}
 		}
-		return infos;
+		return null;
 	}
 
 	public int getId(int i) {
@@ -151,16 +160,21 @@ public class ControleAgendamento {
 	}
 
 	public String mudarLabel(String data, int op) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E,dd/MM/yyyy", Locale.US);
-		String dia = transformarDiaSemana(data.split(",")[0], 2) + "," + data.split(",")[1];
+		String dia;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
+		if (op == 3) {
+			dia = data;
+		} else {
+			dia = transformarDiaSemana(data.split(", ")[0], 2) + ", " + data.split(", ")[1];
+		}
 		LocalDate ld = LocalDate.parse(dia, formatter);
 		if (op == 1) {
 			ld = ld.plusDays(1);
-		} else if(op == 2){
+		} else if (op == 2) {
 			ld = ld.minusDays(1);
 		}
 		dia = ld.format(formatter);
-		String retorno = transformarDiaSemana(dia.split(",")[0], 1) + "," + dia.split(",")[1];
+		String retorno = transformarDiaSemana(dia.split(",")[0], 1) + ", " + dia.split(", ")[1];
 		return retorno;
 	}
 }

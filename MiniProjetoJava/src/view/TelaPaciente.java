@@ -4,14 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 
 import controle.*;
-import modelo.Paciente;
 
 
 public class TelaPaciente implements ActionListener, ListSelectionListener {
-	private Paciente[] pacientes = new Paciente[40];
 	private JFrame frame;
 	private JLabel label;
 	private String[] infosPacientes = new String[40];
@@ -23,7 +20,6 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	private JPanel panel;
 	private JTextField txtPesquisa;
 	private JButton btnPesquisa;
-	private String id;
 	
 	private static ControleDados dadosTelaPaciente;
 	
@@ -79,7 +75,8 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarPaciente) {
-			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, 0);
+			int qtdePacientes = dadosTelaPaciente.getQtdPacientes();
+			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(1, dadosTelaPaciente, qtdePacientes);
 		}
 		if(fonte == refreshPaciente) {
 			listaPacientes.setListData(new ControlePaciente(dadosTelaPaciente).getInfo());			
