@@ -37,4 +37,26 @@ class testeControleDados {
 		
 		assertFalse(dados.verificarTelEmail("6199999-9999", "@teste.com"));
 	}
+	
+	@Test
+	void testeTransformarDiaSemana() {
+		ControleDados dados = new ControleDados();
+		String[] dias = { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
+		
+		for(int i = 0; i < 7; i++) {
+			assertEquals(dias[i], dados.transformarDiaSemana(i));
+			assertEquals(i, dados.transformarDiaSemana(dias[i]));
+		}
+	}
+	
+	@Test
+	void testeInserirAlergiaPaciente() {
+		ControleDados dados = new ControleDados();
+		
+		String[] dadosRemedio = {"11", "Generico", "Placebo", "Comprimido", "Oral"};
+		dados.inserirEditarRemedio(dadosRemedio);
+	
+		
+		assertTrue(dados.inserirAlergiasPaciente(0, dados.getRemedios()[11]));
+	}
 }

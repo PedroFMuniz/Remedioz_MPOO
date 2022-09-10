@@ -46,15 +46,14 @@ public class Dados {
 
 			Medico md = new Medico(i, "Dr. teste", "61999994444", "doutor@teste.com", "999999999999", "Diagnóstico");
 			Remedio rd1 = new Remedio(i, "Generico", "Placebo", "Comprimido", "Oral");
-			Remedio rd2 = new Remedio(i+1, "Generico2", "Placebo", "Comprimido", "Oral");
 			Remedio[] alergias = new Remedio[40];
-			alergias[0] = rd2;
+			alergias[0] = rd1;
 			Paciente pa = new Paciente(i, "Teste", "61999994444", "paciente@teste.com", alergias, "Saudável");
 			LocalTime[] horarios = new LocalTime[40];
 			horarios[0] = LocalTime.of(18, 30);
 			DiaDaSemana d1 = new DiaDaSemana("Sexta", horarios);
 			DiaDaSemana[] dias = {null, null, null, null, d1, null, null};
-			Agendamento ag = new Agendamento(0, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), md, pa, rd2, dias);
+			Agendamento ag = new Agendamento(0, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), md, pa, rd1, dias);
 			medicos[i] = md;
 			pacientes[i] = pa;
 			remedios[i] = rd1;
