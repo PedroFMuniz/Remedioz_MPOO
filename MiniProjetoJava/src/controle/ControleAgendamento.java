@@ -55,8 +55,8 @@ public class ControleAgendamento {
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
 		String[] infos = new String[40];
 		for (int i = 0; i < qtdAgendamentos; i++) {
-			if (agendamentos[i] != null && agendamentos[i].getId() == id) {
-				for (int j = 0; j < agendamentos[i].getDiasDaSemana().length; j++) {
+			if (agendamentos[i].getId() == id) {
+				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null) {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {

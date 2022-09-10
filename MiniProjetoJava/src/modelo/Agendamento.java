@@ -30,14 +30,14 @@ public class Agendamento {
 	/**
 	 * Construtor  para a instanciacao de um paciente com valores definidos.
 	 */
-	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio remedio, DiaDaSemana[] diasDaSemana) {
+	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio remedio, DiaDaSemana[] diasSemana) {
 		this.id = id;
 		this.dtInicio = dtInicio;
 		this.dtFim = dtFim;
 		this.medico = medico;
 		this.paciente = paciente;
 		this.remedio = remedio;
-		this.diasDaSemana = diasDaSemana;
+		this.diasDaSemana = diasSemana;
 	}
 
 	// Getters e Setters

@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -37,10 +38,11 @@ public class TelaAgendamento implements ActionListener{
 	private ControleDados controleDadosAgendamento;
 	private String[] novoCadastro = new String[10];
 	private Agendamento agendamentoTemp;
-	private Medico medicoTemp = new Medico();
-	private Remedio remedioTemp = new Remedio();
-	private DiaDaSemana[] diasSemTemp = new DiaDaSemana[7];
+	private Medico medico = new Medico();
+	private Remedio remedio = new Remedio();
+	private DiaDaSemana diaSem;
 	private LocalDate data = LocalDate.now();
+	private String[] agendamentoInicial = new String[10];
 	
 	public void inserirEditarAgendamento(int opcao, ControleDados dados, int idAg, int idPaciente) {
 		idAgendamento = idAg;
@@ -49,7 +51,7 @@ public class TelaAgendamento implements ActionListener{
 		controleDadosAgendamento = dados;
 		
 		// Agendamento temporario pra poder preencher
-		agendamentoTemp = new Agendamento(idAgendamento, data, data, medicoTemp, controleDadosAgendamento.getPacientes()[idPac], remedioTemp, diasSemTemp);
+		//agendamentoTemp = new Agendamento(idAgendamento, data, data, medico, controleDadosAgendamento.getPacientes()[idPac], remedio, diaSem);
 		frame = new JFrame("Agendamentos");
 		frame.setSize(600,600);
 		remedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());
@@ -63,19 +65,45 @@ public class TelaAgendamento implements ActionListener{
 		listaHorarios = new JList<String>();
 		if(opc == 1) {
 			//sem dados
+			// criar um agendamento sem nada
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			//agendamentoInicial[0] = Integer.toString(idAgendamento);
+			//agendamentoInicial[1] = LocalDate.now().format(formatter);
+			//agendamentoInicial[2] = LocalDate.now().format(formatter);
+			// perigoso
+			//tome jeito rapaz
+			//agendamentoInicial[3] = Integer.toString(39);
+			//agendamentoInicial[4] = Integer.toString(39);
+			//agendamentoInicial[5] = Integer.toString(39);
+			//agendamentoInicial[6] = null;
 			
+			//controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
 		}
 		else if(opc == 2) {
 			// preenchidos
 			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAg));
+			LocalDate dataInicio = new ControleAgendamento(controleDadosAgendamento).getDtInicio(idAgendamento);
+			LocalDate dataFim = new ControleAgendamento(controleDadosAgendamento).getDtFim(idAgendamento);
+			Medico medicoAg = new ControleAgendamento(controleDadosAgendamento).getMedico(idAgendamento);
+			Remedio remedioAg = new ControleAgendamento(controleDadosAgendamento).getRemedio(idAgendamento);
+			String[] dataInicioString = dataInicio.toString().split("-");
+			String[] dataFimString = dataFim.toString().split("-");
+			dataInicioDia.setSelectedIndex(Integer.parseInt(dataInicioString[1]) - 1);
+			dataInicioMes.setSelectedIndex(Integer.parseInt(dataInicioString[2]) - 1);
+			dataInicioAno.setSelectedItem(Integer.parseInt(dataInicioString[0]));
+			dataFimDia.setSelectedIndex(Integer.parseInt(dataFimString[1]) - 1);
+			dataFimMes.setSelectedIndex(Integer.parseInt(dataFimString[2]) - 1);
+			dataFimAno.setSelectedItem(Integer.parseInt(dataFimString[0]));
+			medicos.setSelectedIndex(medicoAg.getId());
+			remedios.setSelectedIndex(remedioAg.getId());
+			System.out.println(dataInicio.toString() + " " + dataFim.toString());
+			//dataInicioDia.setSelectedIndex();
 			listaHorarios.updateUI();
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
 		}
-		
-		
 		
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaHorarios);
@@ -105,7 +133,7 @@ public class TelaAgendamento implements ActionListener{
 		Object fonte = e.getSource();
 		if(fonte == salvar) {
 			try {
-				if(opc == 1) {
+				/*if(opc == 1) {
 					novoCadastro[0] = Integer.toString(controleDadosAgendamento.getQtdAgendamentos());
 				}
 				else {
@@ -117,11 +145,11 @@ public class TelaAgendamento implements ActionListener{
 						dataFimDia.getSelectedIndex());
 				novoCadastro[1] = ld1.toString();
 				novoCadastro[2] = ld2.toString();
-				String[] separa = medicos.getSelectedItem().toString().split("-");
+				String[] separa = medicos.getSelectedItem().toString().split(" - ");
 				novoCadastro[3] = separa[0];
 				novoCadastro[4] = String.valueOf(idPac);
-				separa = remedios.getSelectedItem().toString().split("-");
-				novoCadastro[5] = separa[0];
+				separa = remedios.getSelectedItem().toString().split(" - ");
+				novoCadastro[5] = separa[0];*/
 				
 			}
 			catch(NullPointerException exc1) {
@@ -132,6 +160,31 @@ public class TelaAgendamento implements ActionListener{
 			}
 		}
 		else if(fonte == btnHorario) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), Integer.parseInt(dataInicioMes.getSelectedItem().toString()), Integer.parseInt(dataInicioDia.getSelectedItem().toString()));
+			LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), Integer.parseInt(dataFimMes.getSelectedItem().toString()), Integer.parseInt(dataFimDia.getSelectedItem().toString()));
+			agendamentoInicial[0] = Integer.toString(idAgendamento);
+			agendamentoInicial[1] = ld1.format(formatter);
+			agendamentoInicial[2] = ld2.format(formatter);
+			agendamentoInicial[3] = Integer.toString(medicos.getSelectedIndex());
+			agendamentoInicial[4] = Integer.toString(idPac);
+			agendamentoInicial[5] = Integer.toString(remedios.getSelectedIndex());
+			listaHorarios.setSelectedIndex(0);
+			if(opc == 1) {
+				agendamentoInicial[6] = "";
+			}
+			else if(opc == 2) {
+				/*String[] ca = new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento);
+				agendamentoInicial[6] = "";
+				for(int i = 0; i < ca.length; i++) {
+					if(ca[i] != null) {
+						agendamentoInicial[6] += ca[i].split(" - ")[0] + "," + ca[i].split(" - ")[1] + "_";
+					}
+				}
+				System.out.println(agendamentoInicial[6]);*/
+			}
+			opc = 2;
+			controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 			new TelaHorario().mostrarHorarios(controleDadosAgendamento, idAgendamento);
 		}
 		else if(fonte == refreshHorario) {

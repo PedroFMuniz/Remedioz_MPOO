@@ -117,7 +117,7 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
-		if (verificarTelEmail(dadosPaciente[2],dadosPaciente[3])) {
+		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
 			Remedio[] alergias = separarVetorRemedio(dadosPaciente[4]);
 			Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 					dadosPaciente[3], alergias, dadosPaciente[5]);
@@ -127,7 +127,7 @@ public class ControleDados {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Metodo responsavel por inserir ou editar um medico. Verifica se os dados de
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
@@ -177,12 +177,28 @@ public class ControleDados {
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
-		Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
+		if(Integer.parseInt(dadosAgendamento[0]) == dados.getQtdeAgendamentos()) {
+			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
 				LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
 				medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
-				remedios[Integer.parseInt(dadosAgendamento[5])], separarVetorDiaDaSemana(dadosAgendamento[6]));
-		dados.inserirOuEditarAgendamento(a, a.getId());
-		return true;
+				remedios[Integer.parseInt(dadosAgendamento[5])], new DiaDaSemana[7]);
+			dados.inserirOuEditarAgendamento(a, a.getId());
+			return true;
+		}else {
+			Agendamento ag = new Agendamento();
+			for(int i = 0; i < dados.getQtdeAgendamentos(); i++) {
+				if(dados.getAgendamentos()[i].getId() == Integer.parseInt(dadosAgendamento[0])) {
+					ag = dados.getAgendamentos()[i];
+				}
+			}
+			Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
+					LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
+					medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
+					remedios[Integer.parseInt(dadosAgendamento[5])], ag.getDiasDaSemana());
+			dados.inserirOuEditarAgendamento(a, a.getId());
+			return true;
+		}
+		
 	}
 
 	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
@@ -377,7 +393,6 @@ public class ControleDados {
 		}
 	}
 
-
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
@@ -451,7 +466,8 @@ public class ControleDados {
 			int qtdPacientes = dados.getQtdePacientes();
 			for (int i = 0; i < qtdPacientes; i++) {
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
-					if (dados.getPacientes()[i].getAlergias()[j] != null && dados.getPacientes()[i].getAlergias()[j].getId() == id) {
+					if (dados.getPacientes()[i].getAlergias()[j] != null
+							&& dados.getPacientes()[i].getAlergias()[j].getId() == id) {
 						verificador = true;
 					}
 				}
@@ -483,25 +499,27 @@ public class ControleDados {
 	 * @param String contendo os dados dos dias da semana com seus horarios
 	 * @return Array de dias da semana provenientes dos dados informados
 	 */
-	public DiaDaSemana[] separarVetorDiaDaSemana(String vetor) {
-		int indice = 0;
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-		String[] vetorSeparado = vetor.split("_");
+	/*public DiaDaSemana[] separarVetorDiaDaSemana(String vetor) {
 		DiaDaSemana[] dias = new DiaDaSemana[7];
-		for (int i = 0; i < 7; i++) {
-			LocalTime[] horarios = new LocalTime[40];
-			for (int j = 0; j < vetorSeparado.length; j++) {
-				String[] dadosDia = vetorSeparado[j].split(",");
-				if (transformarDiaSemana(dadosDia[0]) == i) {
-					horarios[indice] = LocalTime.parse(dadosDia[1], formatter);
-					indice++;
+		if (vetor != null && vetor != "") {
+			int indice = 0;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+			String[] vetorSeparado = vetor.split("_");
+			for (int i = 0; i < 7; i++) {
+				LocalTime[] horarios = new LocalTime[40];
+				for (int j = 0; j < vetorSeparado.length; j++) {
+					String[] dadosDia = vetorSeparado[j].split(",");
+					if (transformarDiaSemana(dadosDia[0]) == i) {
+						horarios[indice] = LocalTime.parse(dadosDia[1], formatter);
+						indice++;
+					}
 				}
+				DiaDaSemana d = new DiaDaSemana(transformarDiaSemana(i), horarios);
+				dias[i] = d;
 			}
-			DiaDaSemana d = new DiaDaSemana(transformarDiaSemana(i), horarios);
-			dias[i] = d;
 		}
 		return dias;
-	}
+	}*/
 
 	/**
 	 * Metodo responsavel por separar os dados referentes aos remedios de um
@@ -555,7 +573,7 @@ public class ControleDados {
 		}
 		return null;
 	}
-	
+
 	public boolean verificarTelEmail(String tel, String email) {
 		return (tel.matches("\\d{10,11}") && email.matches("^(.+)@(.+)$"));
 	}

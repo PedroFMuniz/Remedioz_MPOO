@@ -159,6 +159,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		addAgendamento.addActionListener(this);
 		refreshAgendamento.addActionListener(this);
 		listaAgendamentos.addListSelectionListener(this);
+		setaDir.addActionListener(this);
+		setaEsq.addActionListener(this);
 		this.frame.setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -175,11 +177,14 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		if(fonte == refreshAgendamento) {
 			
 		}
+		if(fonte == setaDir) {
+			
+		}
 	}
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaAgendamentos) {
-			String[] textoSeparado = listaAgendamentos.getSelectedValue().split("-");
+			String[] textoSeparado = listaAgendamentos.getSelectedValue().split(" - ");
 			new TelaAgendamento().inserirEditarAgendamento(2, controleTelaEdicaoPaciente, Integer.parseInt(textoSeparado[0]), posicao);
 		}
 	}

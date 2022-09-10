@@ -9,7 +9,7 @@ import javax.swing.event.*;
 import controle.*;
 
 public class TelaHorario implements ActionListener{
-	private String[] strDiasSemana = {"Segunda", "Terca", "Quarta",
+	private String[] strDiasSemana = {"Segunda", "Terça", "Quarta",
 			"Quinta", "Sexta", "Sabado", "Domingo"};
 	private JComboBox<Integer> hora;
 	private JComboBox<Integer> minuto;

@@ -100,7 +100,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaPacientes) {
-			String[] textoSeparado = listaPacientes.getSelectedValue().split("-");
+			String[] textoSeparado = listaPacientes.getSelectedValue().split(" - ");
 			new TelaCadastroEdicaoPaciente().inserirEditarPaciente(2, dadosTelaPaciente, Integer.parseInt(textoSeparado[0]));
 		}
 	}
