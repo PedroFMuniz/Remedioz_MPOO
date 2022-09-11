@@ -218,9 +218,8 @@ public class TelaAgendamento implements ActionListener{
 			}
 			else {
 				boolean resultado;
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 				String[] itemLista = listaHorarios.getSelectedValue().split(" - ");
-				resultado = controleDadosAgendamento.removerHorarioAgendamento(idAgendamento, itemLista[0], LocalTime.parse(itemLista[1], formatter));
+				resultado = controleDadosAgendamento.removerHorarioAgendamento(idAgendamento, itemLista[0], itemLista[1]);
 				listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAgendamento));
 				listaHorarios.updateUI();
 				if(resultado) {

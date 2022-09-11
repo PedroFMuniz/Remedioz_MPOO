@@ -56,7 +56,7 @@ public class ControlePaciente {
 	}
 
 	/**
-	 * Metodo responsavel por retornar os as alergias de um paciente especifico
+	 * Metodo responsavel por retornar as alergias de um paciente especifico
 	 * 
 	 * @param id : int indicando o paciente
 	 * @return Array de Strings no formato: id do remedio - nome do remedio
@@ -79,6 +79,8 @@ public class ControlePaciente {
 		return nomesRemedios;
 	}
 
+	//Gets e sets
+	
 	public int getId(int i) {
 		return pacientes[i].getId();
 	}

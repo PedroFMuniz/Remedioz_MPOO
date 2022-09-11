@@ -229,7 +229,8 @@ public class ControleDados {
 	 * @param hora          : LocalTime indicando o horario a ser adicionado
 	 * @return boolean indicando se a operacao foi realizada com sucesso
 	 */
-	public boolean inserirHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
+	public boolean inserirHorarioAgendamento(int idAgendamento, String dia, int horario, int minutos) {
+		LocalTime hora = LocalTime.of(horario, minutos);
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
 		for (int i = 0; i < agendamentos.length; i++) {
@@ -298,12 +299,10 @@ public class ControleDados {
 
 	/**
 	 * Metodo responsavel por retirar um cadastro de agendamento da base de dados.
-	 * Verifica se o mesmo se encontra na ultima posicao do array de dados. Em caso
-	 * positivo, apenas retira o cadastro e diminui a quantidade de agendamentos. Em
-	 * caso negativo, se utiliza de uma rotina swap para reorganizar o array e por
-	 * fim diminui a quantidade de agendamentos
+	 * Se utiliza de uma rotina swap para reorganizar o array e por
+	 * fim diminui a quantidade de agendamentos.
 	 * 
-	 * @param id : int informando a posicao do cadastro a ser deletado
+	 * @param id : int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerAgendamento(int id) {
@@ -323,15 +322,13 @@ public class ControleDados {
 
 	/**
 	 * Metodo responsavel por retirar um cadastro de paciente da base de dados.
-	 * Verifica se o mesmo se encontra na ultima posicao do array de dados. Em caso
-	 * positivo, apenas retira o cadastro e diminui a quantidade de pacientes. Em
-	 * caso negativo, se utiliza de uma rotina swap para reorganizar o array e por
+	 * Se utiliza de uma rotina swap para reorganizar o array e por
 	 * fim diminui a quantidade de pacientes
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o paciente possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
 	 * 
-	 * @param id : int informando a posicao do cadastro a ser deletado
+	 * @param id : int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerPaciente(int id) {
@@ -355,16 +352,14 @@ public class ControleDados {
 
 	/**
 	 * Metodo responsavel por retirar um cadastro de remedio da base de dados.
-	 * Verifica se o mesmo se encontra na ultima posicao do array de dados. Em caso
-	 * positivo, apenas retira o cadastro e diminui a quantidade de remedios. Em
-	 * caso negativo, se utiliza de uma rotina swap para reorganizar o array e por
+	 * Se utiliza de uma rotina swap para reorganizar o array e por
 	 * fim diminui a quantidade de remedios
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o remedio possui
 	 * agendamentos relacionados ou pacientes relacionados. Em caso positivo, a
 	 * exclusao nao sera realizada
 	 * 
-	 * @param id : int informando a posicao do cadastro a ser deletado
+	 * @param id : int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerRemedio(int id) {
@@ -388,15 +383,13 @@ public class ControleDados {
 
 	/**
 	 * Metodo responsavel por retirar um cadastro de medico da base de dados.
-	 * Verifica se o mesmo se encontra na ultima posicao do array de dados. Em caso
-	 * positivo, apenas retira o cadastro e diminui a quantidade de medicos. Em caso
-	 * negativo, se utiliza de uma rotina swap para reorganizar o array e por fim
+	 * Se utiliza de uma rotina swap para reorganizar o array e por fim
 	 * diminui a quantidade de medicos
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o medico possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
 	 * 
-	 * @param id : int informando a posicao do cadastro a ser deletado
+	 * @param id : int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerMedico(int id) {
@@ -429,7 +422,8 @@ public class ControleDados {
 	 * @param hora          : LocalTime indicando o horario a ser deletado
 	 * @return boolean indicando o sucesso da operacao
 	 */
-	public boolean removerHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
+	public boolean removerHorarioAgendamento(int idAgendamento, String dia, String horario) {
+		LocalTime hora = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		for (int i = 0; i < dados.getQtdeAgendamentos(); i++) {
 			if (agendamentos[i].getId() == idAgendamento) {
@@ -438,10 +432,6 @@ public class ControleDados {
 					if (dias[j] != null && dias[j].getDiaSemana().equals(dia)) {
 						for (int k = 0; k < dias[j].getHorario().length; k++) {
 							if (dias[j].getHorario()[k].equals(hora)) {
-								if (k == dias[j].getHorario().length - 1) {
-									dias[j].getHorario()[k] = null;
-									return true;
-								} else {
 									for (int l = k; l < dias[j].getHorario().length - 1; l++) {
 										dias[j].getHorario()[l] = null;
 										dias[j].getHorario()[l] = dias[j].getHorario()[l + 1];
@@ -454,7 +444,6 @@ public class ControleDados {
 					}
 				}
 			}
-		}
 		return false;
 	}
 

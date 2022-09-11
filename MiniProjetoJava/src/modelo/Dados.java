@@ -77,9 +77,11 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Medico" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+	 * @param medico : Medico que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do medico
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
@@ -121,9 +123,11 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Paciente" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+	 * @param paciente : Paciente que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do paciente
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
@@ -166,9 +170,11 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Remedio" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+	 * @param remedio : Remedio que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do remedio
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
@@ -210,9 +216,11 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Agendamento" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+	 * @param agendamento : Agendamento que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do agendamento
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {

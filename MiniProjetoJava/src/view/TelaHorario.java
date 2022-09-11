@@ -82,8 +82,7 @@ public class TelaHorario implements ActionListener{
 				String diaS = diasSemana.getSelectedItem().toString();
 				int horaS = hora.getSelectedIndex();
 				int minS = minuto.getSelectedIndex();
-				LocalTime lt = LocalTime.of(horaS, minS);
-				resultado = controleHorario.inserirHorarioAgendamento(idAg, diaS, lt);
+				resultado = controleHorario.inserirHorarioAgendamento(idAg, diaS, horaS, minS);
 				if(resultado) {
 					mesagemSucessoHorario();
 				}
@@ -100,8 +99,7 @@ public class TelaHorario implements ActionListener{
 			String diaS = diasSemana.getSelectedItem().toString();
 			int horaS = hora.getSelectedIndex();
 			int minS = minuto.getSelectedIndex();
-			LocalTime lt = LocalTime.of(horaS, minS);
-			controleHorario.inserirHorarioAgendamento(idAg, diaS, lt);
+			controleHorario.inserirHorarioAgendamento(idAg, diaS, horaS, minS);
 			frame.dispose();
 
 		}

@@ -14,7 +14,7 @@ class testeControleDados {
 	void testeInserirHorarioAgendamento() {
 		ControleDados dados = new ControleDados();
 		
-		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
+		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", 18, 30));
 	}
 
 	@Test
