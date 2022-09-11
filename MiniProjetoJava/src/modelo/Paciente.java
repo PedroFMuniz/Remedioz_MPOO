@@ -33,15 +33,6 @@ public class Paciente extends Pessoa {
 		this.alergias = alergias;
 		this.historicoDoencas = historicoDoencas;
 	}
-	public Paciente(int id, String nome, String telefone, String email, Remedio alergias ,String historicoDoencas) {
-		this.id = id;
-		this.nome = nome;
-		this.telefone = telefone;
-		this.email = email;
-		this.alergias[0] = alergias;
-		this.historicoDoencas = historicoDoencas;
-	}
-	
 	
 	// Getters e setters
 	

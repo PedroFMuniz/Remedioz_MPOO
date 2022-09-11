@@ -147,7 +147,9 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarPaciente(String[] dadosPaciente) {
+		// Verifica a formatacao de telefone e email
 		if (verificarTelEmail(dadosPaciente[2], dadosPaciente[3])) {
+			// Inicia o paciente com o vetor de alergias nulo
 			Paciente p = new Paciente(Integer.parseInt(dadosPaciente[0]), dadosPaciente[1], dadosPaciente[2],
 					dadosPaciente[3], new Remedio[40], dadosPaciente[4]);
 			dados.inserirOuEditarPaciente(p, p.getId());
@@ -167,6 +169,7 @@ public class ControleDados {
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarMedico(String[] dadosMedico) {
+		// Verifica a formatacao de telefone e email
 		if (verificarTelEmail(dadosMedico[2], dadosMedico[3])) {
 			Medico m = new Medico(Integer.parseInt(dadosMedico[0]), dadosMedico[1], dadosMedico[2], dadosMedico[3],
 					dadosMedico[4], dadosMedico[5]);
@@ -207,6 +210,7 @@ public class ControleDados {
 		Medico[] medicos = dados.getMedicos();
 		Paciente[] pacientes = dados.getPacientes();
 		Remedio[] remedios = dados.getRemedios();
+		// Inicia o agendamento com o vetor de dias da semana nulo
 		Agendamento a = new Agendamento(Integer.parseInt(dadosAgendamento[0]),
 				LocalDate.parse(dadosAgendamento[1], formatter), LocalDate.parse(dadosAgendamento[2], formatter),
 				medicos[Integer.parseInt(dadosAgendamento[3])], pacientes[Integer.parseInt(dadosAgendamento[4])],
@@ -219,9 +223,9 @@ public class ControleDados {
 	/**
 	 * Metodo responsavel por inserir novos horarios em um determinado agendamento.
 	 * Verifica ate que ponto o vetor de horarios de um dia esta preenchido e
-	 * adiciona o novo dado na primeira posicao nula. Tambem verifica se o agendamento 
-	 * ja possui um horario identico. Em caso negativo cadastra o novo
-	 * horario. 
+	 * adiciona o novo dado na primeira posicao nula. Tambem verifica se o
+	 * agendamento ja possui um horario identico. Em caso negativo cadastra o novo
+	 * horario.
 	 * 
 	 * @param idAgendamento : int indicando qual agendamento deve ser editado
 	 * @param dia           : String indicando o nome do dia da semana a ser
@@ -234,18 +238,23 @@ public class ControleDados {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
 		for (int i = 0; i < agendamentos.length; i++) {
+			// Verifica qual agendamento esta sendo editado
 			if (agendamentos[i] != null && agendamentos[i].getId() == idAgendamento) {
 				dias = agendamentos[i].getDiasDaSemana();
 				int cont = 0;
+				// Verifica se existe algum horario cadastrado neste dia da semana
 				if (dias[transformarDiaSemana(dia)] != null) {
+					// Rotina para verificar se já existe um registro igual e inserir o horario na
+					// primeira posicao nula
 					while (dias[transformarDiaSemana(dia)].getHorario()[cont] != null) {
-						if(dias[transformarDiaSemana(dia)].getHorario()[cont].equals(hora)) {
+						if (dias[transformarDiaSemana(dia)].getHorario()[cont].equals(hora)) {
 							return false;
 						}
 						cont++;
 					}
 					dias[transformarDiaSemana(dia)].getHorario()[cont] = hora;
 				} else {
+					// Cria um novo dia da semana caso a posicao desejada seja nula
 					LocalTime[] ld = new LocalTime[40];
 					ld[0] = hora;
 					DiaDaSemana d = new DiaDaSemana(dia, ld);
@@ -271,13 +280,16 @@ public class ControleDados {
 	public boolean inserirAlergiasPaciente(int idPaciente, int remedio) {
 		Remedio alergia = new Remedio();
 		for (int i = 0; i < dados.getQtdeRemedios(); i++) {
+			// Verifica qual remedio esta sendo adicionado como alergia
 			if (dados.getRemedios()[i].getId() == remedio) {
 				alergia = dados.getRemedios()[i];
 				break;
 			}
 		}
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
+			// Identifica qual paciente esta sendo editado
 			if (dados.getPacientes()[i].getId() == idPaciente) {
+				// Rotina para verificar se ja existe um registro igual
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
 					if (dados.getPacientes()[i].getAlergias()[j] != null
 							&& dados.getPacientes()[i].getAlergias()[j] == alergia) {
@@ -285,6 +297,7 @@ public class ControleDados {
 					}
 				}
 				int cont = 0;
+				// Rotina para incluir a alergia na primeira posicao nula
 				while (dados.getPacientes()[i].getAlergias()[cont] != null) {
 					cont++;
 				}
@@ -295,12 +308,12 @@ public class ControleDados {
 		return false;
 	}
 
-	// Métodos de exlusão
+	// Métodos de exclusão
 
 	/**
 	 * Metodo responsavel por retirar um cadastro de agendamento da base de dados.
-	 * Se utiliza de uma rotina swap para reorganizar o array e por
-	 * fim diminui a quantidade de agendamentos.
+	 * Se utiliza de uma rotina swap para reorganizar o array e por fim diminui a
+	 * quantidade de agendamentos.
 	 * 
 	 * @param id : int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
@@ -308,9 +321,11 @@ public class ControleDados {
 	public boolean removerAgendamento(int id) {
 		int qtdAgendamentos = dados.getQtdeAgendamentos();
 		int cont = 0;
+		// Rotina para verificar a posição do registro
 		while (dados.getAgendamentos()[cont].getId() != id) {
 			cont++;
 		}
+		// Rotina para reorganizar o vetor
 		for (int i = cont; i < qtdAgendamentos; i++) {
 			dados.getAgendamentos()[i] = null;
 			dados.getAgendamentos()[i] = dados.getAgendamentos()[i + 1];
@@ -321,9 +336,9 @@ public class ControleDados {
 	}
 
 	/**
-	 * Metodo responsavel por retirar um cadastro de paciente da base de dados.
-	 * Se utiliza de uma rotina swap para reorganizar o array e por
-	 * fim diminui a quantidade de pacientes
+	 * Metodo responsavel por retirar um cadastro de paciente da base de dados. Se
+	 * utiliza de uma rotina swap para reorganizar o array e por fim diminui a
+	 * quantidade de pacientes
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o paciente possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
@@ -337,9 +352,11 @@ public class ControleDados {
 			return false;
 		} else {
 			int cont = 0;
+			// Rotina para verificar a posição do registro
 			while (dados.getPacientes()[cont].getId() != id) {
 				cont++;
 			}
+			// Rotina para reorganizar o vetor
 			for (int i = cont; i < qtdPacientes; i++) {
 				dados.getPacientes()[i] = null;
 				dados.getPacientes()[i] = dados.getPacientes()[i + 1];
@@ -351,9 +368,9 @@ public class ControleDados {
 	}
 
 	/**
-	 * Metodo responsavel por retirar um cadastro de remedio da base de dados.
-	 * Se utiliza de uma rotina swap para reorganizar o array e por
-	 * fim diminui a quantidade de remedios
+	 * Metodo responsavel por retirar um cadastro de remedio da base de dados. Se
+	 * utiliza de uma rotina swap para reorganizar o array e por fim diminui a
+	 * quantidade de remedios
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o remedio possui
 	 * agendamentos relacionados ou pacientes relacionados. Em caso positivo, a
@@ -368,9 +385,11 @@ public class ControleDados {
 			return false;
 		} else {
 			int cont = 0;
+			// Rotina para verificar a posição do registro
 			while (dados.getRemedios()[cont].getId() != id) {
 				cont++;
 			}
+			// Rotina para reorganizar o vetor
 			for (int i = cont; i < qtdRemedios; i++) {
 				dados.getRemedios()[i] = null;
 				dados.getRemedios()[i] = dados.getRemedios()[i + 1];
@@ -382,9 +401,9 @@ public class ControleDados {
 	}
 
 	/**
-	 * Metodo responsavel por retirar um cadastro de medico da base de dados.
-	 * Se utiliza de uma rotina swap para reorganizar o array e por fim
-	 * diminui a quantidade de medicos
+	 * Metodo responsavel por retirar um cadastro de medico da base de dados. Se
+	 * utiliza de uma rotina swap para reorganizar o array e por fim diminui a
+	 * quantidade de medicos
 	 * 
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o medico possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
@@ -398,9 +417,11 @@ public class ControleDados {
 			return false;
 		} else {
 			int cont = 0;
+			// Rotina para verificar a posição do registro
 			while (dados.getMedicos()[cont].getId() != id) {
 				cont++;
 			}
+			// Rotina para reorganizar o vetor
 			for (int i = cont; i < qtdMedicos; i++) {
 				dados.getMedicos()[i] = null;
 				dados.getMedicos()[i] = dados.getMedicos()[i + 1];
@@ -426,24 +447,39 @@ public class ControleDados {
 		LocalTime hora = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		for (int i = 0; i < dados.getQtdeAgendamentos(); i++) {
+			// Verifica qual agendamento sera editado
 			if (agendamentos[i].getId() == idAgendamento) {
 				DiaDaSemana[] dias = agendamentos[i].getDiasDaSemana();
 				for (int j = 0; j < 7; j++) {
+					// Verifica o dia que sera editado
 					if (dias[j] != null && dias[j].getDiaSemana().equals(dia)) {
-						for (int k = 0; k < dias[j].getHorario().length; k++) {
-							if (dias[j].getHorario()[k].equals(hora)) {
-									for (int l = k; l < dias[j].getHorario().length - 1; l++) {
-										dias[j].getHorario()[l] = null;
-										dias[j].getHorario()[l] = dias[j].getHorario()[l + 1];
-									}
-									dados.getPacientes()[dias[j].getHorario().length - 1] = null;
-									return true;
-								}
-							}
+						int cont = 0;
+						// Rotina para verificar a posição do registro
+						while (!dias[j].getHorario()[cont].equals(hora)) {
+							cont++;
 						}
+						// Verifica se o horario a ser deletado é o unico do dia, em caso positivo
+						// transforma o dia em null
+						if (cont == 1) {
+							dados.getAgendamentos()[i].getDiasDaSemana()[j] = null;
+						} else {
+							// Rotina para reorganizar o vetor
+							for (int l = cont; l < dias[j].getHorario().length - 1; l++) {
+								dados.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[l] = null;
+								dados.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[l] = dias[j].getHorario()[l
+										+ 1];
+							}
+							dados.getAgendamentos()[i].getDiasDaSemana()[j]
+									.getHorario()[dados.getAgendamentos()[i].getDiasDaSemana()[j].getHorario().length
+											- 1] = null;
+						}
+
+						return true;
+
 					}
 				}
 			}
+		}
 		return false;
 	}
 
@@ -459,24 +495,29 @@ public class ControleDados {
 	 */
 	public boolean removerAlergiaPaciente(int idPaciente, int remedio) {
 		Remedio alergia = new Remedio();
+		// Rotina para obter o remedio que sera deletado
 		for (int i = 0; i < dados.getQtdeRemedios(); i++) {
 			if (dados.getRemedios()[i].getId() == remedio) {
 				alergia = dados.getRemedios()[i];
 			}
 		}
 		Paciente paciente = new Paciente();
+		// Rotina para identificar o paciente que sera editado
 		for (int i = 0; i < dados.getQtdePacientes(); i++) {
 			if (dados.getPacientes()[i].getId() == idPaciente) {
 				paciente = dados.getPacientes()[i];
 			}
 		}
 		int cont = 0;
+		// Rotina para verificar a posição do registro
 		while (paciente.getAlergias()[cont] != alergia) {
 			cont++;
+			// Caso nao possua alergias
 			if (cont == paciente.getAlergias().length) {
 				return false;
 			}
 		}
+		// Rotina para reorganizar o vetor
 		for (int i = cont; i < paciente.getAlergias().length - 1; i++) {
 			paciente.getAlergias()[i] = null;
 			paciente.getAlergias()[i] = paciente.getAlergias()[i + 1];
@@ -499,6 +540,7 @@ public class ControleDados {
 		switch (op) {
 		case 1: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
+			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
 				if (dados.getAgendamentos()[i].getPaciente().getId() == id) {
 					verificador = true;
@@ -507,6 +549,7 @@ public class ControleDados {
 		}
 		case 2: {
 			int qtdPacientes = dados.getQtdePacientes();
+			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdPacientes; i++) {
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
 					if (dados.getPacientes()[i].getAlergias()[j] != null
@@ -518,6 +561,7 @@ public class ControleDados {
 		}
 		case 3: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
+			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
 				if (dados.getAgendamentos()[i].getMedico().getId() == id) {
 					verificador = true;

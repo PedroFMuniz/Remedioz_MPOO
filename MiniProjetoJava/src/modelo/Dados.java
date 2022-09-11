@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Random;
 /**
  * Classe "Dados". Relaciona-se com todas as classes do pacote "modelo", pois tem 
  * como funcao principal a criacao de dados padrao no inicio da execucao do programa.
@@ -41,30 +42,37 @@ public class Dados {
 	/**
 	 * Metodo para preencher os vetores com dados padrao. Usa de um loop "for" para
 	 * criar 10 instancias de todas as classes do projeto e salva-as em seus
-	 * respectivos vetores. Tambem iguala todas as variaveis de quantidades a 10. 
+	 * respectivos vetores. Tambem iguala todas as variaveis de quantidades a 10 e o ultimo id para 9. 
 	 * 
 	 * @return void
 	 * */
 	public void preencherDados() {
+		Random gerador = new Random();
+		String[] nomes = {"Jorge", "Cláudio", "Davi", "Miguel", "Helena", "Ana", "Laura", "Alice"};
+		String[] sobrenomes = {"Silva", "Ferraz", "Correia", "Fernandes"};
+		String[] nomeRemedios = {"Paracetamol", "Ibuprofeno", "Rivotril", "Systane", "Metila", "Polaramine"};
+		String[] viaDeUso = {"Oral", "Ocular", "Superfície", "Nasal"};
+		String[] tipo = {"Comprimido", "Gotas", "Spray", "Líquido"};
+		String[] efeitos = {"Alívio da dor", "Alívio da febre", "Antialérgico", "Limpeza"};
+		String[] especialidades = {"Nutricionista", "Oftalmologista", "Otorrinolaringologista", "Geral", "Diagnóstico"};
+		String[] historicos = {"Saudável", "Diabético", "Hipertenso", "Imunosuprimido"};
+		String[] diasSemana = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"};
 		for(int i = 0; i < 10; i++) {
-
-			Medico md = new Medico(i, "Dr. teste", "61999994444", "doutor@teste.com", "999999999999", "Diagnóstico");
-			Remedio rd1 = new Remedio(i, "Generico", "Placebo", "Comprimido", "Oral");
+			medicos[i] = new Medico(i, nomes[gerador.nextInt(7)] + " " +  sobrenomes[gerador.nextInt(3)], "619" + Integer.toString(gerador.nextInt(10000000, 99999999)), sobrenomes[gerador.nextInt(3)] + "@email.com", Integer.toString(gerador.nextInt(1000000, 9999999)), especialidades[gerador.nextInt(4)]);
+			remedios[i] = new Remedio(i, nomeRemedios[gerador.nextInt(5)], efeitos[gerador.nextInt(3)], tipo[gerador.nextInt(3)], viaDeUso[gerador.nextInt(3)]);
 			Remedio[] alergias = new Remedio[40];
-			alergias[0] = rd1;
-			Paciente pa = new Paciente(i, "Teste", "61999994444", "paciente@teste.com", alergias, "Saudável");
+			alergias[0] = remedios[i==0 ? 0 : gerador.nextInt(i)];
+			pacientes[i] = new Paciente(i, nomes[gerador.nextInt(7)] + " " +  sobrenomes[gerador.nextInt(3)], "619" + Integer.toString(gerador.nextInt(10000000, 99999999)), sobrenomes[gerador.nextInt(3)] + "@email.com", alergias, historicos[gerador.nextInt(3)]);
 			LocalTime[] horarios = new LocalTime[40];
-			horarios[0] = LocalTime.of(18, 30);
-			DiaDaSemana d1 = new DiaDaSemana("Sexta", horarios);
-			DiaDaSemana[] dias = {null, null, null, null, d1, null, null};
-			Agendamento ag = new Agendamento(0, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), md, pa, rd1, dias);
-			medicos[i] = md;
-			pacientes[i] = pa;
-			remedios[i] = rd1;
-			agendamentos[i] = ag;
-			qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
-			ultimoIdMedicos = ultimoIdPacientes = ultimoIdRemedios = ultimoIdAgendamentos = 9;
+			horarios[0] = LocalTime.of(gerador.nextInt(23), gerador.nextInt(59));
+			int dia = gerador.nextInt(6);
+			DiaDaSemana d = new DiaDaSemana(diasSemana[dia], horarios);
+			DiaDaSemana[] dias = new DiaDaSemana[7];
+			dias[dia] = d;
+			agendamentos[i] = new Agendamento(i, LocalDate.of(2022, 2, 1), LocalDate.of(2022, 12, 1), medicos[i==0 ? 0 : gerador.nextInt(i)], pacientes[i==0 ? 0 : gerador.nextInt(i)], remedios[i==0 ? 0 : gerador.nextInt(i)], dias);
 		}
+		qtdeMedicos = qtdePacientes = qtdeRemedios = qtdeAgendamentos = 10;
+		ultimoIdMedicos = ultimoIdPacientes = ultimoIdRemedios = ultimoIdAgendamentos = 9;
 	}
 	
 	// Métodos para vetor de médicos

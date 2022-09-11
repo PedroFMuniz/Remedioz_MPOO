@@ -58,12 +58,15 @@ public class ControleAgendamento {
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
 		String diaSemana = data.split(", ")[0];
 		LocalDate ld = LocalDate.parse(transformarDiaSemana(diaSemana, 2) + ", " + data.split(", ")[1], formatterData);
+		//Rotina para identificar agendamentos que possuam o paciente indicado
 		for (int i = 0; i < qtdAgendamentos; i++) {
 			if (agendamentos[i] != null && agendamentos[i].getPaciente().getId() == idPaciente
 					&& ld.isAfter(agendamentos[i].getDtInicio()) && ld.isBefore(agendamentos[i].getDtFim())) {
+				//Rotina para obter os dias da semana do agendamento
 				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null
 							&& agendamentos[i].getDiasDaSemana()[j].getDiaSemana().equals(diaSemana)) {
+						//Rotina para obter os horarios do dia da semana e adiciona-los ao retorno
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
 								infotemp[indice] = Integer.toString(agendamentos[i].getId()) + " - "
@@ -76,6 +79,7 @@ public class ControleAgendamento {
 				}
 			}
 		}
+		//Retorna um array com somente o numero de posicoes prenchidas
 		String[] info = new String[indice];
 		for (int w = 0; w < indice; w++) {
 			info[w] = infotemp[w];
@@ -94,10 +98,13 @@ public class ControleAgendamento {
 		int indice = 0;
 		String[] infotemp = new String[40];
 		DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
+		//Rotina para identificar o agendamento
 		for (int i = 0; i < qtdAgendamentos; i++) {
 			if (agendamentos[i].getId() == id) {
+				//Rotina para adicionar os dias da semana
 				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null) {
+						//Rotina para adicionar os horarios
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
 								infotemp[indice] = agendamentos[i].getDiasDaSemana()[j].getDiaSemana() + " - "
@@ -107,6 +114,7 @@ public class ControleAgendamento {
 						}
 					}
 				}
+				//Retorna um array com somente o numero de posicoes prenchidas
 				String[] info = new String[indice];
 				for (int j = 0; j < indice; j++) {
 					info[j] = infotemp[j];
@@ -216,12 +224,15 @@ public class ControleAgendamento {
 	public String mudarLabel(String data, int op) {
 		String dia;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
+		//Mantem a mesma data
 		if (op == 3) {
 			dia = data;
+		//Traduz o nome do dia para ingles
 		} else {
 			dia = transformarDiaSemana(data.split(", ")[0], 2) + ", " + data.split(", ")[1];
 		}
 		LocalDate ld = LocalDate.parse(dia, formatter);
+		//Adiciona/Subtrai um dia da data
 		if (op == 1) {
 			ld = ld.plusDays(1);
 		} else if (op == 2) {

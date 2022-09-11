@@ -32,7 +32,7 @@ public class ControleMedico {
 	public String[] getInfo() {
 		String[] infos = new String[qtdMedicos];
 		for(int i = 0; i < qtdMedicos; i++) {
-			infos[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome() + " - " + medicos[i].getEspecialidade(); 
+			infos[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome().split(" ")[0] + " - " + medicos[i].getEspecialidade(); 
 		}
 		return infos;
 	}
@@ -44,10 +44,25 @@ public class ControleMedico {
 	 * @return Array de Strings no formato: id - nome - especialidade
 	 */
 	public String[] getInfo(String busca) {
-		String[] infos = new String[qtdMedicos];
+		String[] infostemp = new String[qtdMedicos];
+		String[] infos = new String[0];
+		int cont = 0;
+		//Rotina para adicionar apenas os registros pesquisas
 		for(int i = 0; i < qtdMedicos; i++) {
-			if(medicos[i].getNome().contains(busca)) {
-				infos[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome() + " - " + medicos[i].getEspecialidade();
+			if(medicos[i].getNome().split(" ")[0].toUpperCase().contains(busca.toUpperCase())) {
+				infostemp[i] = Integer.toString(medicos[i].getId()) + " - " + medicos[i].getNome().split(" ")[0] + " - " + medicos[i].getEspecialidade();
+				cont++;
+			}
+		}
+		infos = new String[cont];
+		//Rotina para retornar um vetor com o numero exato de posicoes
+		for (int i = 0; i < cont; i++) {
+			for (int j = 0; j < qtdMedicos; j++) {
+				if (infos[i] == null && infostemp[j] != null) {
+					infos[i] = infostemp[j];
+					infostemp[j] = null;
+					break;
+				}
 			}
 		}
 		return infos;

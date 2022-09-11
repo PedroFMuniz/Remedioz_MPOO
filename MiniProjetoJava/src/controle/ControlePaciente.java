@@ -33,7 +33,7 @@ public class ControlePaciente {
 	public String[] getInfo() {
 		String[] infos = new String[qtdPacientes];
 		for (int i = 0; i < qtdPacientes; i++) {
-			infos[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome();
+			infos[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome().split(" ")[0];
 		}
 		return infos;
 	}
@@ -46,10 +46,25 @@ public class ControlePaciente {
 	 * @return Array de Strings no formato: id - nome
 	 */
 	public String[] getInfo(String busca) {
-		String[] infos = new String[qtdPacientes];
+		String[] infostemp = new String[qtdPacientes];
+		String[] infos = new String[0];
+		int cont = 0;
+		//Rotina para adicionar apenas os registros pesquisas
 		for (int i = 0; i < qtdPacientes; i++) {
-			if (pacientes[i].getNome().contains(busca)) {
-				infos[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome();
+			if (pacientes[i].getNome().split(" ")[0].toUpperCase().contains(busca.toUpperCase())) {
+				infostemp[i] = Integer.toString(pacientes[i].getId()) + " - " + pacientes[i].getNome().split(" ")[0];
+				cont++;
+			}
+		}
+		infos = new String[cont];
+		//Rotina para retornar um vetor com o numero exato de posicoes
+		for (int i = 0; i < cont; i++) {
+			for (int j = 0; j < qtdPacientes; j++) {
+				if (infos[i] == null && infostemp[j] != null) {
+					infos[i] = infostemp[j];
+					infostemp[j] = null;
+					break;
+				}
 			}
 		}
 		return infos;
@@ -64,8 +79,10 @@ public class ControlePaciente {
 	public String[] getInfoAlergias(int id) {
 		int cont = 0;
 		String[] nomesRemedios = null;
+		//Rotina para identificar o paciente
 		for (int i = 0; i < qtdPacientes; i++) {
 			if (pacientes[i].getId() == id) {
+				//Rotina para retornar um vetor com o numero exato de posicoes
 				while (pacientes[i].getAlergias()[cont] != null) {
 					cont++;
 				}

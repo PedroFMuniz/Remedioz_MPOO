@@ -2,13 +2,12 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalTime;
 import javax.swing.*;
 import controle.*;
 
 public class TelaHorario implements ActionListener{
 	private String[] strDiasSemana = {"Segunda", "Terça", "Quarta",
-			"Quinta", "Sexta", "Sabado", "Domingo"};
+			"Quinta", "Sexta", "Sábado", "Domingo"};
 	private JComboBox<Integer> hora;
 	private JComboBox<Integer> minuto;
 	private JComboBox<String> diasSemana;
