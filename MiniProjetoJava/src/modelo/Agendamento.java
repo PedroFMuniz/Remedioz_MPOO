@@ -20,15 +20,8 @@ public class Agendamento {
 	private Remedio remedio;
 	private DiaDaSemana[] diasDaSemana = new DiaDaSemana[7];
 	
-	// Construtores
 	/**
-	 * Construtor vazio para a instanciacao de um agendamento sem valores padrao.
-	 */
-	public Agendamento() {
-		
-	}
-	/**
-	 * Construtor  para a instanciacao de um paciente com valores definidos.
+	 * Construtor para a instanciacao de um paciente com valores definidos.
 	 */
 	public Agendamento(int id, LocalDate dtInicio, LocalDate dtFim, Medico medico, Paciente paciente, Remedio remedio, DiaDaSemana[] diasSemana) {
 		this.id = id;
@@ -84,44 +77,6 @@ public class Agendamento {
 	}
 	public void setDiasDaSemana(DiaDaSemana[] diasDaSemana) {
 		this.diasDaSemana = diasDaSemana;
-	}
-	
-	// Outros métodos (mais sentido na camada de controle)
-	/**
-	 * Adiciona um remedio ao array de remedios. Retorna TRUE se a operacao tiver
-	 * sucesso; se nao, FALSE.
-	 * 
-	 * @return boolean
-	 */
-	public boolean adicionarRemedio(Remedio remedio) {
-		return false;
-	}
-	/**
-	 * Remove um remedio do array da instancia da classe. Retorna TRUE se houver 
-	 * sucesso; se nao, FALSE.
-	 * 
-	 * @return boolean
-	 */
-	public boolean removerRemedio(Remedio remedio) {
-		return false;
-	}
-	/**
-	 * Adiciona uma data ao array de datas. Retorna TRUE se a operacao tiver
-	 * sucesso; se nao, FALSE. 
-	 * 
-	 * @return boolean
-	 */
-	public boolean adicionarData(LocalDate data) {
-		return false;
-	}
-	/**
-	 * Remove uma data do array da instancia da classe. Retorna TRUE se houver 
-	 * sucesso; se nao, FALSE.
-	 * 
-	 * @return boolean
-	 */
-	public boolean removerData(LocalDate data) {
-		return false;
 	}
 }
 

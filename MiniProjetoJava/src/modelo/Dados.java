@@ -80,6 +80,8 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
 	 * instancias for igual a posicao, acresce um ao numero de instancias.
 	 * 
+	 * @param medico : A instancia de "Medico"
+	 * @param id : o atributo "id" do medico
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
@@ -124,6 +126,8 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
 	 * instancias for igual a posicao, acresce um ao numero de instancias.
 	 * 
+	 * @param paciente : a instancia de "Paciente"
+	 * @param id: o atributo "id" do "Paciente" 
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
@@ -169,6 +173,8 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
 	 * instancias for igual a posicao, acresce um ao numero de instancias.
 	 * 
+	 * @param remedio : A instancia de "Remedio"
+	 * @param id : o atributo "id" de "Remedio"
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
@@ -213,6 +219,8 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
 	 * instancias for igual a posicao, acresce um ao numero de instancias.
 	 * 
+	 * @param agendamento : A instancia de "Agendamento"
+	 * @param id : o atributo "id" de "Agendamento"
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {

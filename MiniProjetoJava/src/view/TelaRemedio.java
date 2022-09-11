@@ -8,6 +8,16 @@ import javax.swing.event.*;
 
 import controle.*;
 
+/**
+ * Classe "TelaRemedio". Descreve uma tela com um titulo, uma barra de pesquisa,
+ * uma lista de "Remedios" e botoes para cadastrar um novo remedio ou atualizar a 
+ * lista. Implementa as interfaces ActionListener e ListSelectionListener. Gerencia 
+ * a pesquisa e vizualizacao de "Remedios".
+ *
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class TelaRemedio implements ActionListener, ListSelectionListener{
 	private String[] infosRemedios = new String[40];
 	private String[] pesquisaRemedios = new String[40];
@@ -22,40 +32,55 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	private JPanel panel = new JPanel();
 	private static ControleDados dadosTelaRemedio;
 	
+	
+	/**
+	 * Metodo que descreve a tela "TelaRemedio" para renderizacao. Adiciona
+	 * ActionListeners em botoes e um ListSelectionListener na lista de "Remedios".
+	 * 
+	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @see TelaMenu
+	 * @return void
+	 */
 	public void mostrarDados(ControleDados dados) {
 
+		// Definicao para uso em outros metodos
 		dadosTelaRemedio = dados;
 		
 		frame = new JFrame("Remedios");
+		panel.setLayout(null);
+		frame.setLayout(null);
+		frame.setSize(400, 400);
+		
 		infosRemedios = new ControleRemedio(dados).getInfo();
-		frame.setLayout(new FlowLayout());
+		
+		// Criacao dos itens da tela
 		label = new JLabel("Lista de remedios");
 		txtPesquisa = new JTextField("");
 		btnPesquisa = new JButton("Pesquisar...");
-		infosRemedios = new ControleRemedio(dados).getInfo();
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLayout(null);
-		label = new JLabel("Lista de remédios");
 		cadastrarRemedio = new JButton("Cadastrar");
 		refreshRemedio = new JButton("Refresh");
 		listaRemedios = new JList<String>(infosRemedios);
-		label.setFont(new Font("Arial", Font.BOLD, 16));
-		listaRemedios.setFont(new Font("Arial", Font.BOLD, 24));
+		
+		// Definicao ScrollPane
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaRemedios);
 		listaRemedios.setLayoutOrientation(JList.VERTICAL);
 		panel.add(scroll);
 		
-		panel.setLayout(null);
+		// Definicao de fontes
+		label.setFont(new Font("Arial", Font.BOLD, 16));
+		listaRemedios.setFont(new Font("Arial", Font.BOLD, 24));
+		
+		// Posicionamento dos itens
 		scroll.setBounds(0, 0, 350, 200);
 		label.setBounds(135, 10, 150, 30);
 		txtPesquisa.setBounds(20, 50, 200, 20);
 		btnPesquisa.setBounds(240, 50, 130, 20);
-		listaRemedios.setVisibleRowCount(5);
 		cadastrarRemedio.setBounds(20, 300, 150, 30);
 		panel.setBounds(20, 80, 350, 200);
 		refreshRemedio.setBounds(220, 300, 150, 30);
 		
+		// Adicao ao JFrame
 		frame.add(label);
 		frame.add(txtPesquisa);
 		frame.add(btnPesquisa);
@@ -63,16 +88,25 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		frame.add(cadastrarRemedio);
 		frame.add(refreshRemedio);
 		
-		//listaRemedios.setPrototypeCellValue(String.format("%45s", ""));
+		// Adicao de ActionListeners e ListSelectionListener
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		cadastrarRemedio.addActionListener(this);
 		refreshRemedio.addActionListener(this);
 		listaRemedios.addListSelectionListener(this);
 		btnPesquisa.addActionListener(this);
 		
-		frame.setSize(400, 400);
 		frame.setVisible(true);
 	}
+	/**
+	 * Metodo que descreve o que deve acontecer a partir dos cliques em botoes.
+	 * Este metodo permite que a lista de "Remedios" seja atualizada, o gerenciamento 
+	 * da pesquisa na lista, e a abertura de "TelaCadastroEdicaoRemedio" sem dados 
+	 * em seus JTextFields.
+	 * 
+	 * @see TelaCadastroEdicaoRemedio
+	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaRemedio".
+	 * @return void
+	 */
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == cadastrarRemedio) {
@@ -94,6 +128,17 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que descreve o que deve acontecer a partir do clique em um item da lista
+	 * de "Remedios". Abre "TelaCadastroEdicaoRemedio" com os dados correspondentes ao 
+	 * item da lista.
+	 * 
+	 * @see TelaCadastroEdicaoPaciente
+	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * so ha uma fonte possivel: "listaRemedios").
+	 * @return void
+	 * */
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaRemedios) {
