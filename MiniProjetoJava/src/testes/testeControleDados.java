@@ -1,7 +1,6 @@
 package testes;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ class testeControleDados {
 	void testeInserirHorarioAgendamento() {
 		ControleDados dados = new ControleDados();
 		
-		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
+		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", 18, 30));
 	}
 
 	@Test

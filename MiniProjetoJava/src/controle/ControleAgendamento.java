@@ -6,15 +6,35 @@ import java.util.Locale;
 
 import modelo.*;
 
+
+/**
+ * Classe "ControleAgendamento". Responsavel por retornar informacoes acerca dos agendamentos
+ * cadastrados.
+ * 
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class ControleAgendamento {
 	private Agendamento[] agendamentos;
 	int qtdAgendamentos;
 
+	/**
+	 * Construtor para obter os agendamentos cadastrados
+	 * 
+	 * @param dados : ControleDados que retorna os agendamentos cadastrados
+	 */
 	public ControleAgendamento(ControleDados dados) {
 		this.agendamentos = dados.getAgendamentos();
 		this.qtdAgendamentos = dados.getQtdAgendamentos();
 	}
 
+	/**
+	 * Metodo responsavel por retornar as informacoes necessarias de todos os
+	 * agendamentos cadastrados
+	 * 
+	 * @return Array de Strings no formato: id - nome do remedio
+	 */
 	public String[] getInfo() {
 		String[] infos = new String[qtdAgendamentos];
 		for (int i = 0; i < qtdAgendamentos; i++) {
@@ -23,6 +43,14 @@ public class ControleAgendamento {
 		return infos;
 	}
 
+	/**
+	 * Metodo responsavel por retornar as informacoes necessarias de agendamentos
+	 * que possuem um paciente e data informados
+	 * 
+	 * @param idPaciente : int indicando o paciente ao qual os agendamentos devem estar relacionados
+	 * @param data : String indicando a data na qual o agendamento deve estar incluso
+	 * @return Array de Strings no formato: id - nome do remedio - horario
+	 */
 	public String[] getInfo(int idPaciente, String data) {
 		int indice = 0;
 		String[] infotemp = new String[40];
@@ -55,6 +83,13 @@ public class ControleAgendamento {
 		return info;
 	}
 
+	/**
+	 * Metodo responsavel por retornar as informacoes necessarias acerca dos dias da semana
+	 * de um agendamento informado
+	 * 
+	 * @param id : int indicando o agendamento selecionado
+	 * @return Array de Strings no formato: dia da semana - horario
+	 */
 	public String[] getInfo(int id) {
 		int indice = 0;
 		String[] infotemp = new String[40];
@@ -82,6 +117,8 @@ public class ControleAgendamento {
 		return null;
 	}
 
+	//Gets e sets
+	
 	public int getId(int i) {
 		return agendamentos[i].getId();
 	}
@@ -140,6 +177,15 @@ public class ControleAgendamento {
 		return null;
 	}
 
+	/**
+	 * Metodo responsavel por transformar os dias da semana do ingles
+	 * para o portugues e vice versa.
+	 * 
+	 * 
+	 * @param dia : String com o nome do dia
+	 * @param op : int indicando qual traducao deve ser feita
+	 * @return String com o nome traduzido do dia
+	 */
 	public String transformarDiaSemana(String dia, int op) {
 		String[] us = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 		String[] br = { "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
@@ -159,6 +205,14 @@ public class ControleAgendamento {
 		return null;
 	}
 
+	/**
+	 * Metodo responsavel por transformar o dia a ser usado 
+	 * como parametro para busca de agendamentos.
+	 * 
+	 * @param data : String informando a data a ser transformada
+	 * @param op : int indicando que tipo de transformacao deve ocorrer
+	 * @return String com a data transformada
+	 */
 	public String mudarLabel(String data, int op) {
 		String dia;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);

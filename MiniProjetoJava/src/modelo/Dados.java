@@ -77,11 +77,16 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Medico" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+<<<<<<< HEAD
 	 * @param medico : A instancia de "Medico"
 	 * @param id : o atributo "id" do medico
+=======
+	 * @param medico : Medico que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do medico
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
@@ -123,11 +128,16 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Paciente" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+<<<<<<< HEAD
 	 * @param paciente : a instancia de "Paciente"
 	 * @param id: o atributo "id" do "Paciente" 
+=======
+	 * @param paciente : Paciente que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do paciente
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
@@ -170,11 +180,16 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Remedio" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+<<<<<<< HEAD
 	 * @param remedio : A instancia de "Remedio"
 	 * @param id : o atributo "id" de "Remedio"
+=======
+	 * @param remedio : Remedio que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do remedio
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
@@ -216,11 +231,16 @@ public class Dados {
 	}
 	/**
 	 * Metodo para inserir uma instancia de "Agendamento" na posicao desejada. Se ja 
-	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia, se o numero de
-	 * instancias for igual a posicao, acresce um ao numero de instancias.
+	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
+	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
+<<<<<<< HEAD
 	 * @param agendamento : A instancia de "Agendamento"
 	 * @param id : o atributo "id" de "Agendamento"
+=======
+	 * @param agendamento : Agendamento que deve ser cadastrado ou editado
+	 * @param id : int indicando o id do agendamento
+>>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {

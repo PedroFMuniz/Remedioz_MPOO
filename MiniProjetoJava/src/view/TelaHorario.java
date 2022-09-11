@@ -2,7 +2,6 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalTime;
 import javax.swing.*;
 import controle.*;
 
@@ -124,10 +123,10 @@ public class TelaHorario implements ActionListener{
 			try {
 				boolean resultado;
 				String diaS = diasSemana.getSelectedItem().toString();
+
 				int horaS = cmbHora.getSelectedIndex();
 				int minS = cmbMinuto.getSelectedIndex();
-				LocalTime lt = LocalTime.of(horaS, minS);
-				resultado = controleHorario.inserirHorarioAgendamento(idAg, diaS, lt);
+				resultado = controleHorario.inserirHorarioAgendamento(idAg, diaS, horaS, minS);
 				if(resultado) {
 					mesagemSucessoHorario();
 				}
@@ -144,9 +143,8 @@ public class TelaHorario implements ActionListener{
 			String diaS = diasSemana.getSelectedItem().toString();
 			int horaS = cmbHora.getSelectedIndex();
 			int minS = cmbMinuto.getSelectedIndex();
-			LocalTime lt = LocalTime.of(horaS, minS);
-			controleHorario.inserirHorarioAgendamento(idAg, diaS, lt);
-			//frame.dispose();
+			controleHorario.inserirHorarioAgendamento(idAg, diaS, horaS, minS);
+			frame.dispose();
 
 		}
 	}
