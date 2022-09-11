@@ -2,6 +2,8 @@ package testes;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 import controle.*;
 
@@ -11,6 +13,7 @@ class testeGetInfo {
 	void getInfo() {
 		ControleDados controle = new ControleDados();
 		ControleAgendamento agendamentos = new ControleAgendamento(controle);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		
 		//Rotinas para obter as informacoes do agendamento 0
 		int cont = 0;
@@ -21,7 +24,7 @@ class testeGetInfo {
 					if(controle.getAgendamentos()[i].getDiasDaSemana()[j] != null) {
 						for(int k = 0; k < 40; k++) {
 								if(controle.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[k] != null) {
-								temp[cont] = controle.getAgendamentos()[i].getDiasDaSemana()[j].getDiaSemana() + " - " + Integer.toString(controle.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[k].getHour()) + ":" + Integer.toString(controle.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[k].getMinute());
+								temp[cont] = controle.getAgendamentos()[i].getDiasDaSemana()[j].getDiaSemana() + " - " + controle.getAgendamentos()[i].getDiasDaSemana()[j].getHorario()[k].format(formatter);
 								cont++;
 							}
 						}
