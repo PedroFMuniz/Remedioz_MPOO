@@ -348,7 +348,7 @@ public class ControleDados {
 	 */
 	public boolean removerPaciente(int id) {
 		int qtdPacientes = dados.getQtdePacientes();
-		if (!verificarRelacao(id, 1)) {
+		if (verificarRelacao(id, 1)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -381,7 +381,7 @@ public class ControleDados {
 	 */
 	public boolean removerRemedio(int id) {
 		int qtdRemedios = dados.getQtdeRemedios();
-		if (!verificarRelacao(id, 1) && !verificarRelacao(id, 2)) {
+		if (verificarRelacao(id, 1) || verificarRelacao(id, 2)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -413,7 +413,7 @@ public class ControleDados {
 	 */
 	public boolean removerMedico(int id) {
 		int qtdMedicos = dados.getQtdeMedicos();
-		if (!verificarRelacao(id, 3)) {
+		if (verificarRelacao(id, 3)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -536,16 +536,18 @@ public class ControleDados {
 	 * @return boolean informando se possui ou nao relacoes
 	 */
 	public boolean verificarRelacao(int id, int op) {
-		boolean verificador = false;
 		switch (op) {
 		case 1: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
 			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
+				System.out.println(dados.getAgendamentos()[i].getPaciente().getId() == id);
+				System.out.println(id);
 				if (dados.getAgendamentos()[i].getPaciente().getId() == id) {
-					verificador = true;
+					return true;
 				}
 			}
+			return false;
 		}
 		case 2: {
 			int qtdPacientes = dados.getQtdePacientes();
@@ -554,25 +556,26 @@ public class ControleDados {
 				for (int j = 0; j < dados.getPacientes()[i].getAlergias().length; j++) {
 					if (dados.getPacientes()[i].getAlergias()[j] != null
 							&& dados.getPacientes()[i].getAlergias()[j].getId() == id) {
-						verificador = true;
+						return true;
 					}
 				}
 			}
+			return false;
 		}
 		case 3: {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
 			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
 				if (dados.getAgendamentos()[i].getMedico().getId() == id) {
-					verificador = true;
+					return true;
 				}
 			}
+			return false;
 		}
 		default: {
-			verificador = false;
+			return false;
 		}
 		}
-		return verificador;
 	}
 
 	/**
