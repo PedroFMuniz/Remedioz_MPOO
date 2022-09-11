@@ -10,6 +10,16 @@ import java.util.Locale;
 
 import controle.*;
 
+/**
+ * Classe "TelaCadastroEdicaoPaciente". Descreve uma tela com um titulo, JTextFields, uma
+ * lista de alergias e, no caso de edicao de paciente, uma lista de agendamentos por dia, bem 
+ * como botoes para manipular ambas as listas, salvar e excluir um paciente.
+ * Implementa as interfaces ActionListener e ListSelectionListener 
+ * 
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelectionListener{
 	private JFrame frame;
 	private JLabel titulo;
@@ -32,8 +42,6 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton setaDir = new JButton("->");
 	private JList<String> listaAlergias;
 	private JList<String> listaAgendamentos;
-	private static int posicao;
-	private static ControleDados controleTelaEdicaoPaciente;
 	private JPanel panel1 = new JPanel(); 
 	private JPanel panel2 = new JPanel(); 
 	private JScrollPane scroll1;
@@ -42,30 +50,54 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton refreshAgendamento = new JButton("Refresh...");
 	private LocalDate hoje = LocalDate.now();
 	private String[] novoCadastro = new String[10];
+	private static int idPaciente;
+	private static ControleDados controleTelaEdicaoPaciente;
 	
+	/**
+	 * Metodo que descreve a tela "TelaCadastroEdicaoPaciente" para renderizacao. Adiciona 
+	 * dados aos JTextFields e às listas a depender da situacao. Adiciona ActionListeners e 
+	 * ListSelectionListeners aos itens necessarios.
+	 * 
+	 * @param opcao : Define se a tela obtera os dados de um paciente especifico 
+	 * escolhido em "TelaPaciente" ou se nao tera dados anteriores 
+	 * @see TelaPaciente
+	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @see TelaMenu
+	 * @param id : o atributo "id" do paciente em questao
+	 * @see TelaPaciente
+	 * 
+	 * @return void
+	 */
 	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
-		posicao = id;
+		
+		// Definicoes para uso em outros metodos
+		idPaciente = id;
 		controleTelaEdicaoPaciente = dados;
+		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
-		frame = new JFrame("Paciente");
+		
 		labelDatas = new JLabel(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(hoje.format(formatter), 3));
-		//pra deixar as listas em branco
+		
+		// Para deixar a lista em branco
 		listaAlergias = new JList<String>();
 		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
+		
+		// Preenchimento da lista de agendamentos (so aparece na opcao 2)
 		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, labelDatas.getText()));
-		//listaAgendamentos.setVisibleRowCount(15);
-				
+		
+		frame = new JFrame("Paciente");
+		
+		
+		// Defincoes de ScrollPanes
 		scroll1 = new JScrollPane();
 		scroll1.setViewportView(listaAlergias);
 		listaAlergias.setLayoutOrientation(JList.VERTICAL);
-		
 		scroll2 = new JScrollPane();
 		scroll2.setViewportView(listaAgendamentos);
-		listaAlergias.setLayoutOrientation(JList.VERTICAL);
+		listaAgendamentos.setLayoutOrientation(JList.VERTICAL);
 		
 		
-		if(opcao == 1) {
-			// sem dados
+		if(opcao == 1) {// sem dados
 			titulo = new JLabel("Cadastro de paciente");
 			txtNome = new JTextField(60);
 			txtEmail = new JTextField(60);
@@ -78,13 +110,16 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			titulo.setBounds(200, 0, 200, 30);
 			refreshAlergia.setEnabled(false);
 		}
-		else if(opcao == 2) {
+		else if(opcao == 2) { // com dados	
 			frame.setSize(660, 440);
 			titulo = new JLabel("Edicao de paciente");
+			// Obtencao de dados
 			txtNome = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getNome(id), 60);
 			txtEmail = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getEmail(id), 60);
 			txtTelefone = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getTelefone(id), 11);
 			txtDoencas = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getHistoricoDoencas(id), 60);
+			
+			// Adicoes ao JFrame e ao panel2
 			frame.add(salvar);
 			frame.add(excluir);
 			panel2.add(setaEsq);
@@ -94,8 +129,11 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			panel2.add(addAgendamento);
 			panel2.add(refreshAgendamento);
 			frame.add(panel2);
+			
+			// Obtencao de dados
 			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(id));
 			listaAlergias.updateUI();
+			
 			panel2.setBounds(340, 30, 300, 360);
 			salvar.setBounds(20, 360, 80, 30);
 			excluir.setBounds(120, 360, 80, 30);
@@ -121,13 +159,10 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		
 		
-		
-		//panel1.setBackground(Color.MAGENTA);
 		panel1.setLayout(new FlowLayout());
-		//panel2.setBackground(Color.MAGENTA);
-		panel2.setLayout(new FlowLayout());
+		panel2.setLayout(null);
 		
-		//titulo.setBounds(315, 10, 200, 20);
+		// Posicionamento dos itens
 		labelNome.setBounds(20, 40, 100, 20);
 		labelEmail.setBounds(20, 70, 100, 20);
 		labelDoencas.setBounds(20, 100, 160, 20);
@@ -142,14 +177,12 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		scroll2.setBounds(10, 70, 280, 230);
 		
 		
-		
-		//listaAlergias.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		
 		frame.setLayout(null);
 		panel2.setLayout(null);
 		panel1.add(labelAlergias);
 		panel1.add(scroll1);
 		
+		// Adicoes ao JFrame e ao panel1
 		frame.add(titulo);
 		frame.add(labelNome);
 		frame.add(txtNome);
@@ -164,7 +197,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		panel1.add(removeAlergia);
 		panel1.add(refreshAlergia);
 		
-		
+		// ActionListeners e ListSelectionListeners
 		salvar.addActionListener(this);
 		excluir.addActionListener(this);
 		addAlergia.addActionListener(this);
@@ -175,8 +208,21 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		listaAgendamentos.addListSelectionListener(this);
 		setaDir.addActionListener(this);
 		setaEsq.addActionListener(this);
+		
 		this.frame.setVisible(true);
 	}
+	
+	/**
+	 * Metodo que descreve o que deve acontecer a partir dos cliques nos botoes. Este 
+	 * metodo grava um "Paciente" em "ControleDados", remove uma alergia de "Paciente",
+	 * atualiza a lista de alergias, abre a tela "TelaAgendamento", atualiza a lista de 
+	 * agendamentos, muda o dia da lista de agendamentos (para frente ou para tras), salva
+	 * um paciente ou o exclui, tudo a depender do botao pressionado. 
+	 * 
+	 * @see ControleDados
+	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoPaciente".
+	 * @return void
+	 */
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == addAlergia) {
@@ -186,7 +232,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			}
 			else {
 				boolean resultado;
-				novoCadastro[0] = Integer.toString(posicao);
+				// Obtencao de dados
+				novoCadastro[0] = Integer.toString(idPaciente);
 				novoCadastro[1] = txtNome.getText();
 				novoCadastro[2] = txtTelefone.getText();
 				novoCadastro[3] = txtEmail.getText();
@@ -195,7 +242,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 				if(!resultado) {
 					erroCadastroPaciente();
 				}
-				new TelaAlergias().mostrarLista(controleTelaEdicaoPaciente, posicao);
+				new TelaAlergias().mostrarLista(controleTelaEdicaoPaciente, idPaciente);
 				if(refreshAlergia.isEnabled() == false) {
 					refreshAlergia.setEnabled(true);
 				}
@@ -209,8 +256,8 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			else {
 				boolean resultado;
 				String[] itemLista = listaAlergias.getSelectedValue().split(" - ");
-				resultado = controleTelaEdicaoPaciente.removerAlergiaPaciente(posicao, Integer.parseInt(itemLista[0]));
-				listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
+				resultado = controleTelaEdicaoPaciente.removerAlergiaPaciente(idPaciente, Integer.parseInt(itemLista[0]));
+				listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(idPaciente));
 				listaAlergias.updateUI();
 				if(resultado) 
 					sucessoExcluirAlergia();
@@ -218,35 +265,33 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 					erroExcluirAlergia();
 			}
 		}
-		/*if(fonte == removeAlergia) {
-			controleTelaEdicaoPaciente.removerAlergiaPaciente(posicao, listaAlergias.getSelectedIndex());
-			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
-			listaAlergias.updateUI();
-		}*/
 		if(fonte == refreshAlergia) {
-			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(posicao));
+			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(idPaciente));
 			listaAlergias.updateUI();
 		}
 		if(fonte == addAgendamento) {
-			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getUltimoIdAgendamentos() + 1, posicao);
+			new TelaAgendamento().inserirEditarAgendamento(1, controleTelaEdicaoPaciente, controleTelaEdicaoPaciente.getUltimoIdAgendamentos() + 1, idPaciente);
 		}
 		if(fonte == refreshAgendamento) {
-			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(idPaciente, labelDatas.getText()));
 			listaAgendamentos.updateUI();
 		}
 		if(fonte == setaDir) {
+			// Avanca um dia
 			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 1));
-			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(idPaciente, labelDatas.getText()));
 			listaAgendamentos.updateUI();
 		}
 		if(fonte == setaEsq) {
+			// Retorna um dia
 			labelDatas.setText(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(labelDatas.getText(), 2));
-			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(posicao, labelDatas.getText()));
+			listaAgendamentos.setListData(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(idPaciente, labelDatas.getText()));
 			listaAgendamentos.updateUI();
 		}
 		if(fonte == salvar) {
 			try {
-				novoCadastro[0] = Integer.toString(posicao);
+				// Obtencao  de dados
+				novoCadastro[0] = Integer.toString(idPaciente);
 				novoCadastro[1] = txtNome.getText();
 				novoCadastro[2] = txtTelefone.getText();
 				novoCadastro[3] = txtEmail.getText();
@@ -269,7 +314,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		}
 		if(fonte == excluir) {
 			boolean resultado;
-			resultado = controleTelaEdicaoPaciente.removerPaciente(posicao);
+			resultado = controleTelaEdicaoPaciente.removerPaciente(idPaciente);
 			if(resultado) {
 				sucessoExcluirPaciente();
 			}
@@ -278,33 +323,81 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			}
 		}
 	}
+	/**
+	 * Metodo que descreve o que deve acontecer a partir do clique em um item da lista
+	 * de "Agendamentos". Abre "TelaAgendamento" com os dados correspondentes ao 
+	 * item da lista.
+	 * 
+	 * @see TelaAgendamento
+	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * so ha uma fonte possivel: "listaAgendamentos").
+	 * @return void
+	 * */
 	public void valueChanged(ListSelectionEvent e) {
 		Object fonte = e.getSource();
 		if(e.getValueIsAdjusting() && fonte == listaAgendamentos) {
 			String[] textoSeparado = listaAgendamentos.getSelectedValue().split(" - ");
-			new TelaAgendamento().inserirEditarAgendamento(2, controleTelaEdicaoPaciente, Integer.parseInt(textoSeparado[0]), posicao);
+			new TelaAgendamento().inserirEditarAgendamento(2, controleTelaEdicaoPaciente, Integer.parseInt(textoSeparado[0]), idPaciente);
 		}
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso na exclusao da alergia.
+	 * 
+	 * @return void
+	 */
 	public void sucessoExcluirAlergia() {
 		JOptionPane.showMessageDialog(null, "A alergia foi excluida com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao da alergia.
+	 * 
+	 * @return void
+	 */
 	public void erroExcluirAlergia() {
 		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir essa alergia. Selecione um item e tente novamente.", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso dos dados nao estarem devidamente
+	 * preenchidos no cadastro de um novo paciente.
+	 * 
+	 * @return void
+	 */
 	private void mensagemPreencherDados() {
 		JOptionPane.showMessageDialog(null, "Preencha os outros campos antes de adicionar uma alergia.", null, JOptionPane.INFORMATION_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro no cadastro do paciente.
+	 * 
+	 * @return void
+	 */
 	private void erroCadastroPaciente() {
-		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar cadastrar o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve um erro ao tentar cadastrar o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso no cadastro do paciente.
+	 * Fecha a tela.
+	 * 
+	 * @return void
+	 */
 	private void sucessoCadastroPaciente() {
 		JOptionPane.showMessageDialog(null, "O paciente foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do paciente.
+	 * 
+	 * @return void
+	 */
 	private void erroExcluirPaciente() {
-		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar excluir o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve um erro ao tentar excluir o paciente. Verifique os dados e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso na exclusao do paciente.
+	 * Fecha a tela.
+	 * 
+	 * @return void
+	 */
 	private void sucessoExcluirPaciente() {
 		JOptionPane.showMessageDialog(null, "O paciente foi exluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();

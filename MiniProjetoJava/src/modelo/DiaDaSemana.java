@@ -13,13 +13,6 @@ public class DiaDaSemana {
 	private String diaSemana;
 	private LocalTime[] horario = new LocalTime[40];
 	
-	// Construtores
-	/**
-	 * Construtor vazio para a instanciacao de uma data sem valores padrao.
-	 */
-	public DiaDaSemana() {
-		
-	}
 	/**
 	 * Construtor para a instanciacao de uma data com valores definidos.
 	 */

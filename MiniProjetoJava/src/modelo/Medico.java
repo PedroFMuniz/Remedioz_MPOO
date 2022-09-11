@@ -14,15 +14,6 @@ public class Medico extends Pessoa {
 	private String crm;
 	private String especialidade;
 	
-	
-	// Construtores
-	
-	/**
-	 * Construtor vazio para a instanciacao de um medico sem valores padrao.
-	 */
-	public Medico() {
-		super();
-	}
 	/**
 	 * Construtor para a instanciacao de um medico com valores definidos.
 	 */
@@ -49,16 +40,5 @@ public class Medico extends Pessoa {
 	public void setEspecialidade(String especialidade) {
 		this.especialidade = especialidade;
 	}
-	
-	// Outros métodos (mais sentido na camada de controle)
-	
-
-	/*public boolean adicionarPaciente(Paciente paciente) {
-		return false;
-	}
-
-	public boolean removerPaciente(Paciente paciente) {
-		return false;
-	}*/
 }
 

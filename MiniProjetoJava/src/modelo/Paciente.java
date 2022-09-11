@@ -48,28 +48,5 @@ public class Paciente extends Pessoa {
 	public void setHistoricoDoencas(String historicoDoencas) {
 		this.historicoDoencas = historicoDoencas;
 	}
-	
-	// Outros métodos (no github da prof diz que faz mais sentido 
-	// na camada de controle)
-	
-	/**
-	 * Metodo para adicionar uma alergia a um paciente. Retorna TRUE se houver 
-	 * sucesso; se nao, FALSE.
-	 * 
-	 * @return boolean
-	 */
-	public boolean adicionarAlergia(Remedio remedio) {
-		return false;
-	}
-	/**
-	 * Metodo para remover uma alergia de um paciente. Retorna TRUE se houver 
-	 * sucesso; se nao, FALSE.
-	 * 
-	 * @return boolean
-	 */
-	public boolean removerAlergia(Remedio remedio) {
-		return false;
-	}
-
 }
 

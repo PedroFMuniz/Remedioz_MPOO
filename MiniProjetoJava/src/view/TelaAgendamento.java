@@ -10,6 +10,16 @@ import javax.swing.*;
 import controle.*;
 import modelo.*;
 
+/**
+ * Classe "TelaAgendamento". Descreve uma tela para cadastro e edicao de "Agendamentos".
+ * Descreve uma tela com JComboboxes, um JList com os horarios cadastrados e botoes para
+ * salvar ou excluir um "Agendamento" a depender da opcao do usuario. Implementa a interface 
+ * ActionListener.
+ *
+ * @author Felipe Mastromauro Correa e Pedro Ferreira Muniz
+ * @since 2022
+ * @version 1.0
+ */
 public class TelaAgendamento implements ActionListener{
 	private JLabel titulo = new JLabel("Cadastro de agendamento");
 	private JLabel labelDataInicio = new JLabel("Data de inicio:");
@@ -17,8 +27,8 @@ public class TelaAgendamento implements ActionListener{
 	private JLabel labelHorarios = new JLabel("Horarios");
 	private JLabel remedio = new JLabel("Remedio:");
 	private JLabel medico = new JLabel("Medico:");
-	private JComboBox<Object> remedios;
-	private JComboBox<Object> medicos;
+	private JComboBox<Object> cmbRemedios;
+	private JComboBox<Object> cmbMedicos;
 	private JComboBox<Integer> dataInicioDia;
 	private JComboBox<Integer> dataInicioMes;
 	private JComboBox<Integer> dataInicioAno;
@@ -39,16 +49,33 @@ public class TelaAgendamento implements ActionListener{
 	private int idPac;
 	private ControleDados controleDadosAgendamento;
 	private String[] agendamentoInicial = new String[10];
-	
+	/**
+	 * Metodo que descreve a tela "TelaAgendamento" para renderizacao. Adiciona
+	 * ActionListeners aos botoes de salvar e excluir.
+	 * 
+	 * @param opcao : Define se a tela obtera os dados de um agendamento especifico 
+	 * escolhido em "TelaCadastroEdicaoPaciente" ou se nao tera dados anteriores
+	 * @see TelaCadastroEdicaoPaciente
+	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @see TelaMenu
+	 * @param idAg : O atributo "id" do "Agendamento" 
+	 * @param idPaciente: o atributo "id" do "Paciente" ao qual sera adicionado o agendamento.
+	 * @see TelaCadastroEdicaoPaciente
+	 * 
+	 * @return void
+	 */
 	public void inserirEditarAgendamento(int opcao, ControleDados dados, int idAg, int idPaciente) {
+		// Definicoes para uso em outros metodos
 		idAgendamento = idAg;
 		idPac = idPaciente;
 		opc = opcao;
 		controleDadosAgendamento = dados;
+		
+		// Criacao dos itens da tela
 		frame = new JFrame("Agendamentos");
 		frame.setSize(780,360);
-		remedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());
-		medicos = new JComboBox<Object>(new ControleMedico(controleDadosAgendamento).getInfo());
+		cmbRemedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());
+		cmbMedicos = new JComboBox<Object>(new ControleMedico(controleDadosAgendamento).getInfo());
 		dataInicioDia = new JComboBox<Integer>(preencheDias());
 		dataInicioMes = new JComboBox<Integer>(preencheMeses());
 		dataInicioAno = new JComboBox<Integer>(preencheAnos());
@@ -56,6 +83,7 @@ public class TelaAgendamento implements ActionListener{
 		dataFimMes = new JComboBox<Integer>(preencheMeses());
 		dataFimAno = new JComboBox<Integer>(preencheAnos());
 		listaHorarios = new JList<String>();
+		
 		if(opc == 1) {
 			//sem dados
 			listaHorarios.setVisibleRowCount(5);
@@ -68,6 +96,7 @@ public class TelaAgendamento implements ActionListener{
 			// preenchidos
 			titulo.setText("Edicao de agendamento");
 			
+			// Obtencao de dados
 			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAg));
 			LocalDate dataInicio = new ControleAgendamento(controleDadosAgendamento).getDtInicio(idAgendamento);
 			LocalDate dataFim = new ControleAgendamento(controleDadosAgendamento).getDtFim(idAgendamento);
@@ -77,14 +106,15 @@ public class TelaAgendamento implements ActionListener{
 			String[] dataInicioString = dataInicio.toString().split("-");
 			String[] dataFimString = dataFim.toString().split("-");
 			
+			// Definicao de dados a serem mostrados
 			dataInicioDia.setSelectedIndex(Integer.parseInt(dataInicioString[2]) - 1);
 			dataInicioMes.setSelectedIndex(Integer.parseInt(dataInicioString[1]) - 1);
 			dataInicioAno.setSelectedItem(Integer.parseInt(dataInicioString[0]));
 			dataFimDia.setSelectedIndex(Integer.parseInt(dataFimString[2]) - 1);
 			dataFimMes.setSelectedIndex(Integer.parseInt(dataFimString[1]) - 1);
 			dataFimAno.setSelectedItem(Integer.parseInt(dataFimString[0]));
-			medicos.setSelectedIndex(medicoAg.getId());
-			remedios.setSelectedIndex(remedioAg.getId());
+			cmbMedicos.setSelectedIndex(medicoAg.getId());
+			cmbRemedios.setSelectedIndex(remedioAg.getId());
 			
 			listaHorarios.updateUI();
 			listaHorarios.setVisibleRowCount(5);
@@ -95,9 +125,12 @@ public class TelaAgendamento implements ActionListener{
 			frame.add(excluirAgendamento);
 			
 		}
+		
 		frame.setLayout(null);
-		remedios.setFont(new Font("Arial", Font.BOLD, 14));
-		medicos.setFont(new Font("Arial", Font.BOLD, 14));
+		panel.setLayout(null);
+		
+		cmbRemedios.setFont(new Font("Arial", Font.BOLD, 14));
+		cmbMedicos.setFont(new Font("Arial", Font.BOLD, 14));
 		remedio.setFont(new Font("Arial", Font.BOLD, 14));
 		medico.setFont(new Font("Arial", Font.BOLD, 14));
 		dataInicioDia.setFont(new Font("Arial", Font.BOLD, 14));
@@ -108,12 +141,14 @@ public class TelaAgendamento implements ActionListener{
 		labelDataFim.setFont(new Font("Arial", Font.BOLD, 14));
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		
-		labelHorarios.setBounds(50, 0, 100, 30);
-		panel.add(labelHorarios);
-		refreshHorario.setEnabled(false);
+		// Definicoes de ScrollPane
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaHorarios);
 		listaHorarios.setLayoutOrientation(JList.VERTICAL);
+		refreshHorario.setEnabled(false);
+		
+		// Posicionamento dos itens
+		labelHorarios.setBounds(70, 0, 100, 30);
 		labelDataInicio.setBounds(10, 40, 120, 30);
 		labelDataFim.setBounds(10, 90, 100, 30);
 		medico.setBounds(10, 140, 100, 30);
@@ -125,19 +160,22 @@ public class TelaAgendamento implements ActionListener{
 		dataFimMes.setBounds(160, 90, 50, 30);
 		dataFimAno.setBounds(220, 90, 80, 30);
 		btnHorario.setBounds(600, 60, 150, 30);
-		remedios.setBounds(80, 190, 150, 30);
-		medicos.setBounds(70, 140, 220, 30);
+		cmbRemedios.setBounds(80, 190, 150, 30);
+		cmbMedicos.setBounds(70, 140, 220, 30);
 		excluirHorario.setBounds(600, 110, 150, 30);
 		refreshHorario.setBounds(380, 170, 200, 30);
+		scroll.setBounds(0, 30, 200, 100);
 		panel.setBounds(380, 30, 200, 140);
 		
+		// Adicoes ao JPanel e ao JFrame
+		panel.add(labelHorarios);
 		frame.add(titulo);
 		frame.add(labelDataInicio);
 		frame.add(labelDataFim);
 		frame.add(remedio);
 		frame.add(medico);
-		frame.add(remedios);
-		frame.add(medicos);
+		frame.add(cmbRemedios);
+		frame.add(cmbMedicos);
 		frame.add(dataInicioDia);
 		frame.add(dataInicioMes);
 		frame.add(dataInicioAno);
@@ -157,7 +195,16 @@ public class TelaAgendamento implements ActionListener{
 		excluirHorario.addActionListener(this);
 		excluirAgendamento.addActionListener(this);
 	}
-	
+	/**
+	 * Metodo que descreve o que deve acontecer a partir dos clique nos botoes. Este 
+	 * metodo grava o "Agendamento" em "ControleDados", abre a tela de horarios, atualiza
+	 * a lista de horarios, exclui um horario e exclui um "Agendamento" a depender do botao 
+	 * pressionado.
+	 * 
+	 * @see ControleDados
+	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaAgendamento".
+	 * @return void
+	 */
 	public void actionPerformed(ActionEvent e) {
 		Object fonte = e.getSource();
 		if(fonte == salvar) {
@@ -168,14 +215,16 @@ public class TelaAgendamento implements ActionListener{
 				try {
 					boolean resultado;
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					
+					// Obtencao dos itens
 					LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), Integer.parseInt(dataInicioMes.getSelectedItem().toString()), Integer.parseInt(dataInicioDia.getSelectedItem().toString()));
 					LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), Integer.parseInt(dataFimMes.getSelectedItem().toString()), Integer.parseInt(dataFimDia.getSelectedItem().toString()));
 					agendamentoInicial[0] = Integer.toString(idAgendamento);
 					agendamentoInicial[1] = ld1.format(formatter);
 					agendamentoInicial[2] = ld2.format(formatter);
-					agendamentoInicial[3] = Integer.toString(medicos.getSelectedIndex());
+					agendamentoInicial[3] = Integer.toString(cmbMedicos.getSelectedIndex());
 					agendamentoInicial[4] = Integer.toString(idPac);
-					agendamentoInicial[5] = Integer.toString(remedios.getSelectedIndex());
+					agendamentoInicial[5] = Integer.toString(cmbRemedios.getSelectedIndex());
 					resultado = controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 					if(resultado)
 						mensagemSucessoAgendamento();
@@ -193,14 +242,15 @@ public class TelaAgendamento implements ActionListener{
 		}
 		else if(fonte == btnHorario) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			// Obtencao dos itens
 			LocalDate ld1 = LocalDate.of(Integer.parseInt(dataInicioAno.getSelectedItem().toString()), Integer.parseInt(dataInicioMes.getSelectedItem().toString()), Integer.parseInt(dataInicioDia.getSelectedItem().toString()));
 			LocalDate ld2 = LocalDate.of(Integer.parseInt(dataFimAno.getSelectedItem().toString()), Integer.parseInt(dataFimMes.getSelectedItem().toString()), Integer.parseInt(dataFimDia.getSelectedItem().toString()));
 			agendamentoInicial[0] = Integer.toString(idAgendamento);
 			agendamentoInicial[1] = ld1.format(formatter);
 			agendamentoInicial[2] = ld2.format(formatter);
-			agendamentoInicial[3] = Integer.toString(medicos.getSelectedIndex());
+			agendamentoInicial[3] = Integer.toString(cmbMedicos.getSelectedIndex());
 			agendamentoInicial[4] = Integer.toString(idPac);
-			agendamentoInicial[5] = Integer.toString(remedios.getSelectedIndex());
+			agendamentoInicial[5] = Integer.toString(cmbRemedios.getSelectedIndex());
 			listaHorarios.setSelectedIndex(0);
 			controleDadosAgendamento.inserirEditarAgendamento(agendamentoInicial);
 			new TelaHorario().mostrarHorarios(controleDadosAgendamento, idAgendamento);
@@ -240,6 +290,11 @@ public class TelaAgendamento implements ActionListener{
 			}
 		}
 	}
+	/**
+	 * Metodo para preencher as JComboBoxes de dias com os dados necessarios.
+	 * 
+	 * @return Integer[]
+	 */
 	public Integer[] preencheDias() {
 		Integer[] arrayDias = new Integer[31];
 		for(int i = 0; i < 31; i++) {
@@ -247,6 +302,11 @@ public class TelaAgendamento implements ActionListener{
 		}
 		return arrayDias; 
 	}
+	/**
+	 * Metodo para preencher as JComboBoxes de meses com os dados necessarios.
+	 * 
+	 * @return Integer[]
+	 */
 	public Integer[] preencheMeses() {
 		Integer[] arrayMeses = new Integer[12];
 		for(int i = 0; i < 12; i++) {
@@ -254,6 +314,11 @@ public class TelaAgendamento implements ActionListener{
 		}
 		return arrayMeses; 
 	}
+	/**
+	 * Metodo para preencher as JComboBoxes de anos com os dados necessarios.
+	 * 
+	 * @return Integer[]
+	 */
 	public Integer[] preencheAnos() {
 		int ano = 2022;
 		Integer[] arrayAnos = new Integer[10];
@@ -263,27 +328,61 @@ public class TelaAgendamento implements ActionListener{
 		}
 		return arrayAnos; 
 	}
+	
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso no cadastro do horario.
+	 * 
+	 * @return void
+	 */
 	public void sucessoExcluirHorario() {
 		JOptionPane.showMessageDialog(null, "O horario foi excluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do horario.
+	 * 
+	 * @return void
+	 */
 	public void erroExcluirHorario() {
-		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao excluir esse horario. Selecione um item e tente novamente.", null, 
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse horario. Selecione um item e tente novamente.", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro no cadastro do Agendamento.
+	 * 
+	 * @return void
+	 */
 	public void mensagemErroAgendamento() {
-		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao cadastrar esse agendamento. Cadastre um horario e tente novamente.", null, 
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao cadastrar esse agendamento. Cadastre um horario e tente novamente.", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso no cadastro do agendamento.
+	 * Fecha a tela.
+	 * 
+	 * @return void
+	 */
 	public void mensagemSucessoAgendamento() {
 		JOptionPane.showMessageDialog(null, "O agendamento foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
+	/**
+	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do agendamento.
+	 * 
+	 * @return void
+	 */
 	public void mensagemErroExclusaoAgendamento() {
-		JOptionPane.showMessageDialog(null, "ERRO\n Houve algum erro ao excluir esse agendamento. Tente novamente.", null, 
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse agendamento. Tente novamente.", null, 
 				JOptionPane.ERROR_MESSAGE);
 	}
+	/**
+	 * Metodo que mostra um dialogo de informacao no caso de sucesso na exclusao do agendamento.
+	 * Fecha a tela.
+	 * 
+	 * @return void
+	 */
 	public void mensagemSucessoExclusaoAgendamento() {
 		JOptionPane.showMessageDialog(null, "O agendamento foi excluído com sucesso!", null, 
 				JOptionPane.INFORMATION_MESSAGE);
+		frame.dispose();
 	}
 }
