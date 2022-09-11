@@ -24,7 +24,7 @@ import controle.ControleRemedio;
  */
 public class TelaCadastroEdicaoRemedio implements ActionListener {
 	private JFrame frame;
-	private JLabel titulo = new JLabel("Cadastro de remedio");
+	private JLabel titulo = new JLabel("Cadastro de remédio");
 	private JLabel labelNome = new JLabel("Nome: ");
 	private JLabel labelEfeito = new JLabel("Efeito: ");
 	private JLabel labelTipo = new JLabel("Tipo: ");
@@ -45,12 +45,12 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * dados aos JTextFields a depender da situacao. Adiciona ActionListeners aos botoes 
 	 * de "salvar" e "excluir".
 	 * 
-	 * @param opcao : Define se a tela obtera os dados de um remedio especifico 
+	 * @param opcao Define se a tela obtera os dados de um remedio especifico 
 	 * escolhido em "TelaRemedio" ou se nao tera dados anteriores 
 	 * @see TelaRemedio
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
-	 * @param id : o atributo "id" do remedio em questao
+	 * @param id o atributo "id" do remedio em questao
 	 * @see TelaRemedio
 	 * 
 	 * @return void
@@ -78,7 +78,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 		}
 		//Se a opcao for editar um remedio existente
 		if(opcao == 2) {
-			titulo.setText("Edicao de remedio");
+			titulo.setText("Edição de remedio");
 			
 			// Obtencao de dados
 			txtNome = new JTextField(new ControleRemedio(controleTelaEdicaoRemedio).getNome(id), 30);
@@ -135,7 +135,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * pressionado.
 	 * 
 	 * @see ControleDados
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoRemedio".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoRemedio".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -188,8 +188,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * @return void
 	 */
 	public void sucessoExcluir() {
-		JOptionPane.showMessageDialog(null, "O remedio foi excluido com sucesso!", null, 
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O remédio foi excluído com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 	/**
@@ -199,8 +198,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * @return void
 	 */
 	public void sucessoCadastrar() {
-		JOptionPane.showMessageDialog(null, "O remedio foi salvo com sucesso!", null, 
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O remédio foi salvo com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 	/**
@@ -209,8 +207,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * @return void
 	 */
 	public void erroCadastrar() {
-		JOptionPane.showMessageDialog(null,"ERRO\nVerifique os dados inseridos e tente novamente.  \n", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null,"ERRO\nVerifique os dados inseridos e tente novamente.  \n", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do remedio.
@@ -218,8 +215,7 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 	 * @return void
 	 */
 	public void erroExcluir() {
-		JOptionPane.showMessageDialog(null,"ERRO\nHouve um erro desconhecido ao tetnar excluir o medico.\n", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null,"ERRO\nHouve um erro ao tentar excluir o remédio.\nVerifique se o remédio está incluso em um agendamento.", null, JOptionPane.ERROR_MESSAGE);
 	}
 
 }

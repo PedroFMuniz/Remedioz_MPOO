@@ -22,11 +22,11 @@ import modelo.*;
  */
 public class TelaAgendamento implements ActionListener{
 	private JLabel titulo = new JLabel("Cadastro de agendamento");
-	private JLabel labelDataInicio = new JLabel("Data de inicio:");
+	private JLabel labelDataInicio = new JLabel("Data de início:");
 	private JLabel labelDataFim  = new JLabel("Data de fim:");
-	private JLabel labelHorarios = new JLabel("Horarios");
-	private JLabel remedio = new JLabel("Remedio:");
-	private JLabel medico = new JLabel("Medico:");
+	private JLabel labelHorarios = new JLabel("Horários");
+	private JLabel remedio = new JLabel("Remédio:");
+	private JLabel medico = new JLabel("Médico:");
 	private JComboBox<Object> cmbRemedios;
 	private JComboBox<Object> cmbMedicos;
 	private JComboBox<Integer> dataInicioDia;
@@ -36,10 +36,10 @@ public class TelaAgendamento implements ActionListener{
 	private JComboBox<Integer> dataFimMes;
 	private JComboBox<Integer> dataFimAno;
 	private JList<String> listaHorarios;
-	private JButton btnHorario = new JButton("Novo horario");
+	private JButton btnHorario = new JButton("Novo horário");
 	private JButton salvar = new JButton("Salvar");
-	private JButton refreshHorario = new JButton("Refresh...");
-	private JButton excluirHorario = new JButton("Excluir horario");
+	private JButton refreshHorario = new JButton("Atualizar");
+	private JButton excluirHorario = new JButton("Excluir horário");
 	private JButton excluirAgendamento = new JButton("Excluir agendamento");
 	private JFrame frame;
 	private JPanel panel = new JPanel();
@@ -53,13 +53,13 @@ public class TelaAgendamento implements ActionListener{
 	 * Metodo que descreve a tela "TelaAgendamento" para renderizacao. Adiciona
 	 * ActionListeners aos botoes de salvar e excluir.
 	 * 
-	 * @param opcao : Define se a tela obtera os dados de um agendamento especifico 
+	 * @param opcao Define se a tela obtera os dados de um agendamento especifico 
 	 * escolhido em "TelaCadastroEdicaoPaciente" ou se nao tera dados anteriores
 	 * @see TelaCadastroEdicaoPaciente
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
-	 * @param idAg : O atributo "id" do "Agendamento" 
-	 * @param idPaciente: o atributo "id" do "Paciente" ao qual sera adicionado o agendamento.
+	 * @param idAg O atributo "id" do "Agendamento" 
+	 * @param idPaciente o atributo "id" do "Paciente" ao qual sera adicionado o agendamento.
 	 * @see TelaCadastroEdicaoPaciente
 	 * 
 	 * @return void
@@ -94,7 +94,7 @@ public class TelaAgendamento implements ActionListener{
 		}
 		else if(opc == 2) {
 			// preenchidos
-			titulo.setText("Edicao de agendamento");
+			titulo.setText("Edição de agendamento");
 			
 			// Obtencao de dados
 			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAg));
@@ -202,7 +202,7 @@ public class TelaAgendamento implements ActionListener{
 	 * pressionado.
 	 * 
 	 * @see ControleDados
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaAgendamento".
+	 * @param e  ActionEvent usado para determinar a fonte da acao em "TelaAgendamento".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -293,7 +293,7 @@ public class TelaAgendamento implements ActionListener{
 	/**
 	 * Metodo para preencher as JComboBoxes de dias com os dados necessarios.
 	 * 
-	 * @return Integer[]
+	 * @return array Integer[] contendo os 31 dias do mes.
 	 */
 	public Integer[] preencheDias() {
 		Integer[] arrayDias = new Integer[31];
@@ -305,7 +305,7 @@ public class TelaAgendamento implements ActionListener{
 	/**
 	 * Metodo para preencher as JComboBoxes de meses com os dados necessarios.
 	 * 
-	 * @return Integer[]
+	 * @return array Integer[] contendo os 12 meses do ano.
 	 */
 	public Integer[] preencheMeses() {
 		Integer[] arrayMeses = new Integer[12];
@@ -317,7 +317,7 @@ public class TelaAgendamento implements ActionListener{
 	/**
 	 * Metodo para preencher as JComboBoxes de anos com os dados necessarios.
 	 * 
-	 * @return Integer[]
+	 * @return array Integer[] contendo os anos de 2022 a 2032
 	 */
 	public Integer[] preencheAnos() {
 		int ano = 2022;
@@ -335,7 +335,7 @@ public class TelaAgendamento implements ActionListener{
 	 * @return void
 	 */
 	public void sucessoExcluirHorario() {
-		JOptionPane.showMessageDialog(null, "O horario foi excluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O horário foi excluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do horario.
@@ -343,8 +343,7 @@ public class TelaAgendamento implements ActionListener{
 	 * @return void
 	 */
 	public void erroExcluirHorario() {
-		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse horario. Selecione um item e tente novamente.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse horário. Selecione um item e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de erro no caso de erro no cadastro do Agendamento.
@@ -352,8 +351,7 @@ public class TelaAgendamento implements ActionListener{
 	 * @return void
 	 */
 	public void mensagemErroAgendamento() {
-		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao cadastrar esse agendamento. Cadastre um horario e tente novamente.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao cadastrar esse agendamento. Cadastre um horário e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de informacao no caso de sucesso no cadastro do agendamento.
@@ -371,8 +369,7 @@ public class TelaAgendamento implements ActionListener{
 	 * @return void
 	 */
 	public void mensagemErroExclusaoAgendamento() {
-		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse agendamento. Tente novamente.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir esse agendamento. Tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de informacao no caso de sucesso na exclusao do agendamento.
@@ -381,8 +378,7 @@ public class TelaAgendamento implements ActionListener{
 	 * @return void
 	 */
 	public void mensagemSucessoExclusaoAgendamento() {
-		JOptionPane.showMessageDialog(null, "O agendamento foi excluído com sucesso!", null, 
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O agendamento foi excluído com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 }

@@ -17,7 +17,8 @@ public class ControleRemedio {
 	/**
 	 * Construtor para obter os remedios cadastrados
 	 * 
-	 * @param dados : ControleDados que retorna os remedios cadastrados
+	 * @param dados ControleDados que retorna os remedios cadastrados
+	 * @see ControleDados
 	 */
 	public ControleRemedio(ControleDados dados) {
 		this.remedios = dados.getRemedios();

@@ -17,7 +17,8 @@ public class ControleMedico {
 	/**
 	 * Construtor para obter os medicos cadastrados
 	 * 
-	 * @param dados : ControleDados que retorna os medicos cadastrados
+	 * @param dados ControleDados que retorna os medicos cadastrados
+	 * @see ControleDados
 	 */
 	public ControleMedico(ControleDados dados) {
 		this.medicos = dados.getMedicos();
@@ -40,7 +41,7 @@ public class ControleMedico {
 	/**
 	 *Metodo responsavel por retornar os dados necessarios de medicos com base em uma String de busca 
 	 * 
-	 * @param busca : String com o nome do medico a ser pesquisado
+	 * @param busca String com o nome do medico a ser pesquisado
 	 * @return Array de Strings no formato: id - nome - especialidade
 	 */
 	public String[] getInfo(String busca) {

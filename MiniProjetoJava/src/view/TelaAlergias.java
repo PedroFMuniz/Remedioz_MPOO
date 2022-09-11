@@ -37,8 +37,8 @@ public class TelaAlergias implements ActionListener{
 	 * Metodo que descreve a tela "TelaAlergias" para renderizacao. Adiciona
 	 * ActionListener ao botao "addAlergias".
 	 * 
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu". 
-	 * @param idPaciente: o atributo "id" do "Paciente" ao qual sera adicionada a alergia.
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu". 
+	 * @param idPaciente o atributo "id" do "Paciente" ao qual sera adicionada a alergia.
 	 * @see TelaCadastroEdicaoPaciente
 	 * @return void
 	 */
@@ -82,7 +82,7 @@ public class TelaAlergias implements ActionListener{
 	 * um metodo da classe "ControleDados". 
 	 * 
 	 * @see ControleDados
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaAlergias".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaAlergias".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -114,7 +114,7 @@ public class TelaAlergias implements ActionListener{
 	 * @return void
 	 */
 	public void erroAdicionarAlergia() {
-		JOptionPane.showMessageDialog(null, "ERRO\n houve algum erro ao adicionar essa alergia. Selecione um item e tente novamente.", null, 
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao adicionar essa alergia. Selecione um item e tente novamente.", null, 
 				JOptionPane.ERROR_MESSAGE);
 		frame.dispose();
 	}

@@ -142,7 +142,7 @@ public class ControleDados {
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
 	 * base de dados
 	 * 
-	 * @param dadosPaciente : Array de strings informando os dados a serem
+	 * @param dadosPaciente Array de strings informando os dados a serem
 	 *                      cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
@@ -165,7 +165,7 @@ public class ControleDados {
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
 	 * base de dados
 	 * 
-	 * @param dadosMedico : Array de strings informando os dados a serem cadastrados
+	 * @param dadosMedico Array de strings informando os dados a serem cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
 	public boolean inserirEditarMedico(String[] dadosMedico) {
@@ -184,7 +184,7 @@ public class ControleDados {
 	 * Metodo responsavel por inserir ou editar um remedio. Cadastra os novos dados
 	 * na base de dados
 	 * 
-	 * @param dadosRemedio : Array de strings informando os dados a serem
+	 * @param dadosRemedio Array de strings informando os dados a serem
 	 *                     cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
@@ -200,7 +200,7 @@ public class ControleDados {
 	 * dados na base de dados
 	 * 
 	 * 
-	 * @param dadosAgendamento : Array de strings informando os dados a serem
+	 * @param dadosAgendamento Array de strings informando os dados a serem
 	 *                         cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
 	 */
@@ -227,10 +227,10 @@ public class ControleDados {
 	 * agendamento ja possui um horario identico. Em caso negativo cadastra o novo
 	 * horario.
 	 * 
-	 * @param idAgendamento : int indicando qual agendamento deve ser editado
-	 * @param dia           : String indicando o nome do dia da semana a ser
+	 * @param idAgendamento int indicando qual agendamento deve ser editado
+	 * @param dia String indicando o nome do dia da semana a ser
 	 *                      adicionado
-	 * @param hora          : LocalTime indicando o horario a ser adicionado
+	 * @param hora LocalTime indicando o horario a ser adicionado
 	 * @return boolean indicando se a operacao foi realizada com sucesso
 	 */
 	public boolean inserirHorarioAgendamento(int idAgendamento, String dia, int horario, int minutos) {
@@ -273,8 +273,8 @@ public class ControleDados {
 	 * paciente indicado, em caso negativo cadastra a nova alergia
 	 * 
 	 * 
-	 * @param idPaciente : int indicando o paciente que deve ser editado
-	 * @param remedio    : int indicando o remedio a ser adicionado como alergia
+	 * @param idPaciente int indicando o paciente que deve ser editado
+	 * @param remedio int indicando o remedio a ser adicionado como alergia
 	 * @return boolean indicando se a operacao teve sucesso
 	 */
 	public boolean inserirAlergiasPaciente(int idPaciente, int remedio) {
@@ -315,7 +315,7 @@ public class ControleDados {
 	 * Se utiliza de uma rotina swap para reorganizar o array e por fim diminui a
 	 * quantidade de agendamentos.
 	 * 
-	 * @param id : int informando o id do cadastro a ser deletado
+	 * @param id int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerAgendamento(int id) {
@@ -343,12 +343,12 @@ public class ControleDados {
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o paciente possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
 	 * 
-	 * @param id : int informando o id do cadastro a ser deletado
+	 * @param id int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerPaciente(int id) {
 		int qtdPacientes = dados.getQtdePacientes();
-		if (verificarRelacao(id, 1)) {
+		if (!verificarRelacao(id, 1)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -376,12 +376,12 @@ public class ControleDados {
 	 * agendamentos relacionados ou pacientes relacionados. Em caso positivo, a
 	 * exclusao nao sera realizada
 	 * 
-	 * @param id : int informando o id do cadastro a ser deletado
+	 * @param id int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerRemedio(int id) {
 		int qtdRemedios = dados.getQtdeRemedios();
-		if (verificarRelacao(id, 1) && verificarRelacao(id, 2)) {
+		if (!verificarRelacao(id, 1) && !verificarRelacao(id, 2)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -408,12 +408,12 @@ public class ControleDados {
 	 * Se utiliza do metodo "verificarRelacao" para verificar se o medico possui
 	 * agendamentos relacionados. Em caso positivo, a exclusao nao sera realizada
 	 * 
-	 * @param id : int informando o id do cadastro a ser deletado
+	 * @param id int informando o id do cadastro a ser deletado
 	 * @return boolean informando se foi possivel ou nao a exclusao
 	 */
 	public boolean removerMedico(int id) {
 		int qtdMedicos = dados.getQtdeMedicos();
-		if (verificarRelacao(id, 3)) {
+		if (!verificarRelacao(id, 3)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -438,9 +438,9 @@ public class ControleDados {
 	 * desejado. Em caso positivo, exclui o registro
 	 * 
 	 * 
-	 * @param idAgendamento : int indicando o agendamento a ser editado
-	 * @param dia           : String indicando o dia da semana a ser editado
-	 * @param hora          : LocalTime indicando o horario a ser deletado
+	 * @param idAgendamento int indicando o agendamento a ser editado
+	 * @param dia String indicando o dia da semana a ser editado
+	 * @param hora LocalTime indicando o horario a ser deletado
 	 * @return boolean indicando o sucesso da operacao
 	 */
 	public boolean removerHorarioAgendamento(int idAgendamento, String dia, String horario) {
@@ -489,8 +489,8 @@ public class ControleDados {
 	 * positovo, deleta o registro
 	 * 
 	 * 
-	 * @param idPaciente : int indicando o paciente a ser editado
-	 * @param remedio    : int indicando o remedio a ser excluido
+	 * @param idPaciente int indicando o paciente a ser editado
+	 * @param remedio int indicando o remedio a ser excluido
 	 * @return boolean indicando o sucesso da operacao
 	 */
 	public boolean removerAlergiaPaciente(int idPaciente, int remedio) {
@@ -530,8 +530,8 @@ public class ControleDados {
 	 * Metodo responsavel por verificar se um determinado paciente, medico ou
 	 * remedio possui alguma relacao com outro paciente ou agendamento
 	 * 
-	 * @param id : int informando a posicao do paciente, medico ou remedio
-	 * @param op : int informando se deve-se buscar na base de pacientes, medicos ou
+	 * @param id int informando a posicao do paciente, medico ou remedio
+	 * @param op int informando se deve-se buscar na base de pacientes, medicos ou
 	 *           remedios
 	 * @return boolean informando se possui ou nao relacoes
 	 */
@@ -579,7 +579,7 @@ public class ControleDados {
 	 * Metodo responsavel por transformar um dia da semana. Transforma o nome do dia
 	 * em um int representando seu indice
 	 * 
-	 * @param dia : String contendo o nome do dia
+	 * @param dia String contendo o nome do dia
 	 * @return int representando o indice do dia
 	 */
 	public int transformarDiaSemana(String dia) {
@@ -596,7 +596,7 @@ public class ControleDados {
 	 * Metodo responsavel por transformar um dia da semana. Transforma o indice do
 	 * dia em seu nome
 	 * 
-	 * @param dia : int representando o indice do dia
+	 * @param dia int representando o indice do dia
 	 * @return String contendo o nome do dia
 	 */
 	public String transformarDiaSemana(int dia) {
@@ -613,8 +613,8 @@ public class ControleDados {
 	 * Metodo responsavel por validar a formatacao de telefone e email para cadastro
 	 * de pessoas
 	 * 
-	 * @param tel   : String indicando o telefone a ser validado
-	 * @param email : String indicando o email a ser validado
+	 * @param tel String indicando o telefone a ser validado
+	 * @param email String indicando o email a ser validado
 	 * @return boolean indicando a validade do telefone e email
 	 */
 	public boolean verificarTelEmail(String tel, String email) {

@@ -36,7 +36,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	 * ActionListeners em botoes e um ListSelectionListener na lista de
 	 * "Medicos".
 	 * 
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
 	 * @return void
 	 */
@@ -46,20 +46,20 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		
 		infosMedicos = new ControleMedico(dados).getInfo();
 		
-		frame = new JFrame("Medicos");
+		frame = new JFrame("Médicos");
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.setLayout(null);
 		frame.setSize(400, 400);
 		
 		// Criacao de itens da tela
-		titulo = new JLabel("Lista de medicos");
+		titulo = new JLabel("Lista de médicos");
 		listaMedicos = new JList<String>(infosMedicos);
 		txtPesquisa = new JTextField();
 		cadastrarMedico = new JButton("Cadastrar");
 		btnPesquisa = new JButton("Pesquisar...");
 		cadastrarMedico  = new JButton("Cadastrar");
-		refreshMedico = new JButton("Refresh");
+		refreshMedico = new JButton("Atualizar");
 		
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		listaMedicos.setFont(new Font("Arial", Font.BOLD, 24));
@@ -105,7 +105,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	 * em seus JTextFields.
 	 * 
 	 * @see TelaCadastroEdicaoMedico
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaMedico".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaMedico".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -136,7 +136,7 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 	 * item da lista.
 	 * 
 	 * @see TelaCadastroEdicaoMedico
-	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * @param e ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
 	 * so ha uma fonte possivel: "listaMedicos").
 	 * @return void
 	 * */

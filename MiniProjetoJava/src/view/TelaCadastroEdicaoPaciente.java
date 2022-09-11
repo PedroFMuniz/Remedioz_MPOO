@@ -26,7 +26,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JLabel labelNome = new JLabel("Nome: ");
 	private JLabel labelTelefone = new JLabel("Telefone: ");
 	private JLabel labelEmail = new JLabel("Email: ");
-	private JLabel labelDoencas = new JLabel("Historico de doencas: ");
+	private JLabel labelDoencas = new JLabel("Histórico de doencas: ");
 	private JLabel labelAlergias = new JLabel("Alergias");
 	private JLabel labelDatas;
 	private JTextField txtNome;
@@ -37,7 +37,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JButton salvar = new JButton("Salvar");
 	private JButton addAlergia = new JButton("+");
 	private JButton removeAlergia = new JButton("-");
-	private JButton refreshAlergia = new JButton("Refresh...");
+	private JButton refreshAlergia = new JButton("Atualizar");
 	private JButton setaEsq = new JButton("<-");
 	private JButton setaDir = new JButton("->");
 	private JList<String> listaAlergias;
@@ -47,7 +47,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	private JScrollPane scroll1;
 	private JScrollPane scroll2;
 	private JButton addAgendamento = new JButton("Novo agendamento");
-	private JButton refreshAgendamento = new JButton("Refresh...");
+	private JButton refreshAgendamento = new JButton("Atualizar");
 	private LocalDate hoje = LocalDate.now();
 	private String[] novoCadastro = new String[10];
 	private static int idPaciente;
@@ -58,12 +58,12 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * dados aos JTextFields e às listas a depender da situacao. Adiciona ActionListeners e 
 	 * ListSelectionListeners aos itens necessarios.
 	 * 
-	 * @param opcao : Define se a tela obtera os dados de um paciente especifico 
+	 * @param opcao Define se a tela obtera os dados de um paciente especifico 
 	 * escolhido em "TelaPaciente" ou se nao tera dados anteriores 
 	 * @see TelaPaciente
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
-	 * @param id : o atributo "id" do paciente em questao
+	 * @param id o atributo "id" do paciente em questao
 	 * @see TelaPaciente
 	 * 
 	 * @return void
@@ -112,7 +112,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		}
 		else if(opcao == 2) { // com dados	
 			frame.setSize(660, 440);
-			titulo = new JLabel("Edicao de paciente");
+			titulo = new JLabel("Edição de paciente");
 			// Obtencao de dados
 			txtNome = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getNome(id), 60);
 			txtEmail = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getEmail(id), 60);
@@ -220,7 +220,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * um paciente ou o exclui, tudo a depender do botao pressionado. 
 	 * 
 	 * @see ControleDados
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoPaciente".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoPaciente".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -329,7 +329,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * item da lista.
 	 * 
 	 * @see TelaAgendamento
-	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * @param e ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
 	 * so ha uma fonte possivel: "listaAgendamentos").
 	 * @return void
 	 * */
@@ -346,7 +346,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * @return void
 	 */
 	public void sucessoExcluirAlergia() {
-		JOptionPane.showMessageDialog(null, "A alergia foi excluida com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "A alergia foi excluída com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao da alergia.
@@ -354,8 +354,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * @return void
 	 */
 	public void erroExcluirAlergia() {
-		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir essa alergia. Selecione um item e tente novamente.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO\nHouve algum erro ao excluir essa alergia. Selecione um item e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de informacao no caso dos dados nao estarem devidamente
@@ -399,7 +398,7 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	 * @return void
 	 */
 	private void sucessoExcluirPaciente() {
-		JOptionPane.showMessageDialog(null, "O paciente foi exluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O paciente foi excluído com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 

@@ -29,7 +29,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	private JLabel labelEmail = new JLabel("Email: ");
 	private JLabel labelCrm = new JLabel("CRM: ");
 	private JLabel labelEspecialidade = new JLabel("Especialidade: ");
-	private JLabel titulo = new JLabel("Cadastro de medico");
+	private JLabel titulo = new JLabel("Cadastro de médico");
 	private String[] novoCadastro = new String[9];
 	private JTextField txtNome;
 	private JTextField txtTelefone;
@@ -47,12 +47,12 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * dados aos JTextFields a depender da situacao. Adiciona ActionListeners aos botoes 
 	 * de "salvar" e "excluir".
 	 * 
-	 * @param opcao : Define se a tela obtera os dados de um medico especifico 
+	 * @param opcao Define se a tela obtera os dados de um medico especifico 
 	 * escolhido em "TelaMedico" ou se nao tera dados anteriores 
 	 * @see TelaMedico
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
-	 * @param id : o atributo "id" do medico em questao
+	 * @param id o atributo "id" do medico em questao
 	 * @see TelaMedico
 	 * 
 	 * @return void
@@ -84,7 +84,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 			txtCrm = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getCrm(id), 30);
 			txtEspecialidade = new JTextField(new ControleMedico(controleTelaEdicaoMedico).getEspecialidade(id), 30);
 			
-			titulo.setText("Edicao de medico");
+			titulo.setText("Edição de medico");
 			titulo.setBounds(110, 0, 200, 30);
 			salvar.setBounds(250, 240, 70, 30);
 			excluir.setBounds(130, 240, 100, 30);
@@ -138,7 +138,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * pressionado.
 	 * 
 	 * @see ControleDados
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoMedico".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaCadastroEdicaoMedico".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -192,8 +192,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * @return void
 	 */
 	public void sucessoExcluir() {
-		JOptionPane.showMessageDialog(null, "O medico foi excluido com sucesso!", null, 
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O médico foi excluido com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 	/**
@@ -203,8 +202,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * @return void
 	 */
 	public void sucessoCadastrar() {
-		JOptionPane.showMessageDialog(null, "O medico foi salvo com sucesso!", null, 
-				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O médico foi salvo com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 	/**
@@ -213,8 +211,7 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * @return void
 	 */
 	public void erroCadastrar() {
-		JOptionPane.showMessageDialog(null,"ERRO\nVerifique os dados inseridos e tente novamente.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null,"ERRO\nVerifique os dados inseridos e tente novamente.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	/**
 	 * Metodo que mostra um dialogo de erro no caso de erro na exclusao do medico.
@@ -222,7 +219,6 @@ public class TelaCadastroEdicaoMedico implements ActionListener{
 	 * @return void
 	 */
 	public void erroExcluir() {
-		JOptionPane.showMessageDialog(null,"ERRO\nHouve um erro desconhecido ao tetnar excluir o medico.", null, 
-				JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null,"ERRO\nHouve um erro ao tentar excluir o médico.\nVerifique se o médico está incluso em um agendamento.", null, JOptionPane.ERROR_MESSAGE);
 	}
 }

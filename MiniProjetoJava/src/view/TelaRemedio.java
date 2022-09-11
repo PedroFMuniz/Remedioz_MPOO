@@ -37,7 +37,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	 * Metodo que descreve a tela "TelaRemedio" para renderizacao. Adiciona
 	 * ActionListeners em botoes e um ListSelectionListener na lista de "Remedios".
 	 * 
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
 	 * @return void
 	 */
@@ -54,11 +54,11 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		infosRemedios = new ControleRemedio(dados).getInfo();
 		
 		// Criacao dos itens da tela
-		label = new JLabel("Lista de remedios");
+		label = new JLabel("Lista de remédios");
 		txtPesquisa = new JTextField("");
 		btnPesquisa = new JButton("Pesquisar...");
 		cadastrarRemedio = new JButton("Cadastrar");
-		refreshRemedio = new JButton("Refresh");
+		refreshRemedio = new JButton("Atualizar");
 		listaRemedios = new JList<String>(infosRemedios);
 		
 		// Definicao ScrollPane
@@ -104,7 +104,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	 * em seus JTextFields.
 	 * 
 	 * @see TelaCadastroEdicaoRemedio
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaRemedio".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaRemedio".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -135,7 +135,7 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 	 * item da lista.
 	 * 
 	 * @see TelaCadastroEdicaoPaciente
-	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * @param e ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
 	 * so ha uma fonte possivel: "listaRemedios").
 	 * @return void
 	 * */

@@ -22,7 +22,8 @@ public class ControleAgendamento {
 	/**
 	 * Construtor para obter os agendamentos cadastrados
 	 * 
-	 * @param dados : ControleDados que retorna os agendamentos cadastrados
+	 * @param dados ControleDados que retorna os agendamentos cadastrados
+	 * @see ControleDados
 	 */
 	public ControleAgendamento(ControleDados dados) {
 		this.agendamentos = dados.getAgendamentos();
@@ -47,8 +48,8 @@ public class ControleAgendamento {
 	 * Metodo responsavel por retornar as informacoes necessarias de agendamentos
 	 * que possuem um paciente e data informados
 	 * 
-	 * @param idPaciente : int indicando o paciente ao qual os agendamentos devem estar relacionados
-	 * @param data : String indicando a data na qual o agendamento deve estar incluso
+	 * @param idPaciente int indicando o paciente ao qual os agendamentos devem estar relacionados
+	 * @param data String indicando a data na qual o agendamento deve estar incluso
 	 * @return Array de Strings no formato: id - nome do remedio - horario
 	 */
 	public String[] getInfo(int idPaciente, String data) {
@@ -91,7 +92,7 @@ public class ControleAgendamento {
 	 * Metodo responsavel por retornar as informacoes necessarias acerca dos dias da semana
 	 * de um agendamento informado
 	 * 
-	 * @param id : int indicando o agendamento selecionado
+	 * @param id int indicando o agendamento selecionado
 	 * @return Array de Strings no formato: dia da semana - horario
 	 */
 	public String[] getInfo(int id) {
@@ -190,8 +191,8 @@ public class ControleAgendamento {
 	 * para o portugues e vice versa.
 	 * 
 	 * 
-	 * @param dia : String com o nome do dia
-	 * @param op : int indicando qual traducao deve ser feita
+	 * @param dia String com o nome do dia
+	 * @param op int indicando qual traducao deve ser feita
 	 * @return String com o nome traduzido do dia
 	 */
 	public String transformarDiaSemana(String dia, int op) {
@@ -217,8 +218,8 @@ public class ControleAgendamento {
 	 * Metodo responsavel por transformar o dia a ser usado 
 	 * como parametro para busca de agendamentos.
 	 * 
-	 * @param data : String informando a data a ser transformada
-	 * @param op : int indicando que tipo de transformacao deve ocorrer
+	 * @param data String informando a data a ser transformada
+	 * @param op int indicando que tipo de transformacao deve ocorrer
 	 * @return String com a data transformada
 	 */
 	public String mudarLabel(String data, int op) {

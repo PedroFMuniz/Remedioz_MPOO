@@ -17,7 +17,8 @@ public class ControlePaciente {
 	/**
 	 * Construtor para obter os pacientes cadastrados
 	 * 
-	 * @param dados : ControleDados que retorna os pacientes cadastrados
+	 * @param dados ControleDados que retorna os pacientes cadastrados
+	 * @see ControleDados
 	 */
 	public ControlePaciente(ControleDados dados) {
 		this.pacientes = dados.getPacientes();
@@ -42,7 +43,7 @@ public class ControlePaciente {
 	 * Metodo responsavel por retornar os dados necessarios de pacientes com base em
 	 * uma String de busca
 	 * 
-	 * @param busca : String com o nome do paciente a ser pesquisado no registro
+	 * @param busca String com o nome do paciente a ser pesquisado no registro
 	 * @return Array de Strings no formato: id - nome
 	 */
 	public String[] getInfo(String busca) {
@@ -73,7 +74,7 @@ public class ControlePaciente {
 	/**
 	 * Metodo responsavel por retornar as alergias de um paciente especifico
 	 * 
-	 * @param id : int indicando o paciente
+	 * @param id int indicando o paciente
 	 * @return Array de Strings no formato: id do remedio - nome do remedio
 	 */
 	public String[] getInfoAlergias(int id) {

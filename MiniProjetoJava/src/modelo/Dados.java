@@ -48,6 +48,7 @@ public class Dados {
 	 * */
 	public void preencherDados() {
 		Random gerador = new Random();
+		//Vetores com dados para servir de fonte
 		String[] nomes = {"Jorge", "Cláudio", "Davi", "Miguel", "Helena", "Ana", "Laura", "Alice"};
 		String[] sobrenomes = {"Silva", "Ferraz", "Correia", "Fernandes"};
 		String[] nomeRemedios = {"Paracetamol", "Ibuprofeno", "Rivotril", "Systane", "Metila", "Polaramine"};
@@ -57,6 +58,7 @@ public class Dados {
 		String[] especialidades = {"Nutricionista", "Oftalmologista", "Otorrinolaringologista", "Geral", "Diagnóstico"};
 		String[] historicos = {"Saudável", "Diabético", "Hipertenso", "Imunosuprimido"};
 		String[] diasSemana = {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"};
+		//Rotina para criar 10 registros aleatórios de cada classe
 		for(int i = 0; i < 10; i++) {
 			medicos[i] = new Medico(i, nomes[gerador.nextInt(7)] + " " +  sobrenomes[gerador.nextInt(3)], "619" + Integer.toString(gerador.nextInt(10000000, 99999999)), sobrenomes[gerador.nextInt(3)] + "@email.com", Integer.toString(gerador.nextInt(1000000, 9999999)), especialidades[gerador.nextInt(4)]);
 			remedios[i] = new Remedio(i, nomeRemedios[gerador.nextInt(5)], efeitos[gerador.nextInt(3)], tipo[gerador.nextInt(3)], viaDeUso[gerador.nextInt(3)]);
@@ -88,13 +90,9 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
 	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
-<<<<<<< HEAD
-	 * @param medico : A instancia de "Medico"
-	 * @param id : o atributo "id" do medico
-=======
-	 * @param medico : Medico que deve ser cadastrado ou editado
-	 * @param id : int indicando o id do medico
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
+	 * @param medico Medico que deve ser cadastrado ou editado
+	 * @param id int indicando o id do medico
+	 * @see Medico
 	 * @return void
 	 * */
 	public void inserirOuEditarMedico(Medico medico, int id) {
@@ -139,13 +137,10 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
 	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
-<<<<<<< HEAD
-	 * @param paciente : a instancia de "Paciente"
-	 * @param id: o atributo "id" do "Paciente" 
-=======
-	 * @param paciente : Paciente que deve ser cadastrado ou editado
-	 * @param id : int indicando o id do paciente
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
+	 * 
+	 * @param paciente Paciente que deve ser cadastrado ou editado
+	 * @param id int indicando o id do paciente
+	 * @see Paciente
 	 * @return void
 	 * */
 	public void inserirOuEditarPaciente(Paciente paciente, int id) {
@@ -191,13 +186,9 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
 	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
-<<<<<<< HEAD
-	 * @param remedio : A instancia de "Remedio"
-	 * @param id : o atributo "id" de "Remedio"
-=======
-	 * @param remedio : Remedio que deve ser cadastrado ou editado
-	 * @param id : int indicando o id do remedio
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
+	 * @param remedio Remedio que deve ser cadastrado ou editado
+	 * @param id int indicando o id do remedio
+	 * @see Remedio
 	 * @return void
 	 * */
 	public void inserirOuEditarRemedio(Remedio remedio, int id) {
@@ -242,13 +233,9 @@ public class Dados {
 	 * preenchida, apenas sobrescreve. No caso de uma posicao vazia,
 	 * acresce um ao numero de instancias e incrementa o ultimo id cadastrado.
 	 * 
-<<<<<<< HEAD
-	 * @param agendamento : A instancia de "Agendamento"
-	 * @param id : o atributo "id" de "Agendamento"
-=======
-	 * @param agendamento : Agendamento que deve ser cadastrado ou editado
-	 * @param id : int indicando o id do agendamento
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
+	 * @param agendamento Agendamento que deve ser cadastrado ou editado
+	 * @param id int indicando o id do agendamento
+	 * @see Agendamento
 	 * @return void
 	 * */
 	public void inserirOuEditarAgendamento(Agendamento agendamento, int id) {

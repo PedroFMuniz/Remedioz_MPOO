@@ -20,11 +20,11 @@ import controle.*;
 public class TelaMenu implements ActionListener {
 	
 	// Criacao dos itens datela e instanciacao de ControleDados
-	private static JFrame frame = new JFrame("Remedioz");
+	private static JFrame frame = new JFrame("Menu");
 	private static JLabel titulo = new JLabel("Menu Principal");
 	private static JButton btnPaciente = new JButton("Paciente");
-	private static JButton btnMedico = new JButton("Medico");
-	private static JButton btnRemedio = new JButton("Remedio");
+	private static JButton btnMedico = new JButton("Médico");
+	private static JButton btnRemedio = new JButton("Remédio");
 	public static ControleDados dados = new ControleDados();
 	
 	/**
@@ -60,7 +60,7 @@ public class TelaMenu implements ActionListener {
 	 * Metodo main do programa. Cria a tela "TelaMenu" e adiciona ActionListeners
 	 * aos botoes para que 
 	 * 
-	 * @param args : array de Strings passado quando o programa e iniciado por
+	 * @param args array de Strings passado quando o programa e iniciado por
 	 * linha de comando.
 	 * @return void
 	 */
@@ -76,7 +76,7 @@ public class TelaMenu implements ActionListener {
 	 * em "TelaMenu" (no caso, cliques em botoes). Abre as telas de "Paciente", 
 	 * "Medico" e "Remedio".
 	 * 
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaMenu".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaMenu".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {

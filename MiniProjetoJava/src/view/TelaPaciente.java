@@ -36,7 +36,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	 * ActionListeners em botoes e um ListSelectionListener na lista de
 	 * "Pacientes".
 	 * 
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
 	 * @see TelaMenu
 	 * @return void
 	 */
@@ -56,7 +56,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		// Criacao de itens da tela
 		label = new JLabel("Lista de pacientes");
 		cadastrarPaciente = new JButton("Cadastrar");
-		refreshPaciente = new JButton("Refresh");
+		refreshPaciente = new JButton("Atualizar");
 		listaPacientes = new JList<String>(infosPacientes);
 		txtPesquisa = new JTextField();
 		btnPesquisa = new JButton("Pesquisar...");
@@ -105,7 +105,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	 * em seus campos.
 	 * 
 	 * @see TelaCadastroEdicaoPaciente
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaPaciente".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaPaciente".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -136,7 +136,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 	 * item da lista.
 	 * 
 	 * @see TelaCadastroEdicaoPaciente
-	 * @param e : ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
+	 * @param e ListSelectonEvent utilizado para determinar a fonte da acao (no caso, 
 	 * so ha uma fonte possivel: "listaPacientes").
 	 * @return void
 	 * */

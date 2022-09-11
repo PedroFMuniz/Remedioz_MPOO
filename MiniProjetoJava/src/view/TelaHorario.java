@@ -16,20 +16,13 @@ import controle.*;
  * @version 1.0
  */
 public class TelaHorario implements ActionListener{
-	private String[] strDiasSemana = {"Segunda", "Terça", "Quarta",
-<<<<<<< HEAD
-			"Quinta", "Sexta", "Sábado", "Domingo"};
-	private JComboBox<Integer> hora;
-	private JComboBox<Integer> minuto;
-=======
-			"Quinta", "Sexta", "Sabado", "Domingo"};
+	private String[] strDiasSemana = {"Segunda", "Terça", "Quarta","Quinta", "Sexta", "Sábado", "Domingo"};
 	private JComboBox<Integer> cmbHora;
 	private JComboBox<Integer> cmbMinuto;
->>>>>>> branch 'main' of git@github.com:PedroFMuniz/Remedioz_MPOO.git
 	private JComboBox<String> diasSemana;
 	private JButton salvar;
-	private JLabel titulo = new JLabel("Novo horario");
-	private JLabel labelHorario = new JLabel("Horario:");
+	private JLabel titulo = new JLabel("Novo horário");
+	private JLabel labelHorario = new JLabel("Horário:");
 	private JLabel labelDiaSemana = new JLabel("Dia da semana:");
 	private JFrame frame;
 	private ControleDados controleHorario;
@@ -38,8 +31,8 @@ public class TelaHorario implements ActionListener{
 	 * Metodo que descreve a tela "TelaHorario" para renderizacao. Adiciona
 	 * um ActionListener no botao "salvar".
 	 * 
-	 * @param dados : A instancia de "ControleDados" feita na classe "TelaMenu".
-	 * @param idAgendamento : O atributo "id" do agendamento ao qual sera adicionado
+	 * @param dados A instancia de "ControleDados" feita na classe "TelaMenu".
+	 * @param idAgendamento O atributo "id" do agendamento ao qual sera adicionado
 	 * o horario
 	 * @see TelaAgendamento
 	 * @return void
@@ -93,9 +86,9 @@ public class TelaHorario implements ActionListener{
 	 * Metodo para preencher as JComboBoxes "hora" e "minuto" com os dados 
 	 * necessarios. A depender da opcao, retorna uma lista de horas ou de minutos.
 	 * 
-	 * @param opcao : Determina qual das listas e retornada. Se igual a 1, a lista
+	 * @param opcao Determina qual das listas e retornada. Se igual a 1, a lista
 	 * de horas e retornada. Se nao, a lista de minutos.
-	 * @return Integer[]
+	 * @return array Integer[] contendo as horas de 0 a 23 ou contendo os minutos de 0 a 59.
 	 */
 	public Integer[] preencheCombo(int opcao) {
 		if(opcao == 1) {
@@ -119,7 +112,7 @@ public class TelaHorario implements ActionListener{
 	 * "ControleDados" e dos dados selecionados nas JComboBoxes.
 	 * 
 	 * @see TelaAgendamento
-	 * @param e : ActionEvent usado para determinar a fonte da acao em "TelaHorario".
+	 * @param e ActionEvent usado para determinar a fonte da acao em "TelaHorario".
 	 * @return void
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -160,7 +153,7 @@ public class TelaHorario implements ActionListener{
 	 * @return void
 	 */
 	private void mensagemErroHorario() {
-		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar cadastrar o horario.\nVerifique se o horario e igual a outro ja cadastrado.", null, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "ERRO \nHouve um erro ao tentar cadastrar o horário.\nVerifique se o horário e igual a outro já cadastrado.", null, JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/**
@@ -170,7 +163,7 @@ public class TelaHorario implements ActionListener{
 	 * @return void
 	 */
 	private void mesagemSucessoHorario() {
-		JOptionPane.showMessageDialog(null, "O horario foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "O horário foi cadastrado com sucesso!", null, JOptionPane.INFORMATION_MESSAGE);
 		frame.dispose();
 	}
 }
