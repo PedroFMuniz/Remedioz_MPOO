@@ -89,7 +89,6 @@ public class TelaAgendamento implements ActionListener{
 			
 			listaHorarios.updateUI();
 			listaHorarios.setVisibleRowCount(5);
-			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
 			titulo.setBounds(270, 0, 220, 30);
 			salvar.setBounds(10, 250, 80, 30);
 			excluirAgendamento.setBounds(100, 250, 180, 30);

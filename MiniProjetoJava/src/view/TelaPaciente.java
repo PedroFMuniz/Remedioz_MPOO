@@ -37,6 +37,7 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaPacientes);
 		listaPacientes.setLayoutOrientation(JList.VERTICAL);
+		panel.setLayout(null);
 		frame.setLayout(null);
 		
 		label.setBounds(135, 10, 150, 30);
@@ -45,7 +46,6 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		listaPacientes.setVisibleRowCount(5);
 		cadastrarPaciente.setBounds(20, 300, 150, 30);
 		panel.setBounds(20, 80, 350, 200);
-		panel.setBackground(Color.CYAN);
 		refreshPaciente.setBounds(220, 300, 150, 30);
 
 		panel.add(scroll);
@@ -56,8 +56,10 @@ public class TelaPaciente implements ActionListener, ListSelectionListener {
 		frame.add(refreshPaciente);
 		frame.add(panel);
 		
+		scroll.setBounds(0, 0, 350, 200);
 		frame.setSize(400, 400);
 		
+		//listaPacientes.setPrototypeCellValue(String.format("%45s", ""));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
 		cadastrarPaciente.addActionListener(this);

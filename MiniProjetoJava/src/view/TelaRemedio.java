@@ -46,13 +46,14 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		listaRemedios.setLayoutOrientation(JList.VERTICAL);
 		panel.add(scroll);
 		
+		panel.setLayout(null);
+		scroll.setBounds(0, 0, 350, 200);
 		label.setBounds(135, 10, 150, 30);
 		txtPesquisa.setBounds(20, 50, 200, 20);
 		btnPesquisa.setBounds(240, 50, 130, 20);
 		listaRemedios.setVisibleRowCount(5);
 		cadastrarRemedio.setBounds(20, 300, 150, 30);
 		panel.setBounds(20, 80, 350, 200);
-		panel.setBackground(Color.CYAN);
 		refreshRemedio.setBounds(220, 300, 150, 30);
 		
 		frame.add(label);
@@ -62,6 +63,8 @@ public class TelaRemedio implements ActionListener, ListSelectionListener{
 		frame.add(cadastrarRemedio);
 		frame.add(refreshRemedio);
 		
+		//listaRemedios.setPrototypeCellValue(String.format("%45s", ""));
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		cadastrarRemedio.addActionListener(this);
 		refreshRemedio.addActionListener(this);
 		listaRemedios.addListSelectionListener(this);
