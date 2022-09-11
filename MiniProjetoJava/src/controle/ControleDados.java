@@ -381,7 +381,7 @@ public class ControleDados {
 	 */
 	public boolean removerRemedio(int id) {
 		int qtdRemedios = dados.getQtdeRemedios();
-		if (verificarRelacao(id, 1) || verificarRelacao(id, 2)) {
+		if (verificarRelacao(id, 4) || verificarRelacao(id, 2)) {
 			return false;
 		} else {
 			int cont = 0;
@@ -510,7 +510,7 @@ public class ControleDados {
 		}
 		int cont = 0;
 		// Rotina para verificar a posição do registro
-		while (paciente.getAlergias()[cont] != alergia) {
+		while (paciente.getAlergias()[cont].getId() != alergia.getId()) {
 			cont++;
 			// Caso nao possua alergias
 			if (cont == paciente.getAlergias().length) {
@@ -541,8 +541,6 @@ public class ControleDados {
 			int qtdAgendamentos = dados.getQtdeAgendamentos();
 			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
-				System.out.println(dados.getAgendamentos()[i].getPaciente().getId() == id);
-				System.out.println(id);
 				if (dados.getAgendamentos()[i].getPaciente().getId() == id) {
 					return true;
 				}
@@ -567,6 +565,16 @@ public class ControleDados {
 			// Rotina para verificar a relacao
 			for (int i = 0; i < qtdAgendamentos; i++) {
 				if (dados.getAgendamentos()[i].getMedico().getId() == id) {
+					return true;
+				}
+			}
+			return false;
+		}
+		case 4 :{
+			int qtdAgendamentos = dados.getQtdeAgendamentos();
+			// Rotina para verificar a relacao
+			for (int i = 0; i < qtdAgendamentos; i++) {
+				if (dados.getAgendamentos()[i].getRemedio().getId() == id) {
 					return true;
 				}
 			}

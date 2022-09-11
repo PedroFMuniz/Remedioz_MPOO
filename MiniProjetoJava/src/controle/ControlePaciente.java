@@ -13,6 +13,7 @@ import modelo.*;
 public class ControlePaciente {
 	private Paciente[] pacientes;
 	private int qtdPacientes;
+	private ControleRemedio remedios;
 
 	/**
 	 * Construtor para obter os pacientes cadastrados
@@ -23,6 +24,7 @@ public class ControlePaciente {
 	public ControlePaciente(ControleDados dados) {
 		this.pacientes = dados.getPacientes();
 		this.qtdPacientes = dados.getQtdPacientes();
+		this.remedios = new ControleRemedio(dados);
 	}
 
 	/**
@@ -90,7 +92,7 @@ public class ControlePaciente {
 				nomesRemedios = new String[cont];
 				for (int j = 0; j < cont; j++) {
 					nomesRemedios[j] = Integer.toString(pacientes[i].getAlergias()[j].getId()) + " - "
-							+ pacientes[i].getAlergias()[j].getNome();
+							+ remedios.getNome(pacientes[i].getAlergias()[j].getId());
 				}
 			}
 		}

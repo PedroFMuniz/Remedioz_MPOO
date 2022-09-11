@@ -18,6 +18,7 @@ import modelo.*;
 public class ControleAgendamento {
 	private Agendamento[] agendamentos;
 	int qtdAgendamentos;
+	private ControleRemedio remedios;
 
 	/**
 	 * Construtor para obter os agendamentos cadastrados
@@ -28,6 +29,7 @@ public class ControleAgendamento {
 	public ControleAgendamento(ControleDados dados) {
 		this.agendamentos = dados.getAgendamentos();
 		this.qtdAgendamentos = dados.getQtdAgendamentos();
+		this.remedios = new ControleRemedio(dados);
 	}
 
 	/**
@@ -39,7 +41,7 @@ public class ControleAgendamento {
 	public String[] getInfo() {
 		String[] infos = new String[qtdAgendamentos];
 		for (int i = 0; i < qtdAgendamentos; i++) {
-			infos[i] = Integer.toString(agendamentos[i].getId()) + " - " + agendamentos[i].getRemedio().getNome();
+			infos[i] = Integer.toString(agendamentos[i].getId()) + " - " + remedios.getNome(agendamentos[i].getRemedio().getId());
 		}
 		return infos;
 	}
@@ -61,8 +63,8 @@ public class ControleAgendamento {
 		LocalDate ld = LocalDate.parse(transformarDiaSemana(diaSemana, 2) + ", " + data.split(", ")[1], formatterData);
 		//Rotina para identificar agendamentos que possuam o paciente indicado
 		for (int i = 0; i < qtdAgendamentos; i++) {
-			if (agendamentos[i] != null && agendamentos[i].getPaciente().getId() == idPaciente
-					&& ld.isAfter(agendamentos[i].getDtInicio()) && ld.isBefore(agendamentos[i].getDtFim())) {
+			if (agendamentos[i].getPaciente() != null && agendamentos[i].getPaciente().getId() == idPaciente
+					&& ((ld.isAfter(agendamentos[i].getDtInicio()) && ld.isBefore(agendamentos[i].getDtFim())) || ld.equals(agendamentos[i].getDtInicio()) || ld.equals(agendamentos[i].getDtFim()))) {
 				//Rotina para obter os dias da semana do agendamento
 				for (int j = 0; j < 7; j++) {
 					if (agendamentos[i].getDiasDaSemana()[j] != null
@@ -71,7 +73,7 @@ public class ControleAgendamento {
 						for (int k = 0; k < agendamentos[i].getDiasDaSemana()[j].getHorario().length; k++) {
 							if (agendamentos[i].getDiasDaSemana()[j].getHorario()[k] != null) {
 								infotemp[indice] = Integer.toString(agendamentos[i].getId()) + " - "
-										+ agendamentos[i].getRemedio().getNome() + " - "
+										+ remedios.getNome(agendamentos[i].getRemedio().getId()) + " - "
 										+ agendamentos[i].getDiasDaSemana()[j].getHorario()[k].format(formatterHora);
 								indice++;
 							}
