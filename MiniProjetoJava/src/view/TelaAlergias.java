@@ -1,12 +1,13 @@
 package view;
 
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
@@ -18,6 +19,8 @@ public class TelaAlergias implements ActionListener{
 	private JButton addAlergias;
 	private JFrame frame;
 	private String[] nomesRemedios = new String[40];
+	private JLabel titulo = new JLabel("Cadastro de alergias");
+	private JLabel labelAlergias = new JLabel("Alergias");
 	private ControleDados controleDadosAlergia;
 	private int id;
 	
@@ -28,8 +31,20 @@ public class TelaAlergias implements ActionListener{
 		addAlergias = new JButton("Adicionar");
 		cmbRemedios = new JComboBox<String>(nomesRemedios);
 		frame = new JFrame("Alergias");
-		frame.setSize(200, 200);
-		frame.setLayout(new FlowLayout());
+		frame.setSize(240, 200);
+		
+		titulo.setFont(new Font("Arial", Font.BOLD, 16));
+		labelAlergias.setFont(new Font("Arial", Font.BOLD, 14));
+		cmbRemedios.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		titulo.setBounds(35, 0, 170, 30);
+		labelAlergias.setBounds(10, 60, 70, 30);
+		cmbRemedios.setBounds(80, 60, 140, 30);
+		addAlergias.setBounds(55, 120, 120, 30);
+		frame.setLayout(null);
+
+		frame.add(titulo);
+		frame.add(labelAlergias);
 		frame.add(cmbRemedios);
 		frame.add(addAlergias);
 		frame.setVisible(true);

@@ -41,10 +41,13 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		label.setFont(new Font("Arial", Font.BOLD, 16));
 		listaMedicos.setFont(new Font("Arial", Font.BOLD, 24));
 		panel = new JPanel();
+		panel.setLayout(null);
 		listaMedicos.setSize(400, 400);
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaMedicos);
 		listaMedicos.setLayoutOrientation(JList.VERTICAL);
+		scroll.setBounds(0, 0, 350, 200);
+		//listaMedicos.setPrototypeCellValue(String.format("%40s", ""));
 		panel.add(scroll);
 		
 		label.setBounds(135, 10, 150, 30);
@@ -53,11 +56,9 @@ public class TelaMedico implements ActionListener, ListSelectionListener {
 		listaMedicos.setVisibleRowCount(5);
 		cadastrarMedico.setBounds(20, 300, 150, 30);
 		panel.setBounds(20, 80, 350, 200);
-		panel.setBackground(Color.CYAN);
 		refreshMedico.setBounds(220, 300, 150, 30);
 
-		
-		
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		panel.add(scroll);
 		frame.add(label);
 		frame.add(txtPesquisa);
