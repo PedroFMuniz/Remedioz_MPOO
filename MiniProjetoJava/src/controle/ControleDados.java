@@ -142,9 +142,6 @@ public class ControleDados {
 	 * telefone e email estao na formatacao correta e cadastra os novos dados na
 	 * base de dados
 	 * 
-	 * Em caso de cadastro, inicia o array de alergias como um array vazio, em caso
-	 * de edicao recupera da memoria as alergias do paciente indicado
-	 * 
 	 * @param dadosPaciente : Array de strings informando os dados a serem
 	 *                      cadastrados
 	 * @return boolean informando se foi possivel ou nao o cadastro
@@ -199,8 +196,6 @@ public class ControleDados {
 	 * Metodo responsavel por inserir ou editar um agendamento. Cadastra os novos
 	 * dados na base de dados
 	 * 
-	 * Em caso de cadastro, inicia o array de dias da semana como um array vazio, em
-	 * caso de edicao recupera da memoria os dias da semana do agendamento indicado
 	 * 
 	 * @param dadosAgendamento : Array de strings informando os dados a serem
 	 *                         cadastrados
@@ -224,7 +219,9 @@ public class ControleDados {
 	/**
 	 * Metodo responsavel por inserir novos horarios em um determinado agendamento.
 	 * Verifica ate que ponto o vetor de horarios de um dia esta preenchido e
-	 * adiciona o novo dado na primeira posicao nula.
+	 * adiciona o novo dado na primeira posicao nula. Tambem verifica se o agendamento 
+	 * ja possui um horario identico. Em caso negativo cadastra o novo
+	 * horario. 
 	 * 
 	 * @param idAgendamento : int indicando qual agendamento deve ser editado
 	 * @param dia           : String indicando o nome do dia da semana a ser
@@ -232,7 +229,7 @@ public class ControleDados {
 	 * @param hora          : LocalTime indicando o horario a ser adicionado
 	 * @return boolean indicando se a operacao foi realizada com sucesso
 	 */
-	public boolean manipularHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
+	public boolean inserirHorarioAgendamento(int idAgendamento, String dia, LocalTime hora) {
 		Agendamento[] agendamentos = dados.getAgendamentos();
 		DiaDaSemana[] dias = new DiaDaSemana[7];
 		for (int i = 0; i < agendamentos.length; i++) {
@@ -241,6 +238,9 @@ public class ControleDados {
 				int cont = 0;
 				if (dias[transformarDiaSemana(dia)] != null) {
 					while (dias[transformarDiaSemana(dia)].getHorario()[cont] != null) {
+						if(dias[transformarDiaSemana(dia)].getHorario()[cont].equals(hora)) {
+							return false;
+						}
 						cont++;
 					}
 					dias[transformarDiaSemana(dia)].getHorario()[cont] = hora;
@@ -250,10 +250,7 @@ public class ControleDados {
 					DiaDaSemana d = new DiaDaSemana(dia, ld);
 					dias[transformarDiaSemana(dia)] = d;
 				}
-				
-				System.out.println(dados.getAgendamentos()[i].getDiasDaSemana());
 				dados.getAgendamentos()[i].setDiasDaSemana(dias);
-				System.out.println(dados.getAgendamentos()[i].getDiasDaSemana());
 				return true;
 			}
 		}

@@ -11,10 +11,10 @@ import controle.*;
 class testeControleDados {
 
 	@Test
-	void testeManipularHorarioAgendamento() {
+	void testeInserirHorarioAgendamento() {
 		ControleDados dados = new ControleDados();
 		
-		assertTrue(dados.manipularHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
+		assertTrue(dados.inserirHorarioAgendamento(0, "Terça", LocalTime.of(18, 30)));
 	}
 
 	@Test
@@ -41,10 +41,10 @@ class testeControleDados {
 	void testeInserirAlergiaPaciente() {
 		ControleDados dados = new ControleDados();
 		
-		String[] dadosRemedio = {"11", "Generico", "Placebo", "Comprimido", "Oral"};
+		String[] dadosRemedio = {"10", "Generico", "Placebo", "Comprimido", "Oral"};
 		dados.inserirEditarRemedio(dadosRemedio);
 	
 		
-		assertTrue(dados.inserirAlergiasPaciente(0, dados.getRemedios()[11].getId()));
+		assertTrue(dados.inserirAlergiasPaciente(0, dados.getRemedios()[10].getId()));
 	}
 }

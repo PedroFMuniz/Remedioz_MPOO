@@ -11,7 +11,6 @@ import java.util.Locale;
 import controle.*;
 
 public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelectionListener{
-	private int opc;
 	private JFrame frame;
 	private JLabel titulo;
 	private JLabel labelNome = new JLabel("Nome: ");
@@ -47,13 +46,11 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 	public void inserirEditarPaciente(int opcao, ControleDados dados, int id) {
 		posicao = id;
 		controleTelaEdicaoPaciente = dados;
-		opc = opcao;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, dd/MM/yyyy", Locale.US);
 		frame = new JFrame("Paciente");
 		labelDatas = new JLabel(new ControleAgendamento(controleTelaEdicaoPaciente).mudarLabel(hoje.format(formatter), 3));
 		//pra deixar as listas em branco
 		listaAlergias = new JList<String>();
-		//listaAlergias.setVisibleRowCount(5);
 		listaAlergias.setPrototypeCellValue(String.format("%60s", ""));
 		listaAgendamentos = new JList<String>(new ControleAgendamento(controleTelaEdicaoPaciente).getInfo(id, labelDatas.getText()));
 		//listaAgendamentos.setVisibleRowCount(15);
@@ -75,13 +72,14 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			txtDoencas = new JTextField(60);
 			txtTelefone = new JTextField(11);
 			frame.add(salvar);
-			salvar.setBounds(500, 430, 80, 30);
-			frame.setSize(800, 400);
-			panel1.setBounds(450, 10, 200, 200);
+			salvar.setBounds(20, 200, 80, 30);
+			frame.setSize(550, 280);
+			panel1.setBounds(330, 30, 200, 200);
+			titulo.setBounds(200, 0, 200, 30);
 			refreshAlergia.setEnabled(false);
 		}
 		else if(opcao == 2) {
-			frame.setSize(800, 600);
+			frame.setSize(660, 440);
 			titulo = new JLabel("Edicao de paciente");
 			txtNome = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getNome(id), 60);
 			txtEmail = new JTextField(new ControlePaciente(controleTelaEdicaoPaciente).getEmail(id), 60);
@@ -98,12 +96,13 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 			frame.add(panel2);
 			listaAlergias.setListData(new ControlePaciente(controleTelaEdicaoPaciente).getInfoAlergias(id));
 			listaAlergias.updateUI();
-			panel2.setBounds(400, 40, 300, 360);
-			salvar.setBounds(600, 430, 80, 30);
-			excluir.setBounds(500, 430, 80, 30);
+			panel2.setBounds(340, 30, 300, 360);
+			salvar.setBounds(20, 360, 80, 30);
+			excluir.setBounds(120, 360, 80, 30);
 			addAgendamento.setBounds(140, 320, 150, 30);
-			panel1.setBounds(20, 200, 200, 200);
+			panel1.setBounds(10, 150, 200, 200);
 			refreshAgendamento.setBounds(10, 320, 100, 30);
+			titulo.setBounds(230, 0, 200, 30);
 			refreshAlergia.setEnabled(true);
 		}
 		
@@ -111,29 +110,35 @@ public class TelaCadastroEdicaoPaciente implements ActionListener, ListSelection
 		txtEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtDoencas.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtTelefone.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelNome.setFont(new Font("Arial", Font.BOLD, 14));
+		labelEmail.setFont(new Font("Arial", Font.BOLD, 14));
+		labelDoencas.setFont(new Font("Arial", Font.BOLD, 14));
+		labelTelefone.setFont(new Font("Arial", Font.BOLD, 14));
+		labelAlergias.setFont(new Font("Arial", Font.ITALIC|Font.BOLD, 14));
+		labelDatas.setFont(new Font("Arial", Font.BOLD, 16));
 		setaEsq.setFont(new Font("Arial", Font.BOLD, 16));
 		setaDir.setFont(new Font("Arial", Font.BOLD, 16));
 		titulo.setFont(new Font("Arial", Font.BOLD, 16));
 		
 		
 		
-		panel1.setBackground(Color.MAGENTA);
+		//panel1.setBackground(Color.MAGENTA);
 		panel1.setLayout(new FlowLayout());
-		panel2.setBackground(Color.MAGENTA);
+		//panel2.setBackground(Color.MAGENTA);
 		panel2.setLayout(new FlowLayout());
 		
-		titulo.setBounds(315, 10, 200, 20);
+		//titulo.setBounds(315, 10, 200, 20);
 		labelNome.setBounds(20, 40, 100, 20);
 		labelEmail.setBounds(20, 70, 100, 20);
-		labelDoencas.setBounds(20, 100, 130, 20);
+		labelDoencas.setBounds(20, 100, 160, 20);
 		labelTelefone.setBounds(20, 130, 100, 20);
-		txtNome.setBounds(130, 40, 150, 20);
-		txtEmail.setBounds(130, 70, 150, 20);
-		txtDoencas.setBounds(160, 100, 150, 20);
-		txtTelefone.setBounds(130, 130, 150, 20);
+		txtNome.setBounds(70, 40, 150, 20);
+		txtEmail.setBounds(65, 70, 150, 20);
+		txtDoencas.setBounds(180, 100, 150, 20);
+		txtTelefone.setBounds(90, 130, 150, 20);
 		setaEsq.setBounds(10, 10, 50, 50);
 		setaDir.setBounds(240, 10, 50, 50);
-		labelDatas.setBounds(70, 35, 170, 15);
+		labelDatas.setBounds(70, 30, 170, 15);
 		scroll2.setBounds(10, 70, 280, 230);
 		
 		

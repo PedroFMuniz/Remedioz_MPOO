@@ -12,10 +12,14 @@ import controle.*;
 import modelo.*;
 
 public class TelaAgendamento implements ActionListener{
-	// sujeito a mudancas
+	private JLabel titulo = new JLabel("Cadastro de agendamento");
+	private JLabel labelDataInicio = new JLabel("Data de inicio:");
+	private JLabel labelDataFim  = new JLabel("Data de fim:");
+	private JLabel labelHorarios = new JLabel("Horarios");
+	private JLabel remedio = new JLabel("Remedio:");
+	private JLabel medico = new JLabel("Medico:");
 	private JComboBox<Object> remedios;
 	private JComboBox<Object> medicos;
-	//private JList<String> diasSemana;
 	private JComboBox<Integer> dataInicioDia;
 	private JComboBox<Integer> dataInicioMes;
 	private JComboBox<Integer> dataInicioAno;
@@ -26,7 +30,7 @@ public class TelaAgendamento implements ActionListener{
 	private JButton btnHorario = new JButton("Novo horario");
 	private JButton salvar = new JButton("Salvar");
 	private JButton refreshHorario = new JButton("Refresh...");
-	private JButton excluirHorario = new JButton("Exclluir horario");
+	private JButton excluirHorario = new JButton("Excluir horario");
 	private JButton excluirAgendamento = new JButton("Excluir agendamento");
 	private JFrame frame;
 	private JPanel panel = new JPanel();
@@ -42,11 +46,8 @@ public class TelaAgendamento implements ActionListener{
 		idPac = idPaciente;
 		opc = opcao;
 		controleDadosAgendamento = dados;
-		
-		// Agendamento temporario pra poder preencher
-		//agendamentoTemp = new Agendamento(idAgendamento, data, data, medico, controleDadosAgendamento.getPacientes()[idPac], remedio, diaSem);
 		frame = new JFrame("Agendamentos");
-		frame.setSize(600,600);
+		frame.setSize(780,360);
 		remedios = new JComboBox<Object>(new ControleRemedio(controleDadosAgendamento).getInfo());
 		medicos = new JComboBox<Object>(new ControleMedico(controleDadosAgendamento).getInfo());
 		dataInicioDia = new JComboBox<Integer>(preencheDias());
@@ -60,16 +61,23 @@ public class TelaAgendamento implements ActionListener{
 			//sem dados
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+			titulo.setBounds(260, 0, 220, 30);
+			salvar.setBounds(10, 250, 80, 30);
+			frame.add(salvar);
 		}
 		else if(opc == 2) {
 			// preenchidos
+			titulo.setText("Edicao de agendamento");
+			
 			listaHorarios.setListData(new ControleAgendamento(controleDadosAgendamento).getInfo(idAg));
 			LocalDate dataInicio = new ControleAgendamento(controleDadosAgendamento).getDtInicio(idAgendamento);
 			LocalDate dataFim = new ControleAgendamento(controleDadosAgendamento).getDtFim(idAgendamento);
 			Medico medicoAg = new ControleAgendamento(controleDadosAgendamento).getMedico(idAgendamento);
 			Remedio remedioAg = new ControleAgendamento(controleDadosAgendamento).getRemedio(idAgendamento);
+			
 			String[] dataInicioString = dataInicio.toString().split("-");
 			String[] dataFimString = dataFim.toString().split("-");
+			
 			dataInicioDia.setSelectedIndex(Integer.parseInt(dataInicioString[2]) - 1);
 			dataInicioMes.setSelectedIndex(Integer.parseInt(dataInicioString[1]) - 1);
 			dataInicioAno.setSelectedItem(Integer.parseInt(dataInicioString[0]));
@@ -78,17 +86,58 @@ public class TelaAgendamento implements ActionListener{
 			dataFimAno.setSelectedItem(Integer.parseInt(dataFimString[0]));
 			medicos.setSelectedIndex(medicoAg.getId());
 			remedios.setSelectedIndex(remedioAg.getId());
-			System.out.println(dataInicio.toString() + " " + dataFim.toString());
-			//dataInicioDia.setSelectedIndex();
+			
 			listaHorarios.updateUI();
 			listaHorarios.setVisibleRowCount(5);
 			listaHorarios.setPrototypeCellValue(String.format("%60s", ""));
+			titulo.setBounds(270, 0, 220, 30);
+			salvar.setBounds(10, 250, 80, 30);
+			excluirAgendamento.setBounds(100, 250, 180, 30);
+			frame.add(salvar);
+			frame.add(excluirAgendamento);
+			
 		}
+		frame.setLayout(null);
+		remedios.setFont(new Font("Arial", Font.BOLD, 14));
+		medicos.setFont(new Font("Arial", Font.BOLD, 14));
+		remedio.setFont(new Font("Arial", Font.BOLD, 14));
+		medico.setFont(new Font("Arial", Font.BOLD, 14));
+		dataInicioDia.setFont(new Font("Arial", Font.BOLD, 14));
+		dataInicioMes.setFont(new Font("Arial", Font.BOLD, 14));
+		dataInicioAno.setFont(new Font("Arial", Font.BOLD, 14));
+		labelHorarios.setFont(new Font("Arial", Font.BOLD|Font.ITALIC, 14));
+		labelDataInicio.setFont(new Font("Arial", Font.BOLD, 14));
+		labelDataFim.setFont(new Font("Arial", Font.BOLD, 14));
+		titulo.setFont(new Font("Arial", Font.BOLD, 16));
+		
+		labelHorarios.setBounds(50, 0, 100, 30);
+		panel.add(labelHorarios);
 		refreshHorario.setEnabled(false);
 		scroll = new JScrollPane();
 		scroll.setViewportView(listaHorarios);
 		listaHorarios.setLayoutOrientation(JList.VERTICAL);
-		frame.setLayout(new FlowLayout());
+		labelDataInicio.setBounds(10, 40, 120, 30);
+		labelDataFim.setBounds(10, 90, 100, 30);
+		medico.setBounds(10, 140, 100, 30);
+		remedio.setBounds(10, 190, 100, 30);
+		dataInicioDia.setBounds(120, 40, 50, 30);
+		dataInicioMes.setBounds(180, 40, 50, 30);
+		dataInicioAno.setBounds(240, 40, 80, 30);
+		dataFimDia.setBounds(100, 90, 50, 30);
+		dataFimMes.setBounds(160, 90, 50, 30);
+		dataFimAno.setBounds(220, 90, 80, 30);
+		btnHorario.setBounds(600, 60, 150, 30);
+		remedios.setBounds(80, 190, 150, 30);
+		medicos.setBounds(70, 140, 220, 30);
+		excluirHorario.setBounds(600, 110, 150, 30);
+		refreshHorario.setBounds(380, 170, 200, 30);
+		panel.setBounds(380, 30, 200, 140);
+		
+		frame.add(titulo);
+		frame.add(labelDataInicio);
+		frame.add(labelDataFim);
+		frame.add(remedio);
+		frame.add(medico);
 		frame.add(remedios);
 		frame.add(medicos);
 		frame.add(dataInicioDia);
@@ -102,10 +151,6 @@ public class TelaAgendamento implements ActionListener{
 		frame.add(btnHorario);
 		frame.add(refreshHorario);
 		frame.add(excluirHorario);
-		if(opc == 2) {
-			frame.add(excluirAgendamento);
-		}
-		frame.add(salvar);
 		frame.setVisible(true);
 		
 		salvar.addActionListener(this);

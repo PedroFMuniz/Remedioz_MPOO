@@ -118,7 +118,6 @@ public class TelaCadastroEdicaoRemedio implements ActionListener {
 				novoCadastro[3] =  txtTipo.getText();
 				novoCadastro[4] =  txtViaUso.getText();
 				resultado = controleTelaEdicaoRemedio.inserirEditarRemedio(novoCadastro);
-				System.out.println(resultado);
 				if(resultado) {
 					sucessoCadastrar();
 				}
